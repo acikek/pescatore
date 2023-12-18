@@ -20,6 +20,9 @@
     ],
     "main": [
       "com.acikek.pescatore.Pescatore"
+    ],
+    "fabric-datagen": [
+      "com.acikek.pescatore.datagen.PescatoreDatagen"
     ]
   },
   "mixins": [
