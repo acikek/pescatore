@@ -1,0 +1,6 @@
+{
+  "parent": "pescatore:item/rookie_rod",
+  "textures": {
+    "layer0": "pescatore:item/rookie_rod_cast"
+  }
+}

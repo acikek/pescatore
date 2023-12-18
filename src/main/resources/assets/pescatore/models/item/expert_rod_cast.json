@@ -1,0 +1,6 @@
+{
+  "parent": "pescatore:item/expert_rod",
+  "textures": {
+    "layer0": "pescatore:item/expert_rod_cast"
+  }
+}
