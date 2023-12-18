@@ -9,13 +9,15 @@ import net.minecraft.util.Identifier;
 
 public class MinigameFishEntityRenderer extends MobEntityRenderer<MinigameFishEntity, MinigameFishModel> {
 
+    public static final Identifier TEXTURE = Pescatore.id("textures/entity/minigame_fish/fish_shadow.png");
+
     public MinigameFishEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new MinigameFishModel(context.getPart(MinigameFishModel.LAYER)), 0.0f);
     }
 
     @Override
     public Identifier getTexture(MinigameFishEntity entity) {
-        return Pescatore.id("textures/entity/minigame_fish/cube.png");
+        return TEXTURE;
     }
 
     public static void register() {
