@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "R": {
+      "item": "minecraft:diamond"
+    },
+    "T": {
+      "item": "pescatore:adept_rod"
+    }
+  },
+  "pattern": [
+    "  R",
+    " TR",
+    "BTR"
+  ],
+  "result": {
+    "item": "pescatore:expert_rod"
+  }
+}

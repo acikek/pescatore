@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:copper_ingot"
+    },
+    "T": {
+      "item": "minecraft:fishing_rod"
+    }
+  },
+  "pattern": [
+    "  R",
+    " TR",
+    "BTR"
+  ],
+  "result": {
+    "item": "pescatore:rookie_rod"
+  }
+}

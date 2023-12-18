@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:nautilus_shell"
+    },
+    "R": {
+      "item": "minecraft:gold_ingot"
+    },
+    "T": {
+      "item": "pescatore:rookie_rod"
+    }
+  },
+  "pattern": [
+    "  R",
+    " TR",
+    "BTR"
+  ],
+  "result": {
+    "item": "pescatore:adept_rod"
+  }
+}

@@ -25,14 +25,14 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         super(entityType, world);
     }
 
-    public void disappear() {
+    public void flee() {
         // TODO: "Disappear" animation (run away, fade out)
         // TODO: Sound effects at the very least
         remove(RemovalReason.DISCARDED);
     }
 
     public void vanish() {
-        // TODO: Sound effects, "poof" particles
+        // TODO: Particles
         playSound(SoundEvents.ENTITY_FISH_SWIM, 1.0f, 1.0f);
         remove(RemovalReason.DISCARDED);
     }
@@ -49,7 +49,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     @Override
     public void onDamaged(DamageSource damageSource) {
         super.onDamaged(damageSource);
-        disappear();
+        flee();
     }
 
     public static void register() {
