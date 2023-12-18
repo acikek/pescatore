@@ -1,6 +1,7 @@
 package com.acikek.pescatore;
 
 import com.acikek.pescatore.entity.MinigameFishEntity;
+import com.acikek.pescatore.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -20,5 +21,6 @@ public class Pescatore implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Initializing Pescatore...");
         MinigameFishEntity.register();
+        ModItems.register();
     }
 }
