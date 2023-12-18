@@ -1,6 +1,7 @@
 package com.acikek.pescatore.item;
 
 import com.acikek.pescatore.Pescatore;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -27,6 +28,11 @@ public class PescatoreItems {
             .icon(PescatoreItems.ROOKIE_ROD::getDefaultStack) // TODO: Fish as icon. TODO: Random fish?
             .entries((displayContext, entries) -> PescatoreItems.ITEMS.forEach(entries::add))
             .build();
+
+
+    public static Item.Settings defaultSettings() {
+        return new FabricItemSettings();
+    }
 
     public static void registerItem(String name, Item item) {
         Registry.register(Registries.ITEM, Pescatore.id(name), item);

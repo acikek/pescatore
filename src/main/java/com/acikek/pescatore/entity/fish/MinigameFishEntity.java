@@ -1,4 +1,4 @@
-package com.acikek.pescatore.entity;
+package com.acikek.pescatore.entity.fish;
 
 import com.acikek.pescatore.Pescatore;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;

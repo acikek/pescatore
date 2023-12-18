@@ -1,10 +1,10 @@
-package com.acikek.pescatore.client;
-
 // Made with Blockbench 4.9.2
 // Exported for Minecraft version 1.17 or later
 
+package com.acikek.pescatore.client;
+
 import com.acikek.pescatore.Pescatore;
-import com.acikek.pescatore.entity.MinigameFishEntity;
+import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
