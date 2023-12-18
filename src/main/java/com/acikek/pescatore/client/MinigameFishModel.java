@@ -7,11 +7,8 @@ import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.entity.MinigameFishEntity;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
 
 public class MinigameFishModel extends SinglePartEntityModel<MinigameFishEntity> {
 
@@ -45,7 +42,7 @@ public class MinigameFishModel extends SinglePartEntityModel<MinigameFishEntity>
     @Override
     public void setAngles(MinigameFishEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         root.traverse().forEach(ModelPart::resetTransform);
-        animateMovement(MinigameFishAnimation.SWIMMIE, limbAngle, limbDistance, 9.0f, 100.0f);
+        updateAnimation(entity.animation, MinigameFishAnimation.SWIMMIE, animationProgress, 1.0f);
     }
 
     public static void register() {

@@ -8,6 +8,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
 public class MinigameFishAnimation {
 
     public static final Animation SWIMMIE = Animation.Builder.create(1.5F)
+            .looping()
             .addBoneAnimation("bone", new Transformation(Transformation.Targets.ROTATE,
                     new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
                     new Keyframe(0.375F, AnimationHelper.createRotationalVector(0.0F, -7.5F, 0.0F), Transformation.Interpolations.LINEAR),

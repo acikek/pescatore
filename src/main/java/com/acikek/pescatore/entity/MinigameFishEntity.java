@@ -3,6 +3,7 @@ package com.acikek.pescatore.entity;
 import com.acikek.pescatore.Pescatore;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -21,8 +22,11 @@ public class MinigameFishEntity extends WaterCreatureEntity {
                     .dimensions(EntityDimensions.fixed(0.75f, 0.75f))
                     .build();
 
+    public AnimationState animation = new AnimationState();
+
     public MinigameFishEntity(EntityType<? extends WaterCreatureEntity> entityType, World world) {
         super(entityType, world);
+        animation.startIfNotRunning(age);
     }
 
     public void flee() {
