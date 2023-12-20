@@ -13,16 +13,18 @@ import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class MinigameFishEntity extends WaterCreatureEntity {
 
     public static final EntityType<MinigameFishEntity> ENTITY_TYPE =
             FabricEntityTypeBuilder.<MinigameFishEntity>create(SpawnGroup.MISC, MinigameFishEntity::new)
                     .dimensions(EntityDimensions.changing(0.70f, 0.35f))
-                    .trackRangeChunks(4).trackedUpdateRate(5)
+                    .trackRangeChunks(4).trackedUpdateRate(Integer.MAX_VALUE)
                     .build();
 
     public static final TrackedData<Float> FISH_SCALE = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.FLOAT);
@@ -33,6 +35,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     public MinigameFishEntity(EntityType<MinigameFishEntity> entityType, World world, MinigameFishType type) {
         super(entityType, world);
         setType(type);
+        reinitDimensions();
         animation.startIfNotRunning(age);
     }
 
@@ -51,6 +54,14 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     }
 
     @Override
+    public void onTrackedDataSet(TrackedData<?> data) {
+        if (data.equals(FISH_SCALE)) {
+            calculateDimensions();
+        }
+        super.onTrackedDataSet(data);
+    }
+
+    @Override
     public EntityDimensions getDimensions(EntityPose pose) {
         return super.getDimensions(pose).scaled(getScale());
     }
@@ -61,7 +72,6 @@ public class MinigameFishEntity extends WaterCreatureEntity {
 
     private void setScale(float scale) {
         getDataTracker().set(FISH_SCALE, scale);
-        calculateDimensions();
     }
 
     public MinigameFishType type() {
@@ -88,7 +98,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     @Override
     public void baseTick() {
         super.baseTick();
-        if (!isSubmergedIn(FluidTags.WATER)) {
+        if (!touchingWater) {
             vanish();
         }
         // TODO: If player detected within a few blocks, disappear
@@ -98,6 +108,13 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     public void onDamaged(DamageSource damageSource) {
         super.onDamaged(damageSource);
         flee();
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        setType(MinigameFishType.EMPTY);
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     @Override

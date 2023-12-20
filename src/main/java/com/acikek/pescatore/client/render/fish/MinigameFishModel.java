@@ -42,7 +42,8 @@ public class MinigameFishModel extends SinglePartEntityModel<MinigameFishEntity>
     @Override
     public void setAngles(MinigameFishEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         root.traverse().forEach(ModelPart::resetTransform);
-        updateAnimation(entity.animation, MinigameFishAnimation.SWIMMIE, animationProgress, 1.0f);
+        // TODO: Speed multiplier based on fleeing state
+        updateAnimation(entity.animation, MinigameFishAnimation.SWIMMIE, animationProgress, 2.0f);
     }
 
     public static void register() {
