@@ -1,6 +1,7 @@
 package com.acikek.pescatore.entity.fish;
 
 import com.acikek.pescatore.Pescatore;
+import com.acikek.pescatore.entity.fish.properties.MinigameFishType;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.AnimationState;
@@ -8,7 +9,14 @@ import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.FluidTags;
@@ -18,15 +26,51 @@ import net.minecraft.world.World;
 public class MinigameFishEntity extends WaterCreatureEntity {
 
     public static final EntityType<MinigameFishEntity> ENTITY_TYPE =
-            FabricEntityTypeBuilder.create(SpawnGroup.MISC, MinigameFishEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+            FabricEntityTypeBuilder.<MinigameFishEntity>create(SpawnGroup.MISC, MinigameFishEntity::new)
+                    .dimensions(EntityDimensions.changing(0.75f, 0.75f))
+                    .trackRangeChunks(4)
                     .build();
 
-    public AnimationState animation = new AnimationState();
+    public static final TrackedData<Float> FISH_SCALE = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.FLOAT);
 
-    public MinigameFishEntity(EntityType<? extends WaterCreatureEntity> entityType, World world) {
+    private MinigameFishType type;
+    public final AnimationState animation = new AnimationState();
+
+    public MinigameFishEntity(EntityType<MinigameFishEntity> entityType, World world, MinigameFishType type) {
         super(entityType, world);
+        setType(type);
         animation.startIfNotRunning(age);
+    }
+
+    public MinigameFishEntity(EntityType<MinigameFishEntity> entityType, World world) {
+        this(entityType, world, MinigameFishType.EMPTY);
+    }
+
+    public MinigameFishEntity(World world, MinigameFishType type) {
+        this(ENTITY_TYPE, world, type);
+    }
+
+    @Override
+    protected void initDataTracker() {
+        super.initDataTracker();
+        getDataTracker().startTracking(FISH_SCALE, 1.0f);
+    }
+
+    public float getScale() {
+        return getDataTracker().get(FISH_SCALE);
+    }
+
+    private void setScale(float scale) {
+        getDataTracker().set(FISH_SCALE, scale);
+    }
+
+    public MinigameFishType type() {
+        return type;
+    }
+
+    public void setType(MinigameFishType type) {
+        this.type = type;
+        setScale(type.size().scale());
     }
 
     public void flee() {
@@ -54,6 +98,18 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     public void onDamaged(DamageSource damageSource) {
         super.onDamaged(damageSource);
         flee();
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putFloat("FishScale", getScale());
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        setScale(nbt.getFloat("FishScale"));
     }
 
     public static void register() {

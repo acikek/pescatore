@@ -11,6 +11,10 @@ import net.minecraft.item.ItemConvertible;
  */
 public record MinigameFishType(MinigameFishSize size, MinigameProperties difficulty, MinigameFishRarity rarity, ItemConvertible item) {
 
+    public static final MinigameFishType EMPTY = new MinigameFishType(
+            MinigameFishSize.REGULAR, MinigameProperties.DIFFICULTY_1, MinigameFishRarity.COMMON, null
+    );
+
     public static final MinigameFishType GOLDFISH = new MinigameFishType(
             MinigameFishSize.DINKY, MinigameProperties.DIFFICULTY_1, MinigameFishRarity.UNCOMMON, null
     );

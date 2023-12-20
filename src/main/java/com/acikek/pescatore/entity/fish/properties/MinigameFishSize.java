@@ -6,7 +6,7 @@ package com.acikek.pescatore.entity.fish.properties;
  * @param holdTime how much time, in ticks, the player has to keep holding before
  *                 the fish can be caught.
  */
-public record MinigameFishSize(double scale, int holdTime) {
+public record MinigameFishSize(float scale, int holdTime) {
 
     /**
      * A very small ("dinky") fish size.
@@ -15,7 +15,7 @@ public record MinigameFishSize(double scale, int holdTime) {
      *     <b>Hold Time</b>: 20 ticks
      * </p>
      */
-    public static final MinigameFishSize DINKY = new MinigameFishSize(0.5, 20);
+    public static final MinigameFishSize DINKY = new MinigameFishSize(0.5f, 20);
 
     /**
      * A regular fish size.
@@ -24,7 +24,7 @@ public record MinigameFishSize(double scale, int holdTime) {
      *     <b>Hold Time</b>: 30 ticks
      * </p>
      */
-    public static final MinigameFishSize REGULAR = new MinigameFishSize(1.0, 30);
+    public static final MinigameFishSize REGULAR = new MinigameFishSize(1.0f, 30);
 
     /**
      * A fairly large ("fatty") fish size.
@@ -33,7 +33,7 @@ public record MinigameFishSize(double scale, int holdTime) {
      *     <b>Hold Time</b>: 40 ticks
      * </p>
      */
-    public static final MinigameFishSize FATTY = new MinigameFishSize(2.0, 40);
+    public static final MinigameFishSize FATTY = new MinigameFishSize(2.0f, 40);
 
     /**
      * A very large ("hawg") fish size.
@@ -42,7 +42,7 @@ public record MinigameFishSize(double scale, int holdTime) {
      *     <b>Hold Time</b>: 50 ticks
      * </p>
      */
-    public static final MinigameFishSize HAWG = new MinigameFishSize(3.0, 50);
+    public static final MinigameFishSize HAWG = new MinigameFishSize(3.0f, 50);
 
     /**
      * A gargantuan, behemoth fish size.
@@ -51,5 +51,5 @@ public record MinigameFishSize(double scale, int holdTime) {
      *     <b>Hold Time</b>: 75 ticks
      * </p>
      */
-    public static final MinigameFishSize GARGANTUAN = new MinigameFishSize(4.0, 75);
+    public static final MinigameFishSize GARGANTUAN = new MinigameFishSize(4.0f, 75);
 }

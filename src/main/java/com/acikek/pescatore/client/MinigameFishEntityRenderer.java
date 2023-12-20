@@ -3,8 +3,11 @@ package com.acikek.pescatore.client;
 import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.SlimeEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class MinigameFishEntityRenderer extends MobEntityRenderer<MinigameFishEntity, MinigameFishModel> {
@@ -18,6 +21,11 @@ public class MinigameFishEntityRenderer extends MobEntityRenderer<MinigameFishEn
     @Override
     public Identifier getTexture(MinigameFishEntity entity) {
         return TEXTURE;
+    }
+
+    @Override
+    protected void scale(MinigameFishEntity entity, MatrixStack matrices, float amount) {
+        matrices.scale(entity.getScale(), entity.getScale(), entity.getScale());
     }
 
     public static void register() {
