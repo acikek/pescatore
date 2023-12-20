@@ -2,6 +2,7 @@ package com.acikek.pescatore.entity;
 
 import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.api.properties.MinigameFishType;
+import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.item.MinigameRodTier;
 import com.acikek.pescatore.util.FishMinigamePlayer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -42,7 +43,6 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         super(entityType, world);
         ignoreCameraFrustum = true;
         this.tier = tier;
-        type = MinigameFishType.GOLDFISH; // TODO: Random
     }
 
     public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world) {
@@ -112,6 +112,17 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         return false;
     }
 
+    public void setBobbing() {
+        setVelocity(this.getVelocity().multiply(0.3, 0.2, 0.3));
+        bobbing = true;
+        var types = MinigameFishType.REGISTRY.stream().toList();
+        type = types.get(getWorld().random.nextInt(types.size()));
+        // TODO: not this
+        MinigameFishEntity entity = new MinigameFishEntity(getWorld(), type);
+        entity.setPosition(getPos().add(0.0, -2.0, 0.0));
+        getWorld().spawnEntity(entity);
+    }
+
     public void tick() {
         //this.velocityRandom.setSeed(this.getUuid().getLeastSignificantBits() ^ this.getWorld().getTime());
         super.tick();
@@ -134,8 +145,7 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         }
         boolean inWater = waterHeight > 0.0f;
         if (!bobbing && inWater) {
-            setVelocity(this.getVelocity().multiply(0.3, 0.2, 0.3));
-            bobbing = true;
+            setBobbing();
             return;
         }
         if (bobbing) {
