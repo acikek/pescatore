@@ -1,12 +1,10 @@
-package com.acikek.pescatore.client;
+package com.acikek.pescatore.client.render.fish;
 
 import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.SlimeEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 

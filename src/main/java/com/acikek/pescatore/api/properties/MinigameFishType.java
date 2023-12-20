@@ -1,4 +1,4 @@
-package com.acikek.pescatore.entity.fish.properties;
+package com.acikek.pescatore.api.properties;
 
 import net.minecraft.item.ItemConvertible;
 

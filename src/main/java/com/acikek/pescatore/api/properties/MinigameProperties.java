@@ -1,4 +1,4 @@
-package com.acikek.pescatore.entity.fish.properties;
+package com.acikek.pescatore.api.properties;
 
 /**
  * Represents the difficulty (or "difficulty") of the Pescatore minigame.

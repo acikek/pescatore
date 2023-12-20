@@ -1,7 +1,7 @@
 // Made with Blockbench 4.9.2
 // Exported for Minecraft version 1.17 or later
 
-package com.acikek.pescatore.client;
+package com.acikek.pescatore.client.render.fish;
 
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.animation.AnimationHelper;

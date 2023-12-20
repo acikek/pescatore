@@ -1,4 +1,4 @@
-package com.acikek.pescatore.entity.fish.properties;
+package com.acikek.pescatore.api.properties;
 
 /**
  * Represents the size of a minigame fish.
