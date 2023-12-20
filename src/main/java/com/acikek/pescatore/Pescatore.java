@@ -1,7 +1,7 @@
 package com.acikek.pescatore;
 
-import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
+import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.item.PescatoreItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;

@@ -1,6 +1,7 @@
 package com.acikek.pescatore.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.ItemStack;
 
 public record MinigameRodTier(float rareFishChance, int minDelay, int maxDelay) {
 
@@ -10,5 +11,9 @@ public record MinigameRodTier(float rareFishChance, int minDelay, int maxDelay) 
 
     public MinigameFishingRodItem createRod() {
         return new MinigameFishingRodItem(new FabricItemSettings().maxDamage(64), this);
+    }
+
+    public boolean matchesStack(ItemStack stack) {
+        return stack.getItem() instanceof MinigameFishingRodItem rodItem && this.equals(rodItem.tier);
     }
 }

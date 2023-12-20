@@ -1,5 +1,7 @@
 package com.acikek.pescatore.item;
 
+import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
+import com.acikek.pescatore.util.FishMinigamePlayer;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
@@ -31,9 +33,12 @@ public class MinigameFishingRodItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-        if (user.fishHook != null) {
+        if (!(user instanceof FishMinigamePlayer player)) {
+            return TypedActionResult.fail(stack);
+        }
+        if (player.pescatore$getHook() != null) {
             if (!world.isClient()) {
-                int i = user.fishHook.use(stack);
+                int i = player.pescatore$getHook().use(stack);
                 stack.damage(i, user, p -> p.sendToolBreakStatus(hand));
             }
             playSound(world, user, SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE);
@@ -41,9 +46,10 @@ public class MinigameFishingRodItem extends Item {
         } else {
             playSound(world, user, SoundEvents.ENTITY_FISHING_BOBBER_THROW);
             if (!world.isClient()) {
+                // TODO: Use these enchantments in other ways
                 int i = EnchantmentHelper.getLure(stack);
                 int j = EnchantmentHelper.getLuckOfTheSea(stack);
-                world.spawnEntity(new FishingBobberEntity(user, world, j, i));
+                world.spawnEntity(new MinigameFishingBobberEntity(user, world, tier));
             }
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             user.emitGameEvent(GameEvent.ITEM_INTERACT_START);
