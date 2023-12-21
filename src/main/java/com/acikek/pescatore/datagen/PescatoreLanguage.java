@@ -4,6 +4,8 @@ import com.acikek.pescatore.item.PescatoreItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
+import java.io.IOException;
+
 public class PescatoreLanguage extends FabricLanguageProvider {
 
     public PescatoreLanguage(FabricDataOutput dataOutput) {
@@ -31,5 +33,18 @@ public class PescatoreLanguage extends FabricLanguageProvider {
         builder.add(PescatoreItems.ARAPAIMA, "Arapaima");
         builder.add(PescatoreItems.OCTOPUS, "Octopus");
         builder.add(PescatoreItems.THE_CUBE, "The Cube");
+        buildExisting(builder);
+    }
+
+    public void buildExisting(TranslationBuilder builder) {
+        try {
+            var existing = dataOutput.getModContainer().findPath("assets/pescatore/lang/en_us.existing.json");
+            if (existing.isPresent()) {
+                builder.add(existing.get());
+            }
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

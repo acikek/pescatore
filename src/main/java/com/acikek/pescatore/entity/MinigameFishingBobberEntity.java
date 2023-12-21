@@ -1,13 +1,14 @@
 package com.acikek.pescatore.entity;
 
 import com.acikek.pescatore.Pescatore;
-import com.acikek.pescatore.api.PescatoreAPI;
+import com.acikek.pescatore.api.lookup.MinigameFishTypeLookup;
 import com.acikek.pescatore.api.type.MinigameFishType;
 import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.item.MinigameRodTier;
 import com.acikek.pescatore.util.FishMinigamePlayer;
 import com.sun.jna.platform.EnumUtils;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -23,12 +24,15 @@ import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 // TODO: Ambient sound of conduit something
 public class MinigameFishingBobberEntity extends ProjectileEntity {
@@ -44,6 +48,7 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
 
     private int removalTimer;
     private boolean bobbing;
+    private Optional<Double> maxOrbitDistance;
     private MinigameFishType type;
     private int appearTimer;
 
@@ -124,14 +129,26 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
     public void setBobbing() {
         setVelocity(this.getVelocity().multiply(0.3, 0.2, 0.3));
         bobbing = true;
+        var solid = BlockPos.findClosest(getBlockPos(), 7, 0,
+                pos -> !getWorld().getBlockState(pos).isOf(Blocks.WATER));
+        maxOrbitDistance = solid.map(pos -> Math.sqrt(pos.getSquaredDistance(getBlockPos())) - 1.5);
+        System.out.println("maxOrbitDistance: " + maxOrbitDistance);
     }
 
-    public void spawnFish() {
+    public void trySpawnFish() {
         float roll = getWorld().random.nextFloat() * getTier().rarityBonus;
-        type = PescatoreAPI.rollType(roll, getWorld().random);
+        var lookup = MinigameFishTypeLookup.create();
+        maxOrbitDistance.ifPresent(dist -> lookup.byDifficulty(diff -> diff.orbitDistance() <= dist));
+        var randomType = lookup.rollRarity(roll).random(getWorld().random);
+        if (randomType.isEmpty()) {
+            int message = getWorld().random.nextInt(5);
+            getPlayerOwner().sendMessage(Text.translatable("message.pescatore.no_fish_" + message), true);
+            return;
+        }
+        type = randomType.get();
         MinigameFishEntity entity = new MinigameFishEntity(getWorld(), type);
         // TODO: not this
-        entity.setPosition(getPos().add(0.0, -2.0, 0.0));
+        entity.setPosition(getPos().add(0.0, -0.8, 0.0));
         // TODO: particle fx
         getWorld().spawnEntity(entity);
     }
@@ -140,7 +157,7 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         if (appearTimer > 0) {
             appearTimer--;
             if (appearTimer == 0) {
-                spawnFish();
+                trySpawnFish();
             }
         }
         Vec3d veclocity = this.getVelocity();
