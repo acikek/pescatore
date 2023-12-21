@@ -26,11 +26,11 @@ public class PescatoreItems {
     public static final Item GOLDFISH = new Item(defaultSettings());
     public static final Item SARDINE = new Item(defaultSettings());
     public static final Item CRUCIAN_CARP = new Item(defaultSettings());
-    public static final Item FLOUNDER = new Item(defaultSettings());
+    public static final Item OLIVE_FLOUNDER = new Item(defaultSettings());
     public static final Item CARP = new Item(defaultSettings());
     public static final Item RAINBOW_TROUT = new Item(defaultSettings());
     public static final Item RED_SNAPPER = new Item(defaultSettings());
-    public static final Item CATFISH = new Item(defaultSettings());
+    public static final Item BULLHEAD = new Item(defaultSettings());
     public static final Item SEA_BASS = new Item(defaultSettings());
     public static final Item TUNA = new Item(defaultSettings());
     public static final Item COELACANTH = new Item(defaultSettings());
@@ -78,11 +78,11 @@ public class PescatoreItems {
         registerFish("goldfish", GOLDFISH);
         registerFish("sardine", SARDINE);
         registerFish("crucian_carp", CRUCIAN_CARP);
-        registerFish("flounder", FLOUNDER);
+        registerFish("olive_flounder", OLIVE_FLOUNDER);
         registerFish("carp", CARP);
         registerFish("rainbow_trout", RAINBOW_TROUT);
         registerFish("red_snapper", RED_SNAPPER);
-        registerFish("catfish", CATFISH);
+        registerFish("bullhead", BULLHEAD);
         registerFish("sea_bass", SEA_BASS);
         registerFish("tuna", TUNA);
         registerFish("coelacanth", COELACANTH);

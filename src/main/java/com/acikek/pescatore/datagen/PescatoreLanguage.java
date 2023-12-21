@@ -18,11 +18,11 @@ public class PescatoreLanguage extends FabricLanguageProvider {
         builder.add(PescatoreItems.GOLDFISH, "Goldfish");
         builder.add(PescatoreItems.SARDINE, "Sardine");
         builder.add(PescatoreItems.CRUCIAN_CARP, "Crucian Carp");
-        builder.add(PescatoreItems.FLOUNDER, "Flounder");
+        builder.add(PescatoreItems.OLIVE_FLOUNDER, "Olive Flounder");
         builder.add(PescatoreItems.CARP, "Carp");
         builder.add(PescatoreItems.RAINBOW_TROUT, "Rainbow Trout");
         builder.add(PescatoreItems.RED_SNAPPER, "Red Snapper");
-        builder.add(PescatoreItems.CATFISH, "Catfish");
+        builder.add(PescatoreItems.BULLHEAD, "Bullhead");
         builder.add(PescatoreItems.SEA_BASS, "Sea Bass");
         builder.add(PescatoreItems.TUNA, "Tuna");
         builder.add(PescatoreItems.COELACANTH, "Coelacanth");

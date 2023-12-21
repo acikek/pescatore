@@ -20,7 +20,7 @@ public class MinigameFishTypes {
             MinigameFishSize.REGULAR, MinigameBehavior.DIFFICULTY_2, MinigameFishRarity.COMMON, null
     );
 
-    public static final MinigameFishType FLOUNDER = new MinigameFishType(
+    public static final MinigameFishType OLIVE_FLOUNDER = new MinigameFishType(
             MinigameFishSize.REGULAR, MinigameBehavior.DIFFICULTY_3, MinigameFishRarity.UNCOMMON, null
     );
 
@@ -36,7 +36,7 @@ public class MinigameFishTypes {
             MinigameFishSize.FATTY, MinigameBehavior.DIFFICULTY_5, MinigameFishRarity.UNCOMMON, null
     );
 
-    public static final MinigameFishType CATFISH = new MinigameFishType(
+    public static final MinigameFishType BULLHEAD = new MinigameFishType(
             MinigameFishSize.HAWG, MinigameBehavior.DIFFICULTY_5, MinigameFishRarity.UNCOMMON, null
     );
 
@@ -78,11 +78,11 @@ public class MinigameFishTypes {
         GOLDFISH.register("goldfish");
         SARDINE.register("sardine");
         CRUCIAN_CARP.register("crucian_carp");
-        FLOUNDER.register("flounder");
+        OLIVE_FLOUNDER.register("olive_flounder");
         CARP.register("carp");
         RAINBOW_TROUT.register("rainbow_trout");
         RED_SNAPPER.register("red_snapper");
-        CATFISH.register("catfish");
+        BULLHEAD.register("bullhead");
         SEA_BASS.register("sea_bass");
         TUNA.register("tuna");
         COELACANTH.register("coelacanth");
