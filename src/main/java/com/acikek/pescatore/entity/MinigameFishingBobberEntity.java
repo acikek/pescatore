@@ -5,12 +5,17 @@ import com.acikek.pescatore.api.properties.MinigameFishType;
 import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.item.MinigameRodTier;
 import com.acikek.pescatore.util.FishMinigamePlayer;
+import com.sun.jna.platform.EnumUtils;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
@@ -33,16 +38,16 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
                     .dimensions(EntityDimensions.fixed(0.25f, 0.25f))
                     .build();
 
+    public static final TrackedData<Integer> TIER = DataTracker.registerData(MinigameFishingBobberEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
     private int removalTimer;
     private boolean bobbing;
-
-    public final MinigameRodTier tier;
     private MinigameFishType type;
 
     public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world, MinigameRodTier tier) {
         super(entityType, world);
         ignoreCameraFrustum = true;
-        this.tier = tier;
+        setTier(tier);
     }
 
     public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world) {
@@ -85,8 +90,8 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
     }
 
     protected boolean removeIfInvalid(PlayerEntity player) {
-        boolean inHand = tier.matchesStack(player.getMainHandStack());
-        boolean inOffhand = tier.matchesStack(player.getOffHandStack());
+        boolean inHand = getTier().matchesStack(player.getMainHandStack());
+        boolean inOffhand = getTier().matchesStack(player.getOffHandStack());
         if (!player.isRemoved() && player.isAlive() && (inHand || inOffhand) && squaredDistanceTo(player) <= 1024.0) {
             return false;
         }
@@ -96,7 +101,7 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
 
     @Override
     protected void initDataTracker() {
-
+        getDataTracker().startTracking(TIER, 0);
     }
 
     public boolean tickRemovalTimer() {
@@ -252,6 +257,18 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         return getOwner() instanceof PlayerEntity player ? player : null;
     }
 
+    public MinigameRodTier getTier() {
+        return EnumUtils.fromInteger(getDataTracker().get(TIER), MinigameRodTier.class);
+    }
+
+    public void setTier(int tier) {
+        getDataTracker().set(TIER, tier);
+    }
+
+    public void setTier(MinigameRodTier tier) {
+        setTier(tier.ordinal());
+    }
+
     @Override
     public boolean canUsePortals() {
         return false;
@@ -269,6 +286,18 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         if (getPlayerOwner() == null) {
             kill();
         }
+    }
+
+    @Override
+    protected void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt("Tier", getTier().ordinal());
+    }
+
+    @Override
+    protected void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        setTier(nbt.getInt("Tier"));
     }
 
     public static void register() {
