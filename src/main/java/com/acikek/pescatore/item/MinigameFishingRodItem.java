@@ -26,7 +26,7 @@ public class MinigameFishingRodItem extends Item {
     }
 
     private void playSound(World world, PlayerEntity user, SoundEvent event) {
-        float pitch = 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f);
+        float pitch = 0.4f / (world.getRandom().nextFloat() * 0.4f + 1.2f);
         world.playSound(null, user.getX(), user.getY(), user.getZ(), event, SoundCategory.NEUTRAL, 1.0f, pitch);
     }
 

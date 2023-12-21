@@ -30,6 +30,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+// TODO: Ambient sound of conduit something
 public class MinigameFishingBobberEntity extends ProjectileEntity {
 
     public static final EntityType<MinigameFishingBobberEntity> ENTITY_TYPE =
@@ -44,11 +45,13 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
     private int removalTimer;
     private boolean bobbing;
     private MinigameFishType type;
+    private int appearTimer;
 
     public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world, MinigameRodTier tier) {
         super(entityType, world);
         ignoreCameraFrustum = true;
         setTier(tier);
+        appearTimer = world.getRandom().nextBetween(tier.minDelay, tier.maxDelay);
     }
 
     public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world) {
@@ -121,12 +124,31 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
     public void setBobbing() {
         setVelocity(this.getVelocity().multiply(0.3, 0.2, 0.3));
         bobbing = true;
-        var types = MinigameFishType.REGISTRY.stream().toList();
-        type = types.get(getWorld().random.nextInt(types.size()));
-        // TODO: not this
+    }
+
+    public void spawnFish() {
+        float roll = getWorld().random.nextFloat() * getTier().rarityBonus;
+        type = PescatoreAPI.rollType(roll, getWorld().random);
         MinigameFishEntity entity = new MinigameFishEntity(getWorld(), type);
+        // TODO: not this
         entity.setPosition(getPos().add(0.0, -2.0, 0.0));
+        // TODO: particle fx
         getWorld().spawnEntity(entity);
+    }
+
+    public void tickBobbing(BlockPos blockPos, float waterHeight) {
+        if (appearTimer > 0) {
+            appearTimer--;
+            if (appearTimer == 0) {
+                spawnFish();
+            }
+        }
+        Vec3d veclocity = this.getVelocity();
+        double d = this.getY() + veclocity.y - (blockPos.getY() + waterHeight);
+        if (Math.abs(d) < 0.01) {
+            d += Math.signum(d) * 0.1;
+        }
+        setVelocity(veclocity.x * 0.9, veclocity.y - d * random.nextFloat() * 0.2, veclocity.z * 0.9);
     }
 
     public void tick() {
@@ -143,24 +165,18 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         if (tickRemovalTimer()) {
             return;
         }
-        float waterHeight = 0.0f;
         BlockPos blockPos = getBlockPos();
         FluidState fluidState = getWorld().getFluidState(blockPos);
-        if (fluidState.isIn(FluidTags.WATER)) {
-            waterHeight = fluidState.getHeight(getWorld(), blockPos);
-        }
+        float waterHeight = fluidState.isIn(FluidTags.WATER)
+                ? fluidState.getHeight(getWorld(), getBlockPos())
+                : 0.0f;
         boolean inWater = waterHeight > 0.0f;
         if (!bobbing && inWater) {
             setBobbing();
             return;
         }
         if (bobbing) {
-            Vec3d veclocity = this.getVelocity();
-            double d = this.getY() + veclocity.y - (blockPos.getY() + waterHeight);
-            if (Math.abs(d) < 0.01) {
-                d += Math.signum(d) * 0.1;
-            }
-            setVelocity(veclocity.x * 0.9, veclocity.y - d * random.nextFloat() * 0.2, veclocity.z * 0.9);
+            tickBobbing(blockPos, waterHeight);
         }
         /*if (this.hookCountdown <= 0 && this.fishTravelCountdown <= 0) {
             this.inOpenWater = true;
@@ -180,7 +196,6 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         } else {
             this.outOfOpenWaterTicks = Math.min(10, this.outOfOpenWaterTicks + 1);
         }*/
-
         if (!fluidState.isIn(FluidTags.WATER)) {
             setVelocity(getVelocity().add(0.0, -0.03, 0.0));
         }
