@@ -3,6 +3,7 @@ package com.acikek.pescatore.datagen;
 import com.acikek.pescatore.item.PescatoreItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.RecipeProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
@@ -16,22 +17,28 @@ public class PescatoreRecipes extends FabricRecipeProvider {
         super(output);
     }
 
-    public static void generateRodRecipe(RecipeExporter exporter, ItemConvertible baseTool, ItemConvertible rodUpgrade, ItemConvertible baseUpgrade, ItemConvertible output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output)
+    public static ShapedRecipeJsonBuilder generateRodBuilder(ItemConvertible baseTool, ItemConvertible output) {
+        return ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output)
                 .pattern("  R")
                 .pattern(" TR")
                 .pattern("BTR")
                 .input('T', baseTool)
-                .input('R', rodUpgrade)
-                .input('B', baseUpgrade)
-                .criterion("has_base_tool", RecipeProvider.conditionsFromItem(baseTool))
-                .offerTo(exporter);
+                .criterion("has_base_tool", RecipeProvider.conditionsFromItem(baseTool));
     }
 
     @Override
     public void generate(RecipeExporter exporter) {
-        generateRodRecipe(exporter, Items.FISHING_ROD, Items.COPPER_INGOT, Items.IRON_INGOT, PescatoreItems.ROOKIE_ROD);
-        generateRodRecipe(exporter, PescatoreItems.ROOKIE_ROD, Items.GOLD_INGOT, Items.NAUTILUS_SHELL, PescatoreItems.ADEPT_ROD);
-        generateRodRecipe(exporter, PescatoreItems.ADEPT_ROD, Items.DIAMOND, Items.HEART_OF_THE_SEA, PescatoreItems.EXPERT_ROD);
+        generateRodBuilder(Items.FISHING_ROD, PescatoreItems.ROOKIE_ROD)
+                .input('R', ConventionalItemTags.COPPER_INGOTS)
+                .input('B', ConventionalItemTags.IRON_INGOTS)
+                .offerTo(exporter);
+        generateRodBuilder(PescatoreItems.ROOKIE_ROD, PescatoreItems.ADEPT_ROD)
+                .input('R', ConventionalItemTags.GOLD_INGOTS)
+                .input('B', Items.NAUTILUS_SHELL)
+                .offerTo(exporter);
+        generateRodBuilder(PescatoreItems.ADEPT_ROD, PescatoreItems.EXPERT_ROD)
+                .input('R', ConventionalItemTags.DIAMONDS)
+                .input('B', Items.HEART_OF_THE_SEA)
+                .offerTo(exporter);
     }
 }

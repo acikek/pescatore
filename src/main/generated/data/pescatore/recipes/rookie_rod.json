@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "B": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:iron_ingots"
     },
     "R": {
-      "item": "minecraft:copper_ingot"
+      "tag": "c:copper_ingots"
     },
     "T": {
       "item": "minecraft:fishing_rod"

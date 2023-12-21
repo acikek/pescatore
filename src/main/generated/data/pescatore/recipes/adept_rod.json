@@ -6,7 +6,7 @@
       "item": "minecraft:nautilus_shell"
     },
     "R": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:gold_ingots"
     },
     "T": {
       "item": "pescatore:rookie_rod"

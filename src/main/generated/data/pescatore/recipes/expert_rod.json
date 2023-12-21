@@ -6,7 +6,7 @@
       "item": "minecraft:heart_of_the_sea"
     },
     "R": {
-      "item": "minecraft:diamond"
+      "tag": "c:diamonds"
     },
     "T": {
       "item": "pescatore:adept_rod"
