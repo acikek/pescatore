@@ -9,18 +9,18 @@ import java.util.Locale;
 
 public enum MinigameRodTier {
 
-    ROOKIE(0.05f, 100, 150),
-    ADEPT(0.15f, 70, 100),
-    EXPERT(0.25f, 50, 70);
+    ROOKIE(1.0f, 100, 150),
+    ADEPT(1.15f, 70, 100),
+    EXPERT(1.35f, 50, 70);
 
-    public final float rareFishChance;
+    public final float rarityBonus;
     public final int minDelay;
     public final int maxDelay;
 
     public final Identifier bobberTexture;
 
-    MinigameRodTier(float rareFishChance, int minDelay, int maxDelay) {
-        this.rareFishChance = rareFishChance;
+    MinigameRodTier(float rarityBonus, int minDelay, int maxDelay) {
+        this.rarityBonus = rarityBonus;
         this.minDelay = minDelay;
         this.maxDelay = maxDelay;
         bobberTexture = Pescatore.id("textures/entity/minigame_fishing_hook/" + name().toLowerCase(Locale.ROOT) + ".png");

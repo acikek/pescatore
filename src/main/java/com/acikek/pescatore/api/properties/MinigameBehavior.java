@@ -1,7 +1,7 @@
 package com.acikek.pescatore.api.properties;
 
 /**
- * Represents the difficulty (or "difficulty") of the Pescatore minigame.
+ * Represents the behavior (or "difficulty") of the Pescatore minigame.
  * @param orbitSpeed how fast, in radians/s, the fish orbits around the bobber
  * @param orbitDistance the distance, in blocks, at which the fish orbits the bobber
  * @param orbitFlipChance the chance, from {@code 0.0f} to {@code 1.0f}, that the fish will
@@ -12,7 +12,7 @@ package com.acikek.pescatore.api.properties;
  * @param catchDuration a multiplier for {@link MinigameFishSize#holdTime()} specifying the amount
  *                      of time, in ticks, the player has to let go and reel in the fish
  */
-public record MinigameProperties(
+public record MinigameBehavior(
         double orbitSpeed, double orbitDistance, float orbitFlipChance, double strikeSpeed,
         int minNibbles, int maxNibbles, float catchDuration) {
 
@@ -83,7 +83,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Slow
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_1 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_1 = new MinigameBehavior(
             SLOW_ORBIT, FAR_ORBIT, 0.0f, SLOW_STRIKE, 0, 0, SLOW_CATCH_DURATION
     );
 
@@ -98,7 +98,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Slow
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_2 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_2 = new MinigameBehavior(
             SLOW_ORBIT, FAR_ORBIT, 0.0f, SLOW_STRIKE, 0, 1, SLOW_CATCH_DURATION
     );
 
@@ -113,7 +113,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Slow
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_3 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_3 = new MinigameBehavior(
             SLOW_ORBIT, MEDIUM_ORBIT, 0.0f, SLOW_STRIKE, 0, 1, SLOW_CATCH_DURATION
     );
 
@@ -128,7 +128,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Normal
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_4 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_4 = new MinigameBehavior(
             NORMAL_ORBIT, FAR_ORBIT, 0.0f, NORMAL_STRIKE, 0, 1, NORMAL_CATCH_DURATION
     );
 
@@ -143,7 +143,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Normal
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_5 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_5 = new MinigameBehavior(
             NORMAL_ORBIT, MEDIUM_ORBIT, 0.0f, NORMAL_STRIKE, 1, 2, NORMAL_CATCH_DURATION
     );
 
@@ -158,7 +158,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Normal
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_6 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_6 = new MinigameBehavior(
             SLOW_ORBIT, FAR_ORBIT, 0.0f, QUICK_STRIKE, 0, 2, NORMAL_CATCH_DURATION
     );
 
@@ -173,7 +173,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Fast
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_7 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_7 = new MinigameBehavior(
             NORMAL_ORBIT, CLOSE_ORBIT, 0.5f, NORMAL_STRIKE, 1, 3, FAST_CATCH_DURATION
     );
 
@@ -188,7 +188,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Fast
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_8 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_8 = new MinigameBehavior(
             FAST_ORBIT, FAR_ORBIT, 0.0f, QUICK_STRIKE, 0, 3, FAST_CATCH_DURATION
     );
 
@@ -203,7 +203,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Fast
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_9 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_9 = new MinigameBehavior(
             FAST_ORBIT, CLOSE_ORBIT, 0.0f, QUICK_STRIKE, 1, 4, FAST_CATCH_DURATION
     );
 
@@ -218,7 +218,7 @@ public record MinigameProperties(
      *     <b>Catch Duration</b>: Faster
      * </p>
      */
-    public static final MinigameProperties DIFFICULTY_10 = new MinigameProperties(
+    public static final MinigameBehavior DIFFICULTY_10 = new MinigameBehavior(
             FAST_ORBIT, CLOSE_ORBIT, 0.75f, QUICK_STRIKE, 1, 5, FASTER_CATCH_DURATION
     );
 }

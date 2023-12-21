@@ -12,7 +12,6 @@ public class PlayerEntityMixin implements FishMinigamePlayer {
     @Unique
     private MinigameFishingBobberEntity hook;
 
-
     @Override
     public MinigameFishingBobberEntity pescatore$getHook() {
         return hook;

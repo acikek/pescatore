@@ -1,7 +1,8 @@
 package com.acikek.pescatore.entity;
 
 import com.acikek.pescatore.Pescatore;
-import com.acikek.pescatore.api.properties.MinigameFishType;
+import com.acikek.pescatore.api.PescatoreAPI;
+import com.acikek.pescatore.api.type.MinigameFishType;
 import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.item.MinigameRodTier;
 import com.acikek.pescatore.util.FishMinigamePlayer;

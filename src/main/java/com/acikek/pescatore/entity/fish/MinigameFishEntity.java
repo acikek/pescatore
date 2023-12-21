@@ -1,7 +1,7 @@
 package com.acikek.pescatore.entity.fish;
 
 import com.acikek.pescatore.Pescatore;
-import com.acikek.pescatore.api.properties.MinigameFishType;
+import com.acikek.pescatore.api.type.MinigameFishType;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;

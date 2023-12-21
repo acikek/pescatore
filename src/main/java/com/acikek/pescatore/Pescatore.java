@@ -1,6 +1,6 @@
 package com.acikek.pescatore;
 
-import com.acikek.pescatore.api.properties.MinigameFishType;
+import com.acikek.pescatore.api.type.MinigameFishTypes;
 import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
 import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.item.PescatoreItems;
@@ -22,7 +22,7 @@ public class Pescatore implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Initializing Pescatore...");
-        MinigameFishType.register();
+        MinigameFishTypes.register();
         MinigameFishEntity.register();
         MinigameFishingBobberEntity.register();
         PescatoreItems.registerItems();
