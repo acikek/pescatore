@@ -1,5 +1,21 @@
 {
   "item.pescatore.adept_rod": "Adept Rod",
+  "item.pescatore.arapaima": "Arapaima",
+  "item.pescatore.carp": "Carp",
+  "item.pescatore.catfish": "Catfish",
+  "item.pescatore.coelacanth": "Coelacanth",
+  "item.pescatore.crucian_carp": "Crucian Carp",
   "item.pescatore.expert_rod": "Expert Rod",
-  "item.pescatore.rookie_rod": "Rookie Rod"
+  "item.pescatore.flounder": "Flounder",
+  "item.pescatore.goldfish": "Goldfish",
+  "item.pescatore.octopus": "Octopus",
+  "item.pescatore.piranha": "Piranha",
+  "item.pescatore.rainbow_trout": "Rainbow Trout",
+  "item.pescatore.red_snapper": "Red Snapper",
+  "item.pescatore.rookie_rod": "Rookie Rod",
+  "item.pescatore.sardine": "Sardine",
+  "item.pescatore.sea_bass": "Sea Bass",
+  "item.pescatore.sturgeon": "Sturgeon",
+  "item.pescatore.the_cube": "The Cube",
+  "item.pescatore.tuna": "Tuna"
 }
