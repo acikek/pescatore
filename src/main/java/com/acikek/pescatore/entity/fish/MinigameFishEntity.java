@@ -163,8 +163,8 @@ public class MinigameFishEntity extends WaterCreatureEntity {
 
     @Override
     public void tickMovement() {
-        move(MovementType.SELF, getOrbitVector(OrbitPhysics.VELOCITY, 0.0));
         if (bobber != null) {
+            setPosition(bobber.getPos().add(getOrbitVector(OrbitPhysics.POSITION, -0.8)));
             lookAtEntity(bobber, 360.0f, 0.0f);
         }
     }
