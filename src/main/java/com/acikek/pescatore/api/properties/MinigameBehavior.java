@@ -1,8 +1,10 @@
 package com.acikek.pescatore.api.properties;
 
+import net.minecraft.util.math.MathHelper;
+
 /**
  * Represents the behavior (or "difficulty") of the Pescatore minigame.
- * @param orbitSpeed how fast, in radians/s, the fish orbits around the bobber
+ * @param orbitSpeed how fast, in radians/t, the fish orbits around the bobber
  * @param orbitDistance the distance, in blocks, at which the fish orbits the bobber
  * @param orbitFlipChance the chance, from {@code 0.0f} to {@code 1.0f}, that the fish will
  *                        flip its orbit direction after completing a revolution
@@ -19,15 +21,15 @@ public record MinigameBehavior(
     /**
      * A slow orbit speed.
      */
-    public static final double SLOW_ORBIT = Math.PI / 2;
+    public static final double SLOW_ORBIT = MathHelper.PI / 40.0;
     /**
      * A normal orbit speed.
      */
-    public static final double NORMAL_ORBIT = Math.PI * 3 / 4;
+    public static final double NORMAL_ORBIT = MathHelper.PI * 3.0f / 80.0;
     /**
      * A fast orbit speed.
      */
-    public static final double FAST_ORBIT = Math.PI;
+    public static final double FAST_ORBIT = MathHelper.PI / 20.0;
 
     /**
      * A close orbit distance.

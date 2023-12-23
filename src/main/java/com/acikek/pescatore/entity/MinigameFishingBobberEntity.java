@@ -146,15 +146,17 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
             return;
         }
         type = randomType.get();
-        MinigameFishEntity entity = new MinigameFishEntity(getWorld(), type);
+        int tickOffset = getWorld().random.nextInt(120);
+        MinigameFishEntity entity = new MinigameFishEntity(getWorld(), type, this, tickOffset);
         // TODO: not this
-        entity.setPosition(getPos().add(0.0, -0.8, 0.0));
+        Vec3d offset = entity.getOrbitVector(MinigameFishEntity.OrbitPhysics.POSITION, 0.0);
+        entity.setPosition(getPos().add(offset).add(0.0, -0.8, 0.0));
         // TODO: particle fx
         getWorld().spawnEntity(entity);
     }
 
     public void tickBobbing(BlockPos blockPos, float waterHeight) {
-        if (appearTimer > 0) {
+        if (!getWorld().isClient() && appearTimer > 0) {
             appearTimer--;
             if (appearTimer == 0) {
                 trySpawnFish();
