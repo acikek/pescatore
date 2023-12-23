@@ -129,10 +129,11 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
     public void setBobbing() {
         setVelocity(this.getVelocity().multiply(0.3, 0.2, 0.3));
         bobbing = true;
-        var solid = BlockPos.findClosest(getBlockPos(), 7, 0,
-                pos -> !getWorld().getBlockState(pos).isOf(Blocks.WATER));
-        maxOrbitDistance = solid.map(pos -> Math.sqrt(pos.getSquaredDistance(getBlockPos())) - 1.5);
-        System.out.println("maxOrbitDistance: " + maxOrbitDistance);
+        if (!getWorld().isClient()) {
+            var solid = BlockPos.findClosest(getBlockPos(), 7, 0,
+                    pos -> !getWorld().getBlockState(pos).isOf(Blocks.WATER));
+            maxOrbitDistance = solid.map(pos -> Math.sqrt(pos.getSquaredDistance(getBlockPos())) - 1.5);
+        }
     }
 
     public void trySpawnFish() {

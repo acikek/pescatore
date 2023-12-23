@@ -31,7 +31,7 @@ public enum MinigameRodTier {
     }
 
     public MinigameFishingRodItem createRod() {
-        return new MinigameFishingRodItem(new FabricItemSettings().maxDamage(64), this);
+        return new MinigameFishingRodItem(new FabricItemSettings().maxDamage(64).rarity(rarity), this);
     }
 
     public boolean matchesStack(ItemStack stack) {

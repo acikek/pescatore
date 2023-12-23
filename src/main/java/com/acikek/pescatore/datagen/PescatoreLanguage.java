@@ -38,7 +38,7 @@ public class PescatoreLanguage extends FabricLanguageProvider {
     public void buildFilet(TranslationBuilder builder, Item filet, Item cooked, String descriptor) {
         String name = descriptor + " Fish Filet";
         builder.add(filet, "Raw " + name);
-        builder.add(cooked, "Cooked " + name);
+        builder.add(cooked, name);
     }
 
     public void buildFilets(TranslationBuilder builder) {
