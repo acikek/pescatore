@@ -2,8 +2,11 @@ package com.acikek.pescatore.api.properties;
 
 import com.acikek.pescatore.Pescatore;
 import com.mojang.serialization.Codec;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Identifier;
@@ -46,12 +49,18 @@ public enum MinigameFishRarity implements StringIdentifiable {
     private final Identifier stat;
 
     /**
+     * A tag for fish items within this rarity.
+     */
+    public final TagKey<Item> tag;
+
+    /**
      * Constructs the rarity instance.
      * @param chance the chance value.
      */
     MinigameFishRarity(float chance) {
         this.chance = chance;
         stat = Pescatore.id(asString());
+        tag = TagKey.of(RegistryKeys.ITEM, Pescatore.id(asString() + "_fish"));
     }
 
     /**

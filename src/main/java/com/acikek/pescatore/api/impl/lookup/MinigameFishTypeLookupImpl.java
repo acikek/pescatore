@@ -14,7 +14,8 @@ import java.util.stream.Stream;
 
 public class MinigameFishTypeLookupImpl implements MinigameFishTypeLookup, AutoCloseable {
 
-    private Stream<MinigameFishType> types = MinigameFishType.REGISTRY.stream();
+    private Stream<MinigameFishType> types = MinigameFishType.REGISTRY.stream()
+            .filter(type -> type != MinigameFishType.EMPTY);
 
     @Override
     public MinigameFishTypeLookup bySize(Predicate<MinigameFishSize> predicate) {

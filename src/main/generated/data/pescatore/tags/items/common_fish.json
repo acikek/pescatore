@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pescatore:sardine",
+    "pescatore:crucian_carp",
+    "pescatore:carp",
+    "pescatore:sea_bass"
+  ]
+}

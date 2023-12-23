@@ -12,5 +12,6 @@ public class PescatoreDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(PescatoreLanguage::new);
         pack.addProvider(PescatoreModels::new);
         pack.addProvider(PescatoreRecipes::new);
+        pack.addProvider(PescatoreTags::new);
     }
 }

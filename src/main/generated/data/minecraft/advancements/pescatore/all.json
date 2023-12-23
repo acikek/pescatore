@@ -31,12 +31,6 @@
       },
       "trigger": "pescatore:minigame_fish_caught"
     },
-    "catch_empty": {
-      "conditions": {
-        "fish_type": "pescatore:empty"
-      },
-      "trigger": "pescatore:minigame_fish_caught"
-    },
     "catch_goldfish": {
       "conditions": {
         "fish_type": "pescatore:goldfish"
@@ -117,9 +111,6 @@
     }
   },
   "requirements": [
-    [
-      "catch_empty"
-    ],
     [
       "catch_goldfish"
     ],

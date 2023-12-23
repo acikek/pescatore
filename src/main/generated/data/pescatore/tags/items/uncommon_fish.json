@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "pescatore:goldfish",
+    "pescatore:olive_flounder",
+    "pescatore:rainbow_trout",
+    "pescatore:red_snapper",
+    "pescatore:bullhead"
+  ]
+}

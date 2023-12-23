@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "pescatore:tuna",
+    "pescatore:piranha",
+    "pescatore:sturgeon",
+    "pescatore:arapaima",
+    "pescatore:octopus"
+  ]
+}
