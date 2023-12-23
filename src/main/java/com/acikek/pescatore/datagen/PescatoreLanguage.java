@@ -1,10 +1,13 @@
 package com.acikek.pescatore.datagen;
 
+import com.acikek.pescatore.api.properties.MinigameFishRarity;
+import com.acikek.pescatore.api.type.MinigameFishType;
+import com.acikek.pescatore.api.type.MinigameFishTypes;
 import com.acikek.pescatore.item.PescatoreItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-
-import java.io.IOException;
+import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class PescatoreLanguage extends FabricLanguageProvider {
 
@@ -14,8 +17,17 @@ public class PescatoreLanguage extends FabricLanguageProvider {
     @Override
     public void generateTranslations(TranslationBuilder builder) {
         buildItems(builder);
-        buildAdvancements(builder);
         buildNoFish(builder);
+        buildAdvancements(builder);
+        buildTypes(builder);
+        buildStats(builder);
+    }
+
+    public void buildItems(TranslationBuilder builder) {
+        builder.add(PescatoreItems.ROOKIE_ROD, "Rookie Rod");
+        builder.add(PescatoreItems.ADEPT_ROD, "Adept Rod");
+        builder.add(PescatoreItems.EXPERT_ROD, "Expert Rod");
+        builder.add(PescatoreItems.AETHER_ROD, "Aether Rod");
     }
 
     public void buildNoFish(TranslationBuilder builder, int i, String message) {
@@ -49,25 +61,39 @@ public class PescatoreLanguage extends FabricLanguageProvider {
         buildAdvancement(builder, "all", "Aquarist of Atlantis", "Catch every type of fish");
     }
 
-    public void buildItems(TranslationBuilder builder) {
-        builder.add(PescatoreItems.ROOKIE_ROD, "Rookie Rod");
-        builder.add(PescatoreItems.ADEPT_ROD, "Adept Rod");
-        builder.add(PescatoreItems.EXPERT_ROD, "Expert Rod");
-        builder.add(PescatoreItems.GOLDFISH, "Goldfish");
-        builder.add(PescatoreItems.SARDINE, "Sardine");
-        builder.add(PescatoreItems.CRUCIAN_CARP, "Crucian Carp");
-        builder.add(PescatoreItems.OLIVE_FLOUNDER, "Olive Flounder");
-        builder.add(PescatoreItems.CARP, "Carp");
-        builder.add(PescatoreItems.RAINBOW_TROUT, "Rainbow Trout");
-        builder.add(PescatoreItems.RED_SNAPPER, "Red Snapper");
-        builder.add(PescatoreItems.BULLHEAD, "Bullhead");
-        builder.add(PescatoreItems.SEA_BASS, "Sea Bass");
-        builder.add(PescatoreItems.TUNA, "Tuna");
-        builder.add(PescatoreItems.COELACANTH, "Coelacanth");
-        builder.add(PescatoreItems.PIRANHA, "Piranha");
-        builder.add(PescatoreItems.STURGEON, "Sturgeon");
-        builder.add(PescatoreItems.ARAPAIMA, "Arapaima");
-        builder.add(PescatoreItems.OCTOPUS, "Octopus");
-        builder.add(PescatoreItems.THE_CUBE, "The Cube");
+    public void buildType(TranslationBuilder builder, MinigameFishType type, String name, String plural) {
+        builder.add(type.item().asItem(), name);
+        builder.add(type.getStat().getValue().toTranslationKey("stat"), name + plural + " caught");
+    }
+
+    public void buildType(TranslationBuilder builder, MinigameFishType type, String name) {
+        buildType(builder, type, name, "");
+    }
+
+    public void buildTypes(TranslationBuilder builder) {
+        buildType(builder, MinigameFishTypes.GOLDFISH, "Goldfish");
+        buildType(builder, MinigameFishTypes.SARDINE, "Sardine", "s");
+        buildType(builder, MinigameFishTypes.CRUCIAN_CARP, "Crucian Carp");
+        buildType(builder, MinigameFishTypes.OLIVE_FLOUNDER, "Olive Flounder", "s");
+        buildType(builder, MinigameFishTypes.CARP, "Carp");
+        buildType(builder, MinigameFishTypes.RAINBOW_TROUT, "Rainbow Trout");
+        buildType(builder, MinigameFishTypes.RED_SNAPPER, "Red Snapper", "s");
+        buildType(builder, MinigameFishTypes.BULLHEAD, "Bullhead", "s");
+        buildType(builder, MinigameFishTypes.SEA_BASS, "Sea Bass");
+        buildType(builder, MinigameFishTypes.TUNA, "Tuna");
+        buildType(builder, MinigameFishTypes.COELACANTH, "Coelacanth", "s");
+        buildType(builder, MinigameFishTypes.PIRANHA, "Piranha", "s");
+        buildType(builder, MinigameFishTypes.STURGEON, "Sturgeon", "s");
+        buildType(builder, MinigameFishTypes.ARAPAIMA, "Arapaima", "s");
+        buildType(builder, MinigameFishTypes.OCTOPUS, "Octopus", "es");
+        buildType(builder, MinigameFishTypes.THE_CUBE, "The Cube");
+    }
+
+    public void buildStats(TranslationBuilder builder) {
+        builder.add("stat.pescatore.total_fish_caught", "Total fish caught");
+        for (MinigameFishRarity rarity : EnumUtils.getEnumList(MinigameFishRarity.class)) {
+            String desc = StringUtils.capitalize(rarity.asString().replace('_', ' ')) + " fish caught";
+            builder.add(rarity.getStat().getValue().toTranslationKey("stat"), desc);
+        }
     }
 }

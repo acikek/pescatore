@@ -42,10 +42,16 @@ public record MinigameFishType(MinigameFishSize size, MinigameBehavior difficult
         return Stats.CUSTOM.getOrCreateStat(getId());
     }
 
-    public void register(Identifier id) {
+    void register(Identifier id, boolean stat) {
         Registry.register(REGISTRY, id, this);
-        Registry.register(Registries.CUSTOM_STAT, id, id);
-        getStat();
+        if (stat) {
+            Registry.register(Registries.CUSTOM_STAT, id, id);
+            getStat();
+        }
+    }
+
+    public void register(Identifier id) {
+        register(id, true);
     }
 
     void register(String name) {

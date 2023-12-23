@@ -75,7 +75,7 @@ public class MinigameFishTypes {
 
     @ApiStatus.Internal
     public static void register() {
-        MinigameFishType.EMPTY.register(MinigameFishType.EMPTY_ID);
+        MinigameFishType.EMPTY.register(MinigameFishType.EMPTY_ID, false);
         GOLDFISH.register("goldfish");
         SARDINE.register("sardine");
         CRUCIAN_CARP.register("crucian_carp");
