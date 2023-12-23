@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_adept_rod": {
+    "has_rare_fish_filet": {
       "conditions": {
         "items": [
           {
             "items": [
-              "pescatore:adept_rod"
+              "pescatore:rare_fish_filet"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "pescatore:expert_rod"
+        "recipe": "minecraft:cooked_rare_fish_filet_from_campfire"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +23,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_adept_rod"
+      "has_rare_fish_filet"
     ]
   ],
   "rewards": {
     "recipes": [
-      "pescatore:expert_rod"
+      "minecraft:cooked_rare_fish_filet_from_campfire"
     ]
   }
 }

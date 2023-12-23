@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.67499995,
+  "ingredient": {
+    "item": "pescatore:rare_fish_filet"
+  },
+  "result": "pescatore:cooked_rare_fish_filet"
+}

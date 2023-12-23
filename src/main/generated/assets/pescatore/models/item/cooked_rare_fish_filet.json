@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pescatore:item/cooked_rare_fish_filet"
+  }
+}

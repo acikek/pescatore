@@ -41,9 +41,19 @@ public class PescatoreItems {
     public static final Item OCTOPUS = new Item(defaultSettings());
     public static final Item THE_CUBE = new Item(defaultSettings());
 
+    public static final Item COMMON_FISH_FILET = new Item(defaultSettings());
+    public static final Item COOKED_COMMON_FISH_FILET = new Item(defaultSettings());
+    public static final Item UNCOMMON_FISH_FILET = new Item(defaultSettings());
+    public static final Item COOKED_UNCOMMON_FISH_FILET = new Item(defaultSettings());
+    public static final Item RARE_FISH_FILET = new Item(defaultSettings());
+    public static final Item COOKED_RARE_FISH_FILET = new Item(defaultSettings());
+    public static final Item VERY_RARE_FISH_FILET = new Item(defaultSettings());
+    public static final Item COOKED_VERY_RARE_FISH_FILET = new Item(defaultSettings());
+
     public static final List<Item> ITEMS = new ArrayList<>();
     public static final List<Item> RODS = new ArrayList<>();
     public static final List<Item> FISH = new ArrayList<>();
+    public static final List<Item> FOOD = new ArrayList<>();
 
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Pescatore.id("main"));
     public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
@@ -72,6 +82,11 @@ public class PescatoreItems {
         FISH.add(item);
     }
 
+    public static void registerFood(String name, Item item) {
+        registerItem(name, item);
+        FOOD.add(item);
+    }
+
     public static void registerItems() {
         registerRod("rookie_rod", ROOKIE_ROD);
         registerRod("adept_rod", ADEPT_ROD);
@@ -93,6 +108,14 @@ public class PescatoreItems {
         registerFish("arapaima", ARAPAIMA);
         registerFish("octopus", OCTOPUS);
         registerFish("the_cube", THE_CUBE);
+        registerFood("common_fish_filet", COMMON_FISH_FILET);
+        registerFood("cooked_common_fish_filet", COOKED_COMMON_FISH_FILET);
+        registerFood("uncommon_fish_filet", UNCOMMON_FISH_FILET);
+        registerFood("cooked_uncommon_fish_filet", COOKED_UNCOMMON_FISH_FILET);
+        registerFood("rare_fish_filet", RARE_FISH_FILET);
+        registerFood("cooked_rare_fish_filet", COOKED_RARE_FISH_FILET);
+        registerFood("very_rare_fish_filet", VERY_RARE_FISH_FILET);
+        registerFood("cooked_very_rare_fish_filet", COOKED_VERY_RARE_FISH_FILET);
     }
 
     public static void registerItemGroupEntries() {

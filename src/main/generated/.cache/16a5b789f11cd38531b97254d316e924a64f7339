@@ -1,17 +1,25 @@
-// 1.20.4	2023-12-23T12:21:12.2580444	Pescatore/Model Definitions
-ddd5543667bbcb620285b878a9307f588bda2db1 assets\pescatore\models\item\the_cube.json
-68493d3e9c83eceb8f13f901bc1b8bbacebbc069 assets\pescatore\models\item\crucian_carp.json
-ae6d7ccae3f492a3023a780e6b080be0f9d753c8 assets\pescatore\models\item\sardine.json
-1c07337ab704c34d08cd05ea97b17ad702992914 assets\pescatore\models\item\olive_flounder.json
-e22a82fc6f10748b11bc3798e8bc453afec56cfe assets\pescatore\models\item\octopus.json
-b125e818fe608a5747ee6bdec780d38cd969d0fe assets\pescatore\models\item\carp.json
+// 1.20.4	2023-12-23T12:57:06.6945292	Pescatore/Model Definitions
+9daa393bf29cfcadeb4a9ec046cd074b62924bc1 assets\pescatore\models\item\cooked_rare_fish_filet.json
 51fdf2bded74fb5315b9a29f7d300afb7779ad54 assets\pescatore\models\item\goldfish.json
 f08138b44e8b213d4143c1e6a7529e59adc75edf assets\pescatore\models\item\coelacanth.json
-57aad0ac8367a121ec80b4b7fe478ca646bef17c assets\pescatore\models\item\sea_bass.json
+538d1332549348a214d9d549bb8d34fd406eb7b6 assets\pescatore\models\item\cooked_very_rare_fish_filet.json
+024bb59ac3b0593794ce37900531ea0ba4308a86 assets\pescatore\models\item\uncommon_fish_filet.json
 a6b2f04ee10c02f4f336686eabedc3e8ec8b6264 assets\pescatore\models\item\piranha.json
 7593b251288ca13010729f22f123b727e58af49e assets\pescatore\models\item\tuna.json
 4d771db505fc9f6050d83f239ffbf2b41c91113a assets\pescatore\models\item\arapaima.json
-8c68807fd6073cff4e123a0a1db42e6095ff8f43 assets\pescatore\models\item\red_snapper.json
 a363deeac57ccc94b2789c4ffcedf2a582d1ec5d assets\pescatore\models\item\bullhead.json
+ddd5543667bbcb620285b878a9307f588bda2db1 assets\pescatore\models\item\the_cube.json
+68493d3e9c83eceb8f13f901bc1b8bbacebbc069 assets\pescatore\models\item\crucian_carp.json
+43c723397318f96bdefd066af2b501d5c6a0dba6 assets\pescatore\models\item\cooked_common_fish_filet.json
+ae6d7ccae3f492a3023a780e6b080be0f9d753c8 assets\pescatore\models\item\sardine.json
+d31938f5024c82714763be9939807e6b395b7f49 assets\pescatore\models\item\rare_fish_filet.json
+1c07337ab704c34d08cd05ea97b17ad702992914 assets\pescatore\models\item\olive_flounder.json
+e22a82fc6f10748b11bc3798e8bc453afec56cfe assets\pescatore\models\item\octopus.json
+b125e818fe608a5747ee6bdec780d38cd969d0fe assets\pescatore\models\item\carp.json
+57aad0ac8367a121ec80b4b7fe478ca646bef17c assets\pescatore\models\item\sea_bass.json
+4f71f93ca2a80131e09a14a911d3851b5813b367 assets\pescatore\models\item\common_fish_filet.json
+eb8f2ddc5137a490d49ee8a11c018bb5aace4f53 assets\pescatore\models\item\cooked_uncommon_fish_filet.json
+8c68807fd6073cff4e123a0a1db42e6095ff8f43 assets\pescatore\models\item\red_snapper.json
 a176b98409e2a696025d33ee65e4d879b1b91e3a assets\pescatore\models\item\sturgeon.json
 397506b4bed32f983f8de21f85c3412a63d4b070 assets\pescatore\models\item\rainbow_trout.json
+c4eccefc4560f7a500469d188aebaea304e3a725 assets\pescatore\models\item\very_rare_fish_filet.json

@@ -6,6 +6,7 @@ import com.acikek.pescatore.api.type.MinigameFishTypes;
 import com.acikek.pescatore.item.PescatoreItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.item.Item;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,6 +29,19 @@ public class PescatoreLanguage extends FabricLanguageProvider {
         builder.add(PescatoreItems.ADEPT_ROD, "Adept Rod");
         builder.add(PescatoreItems.EXPERT_ROD, "Expert Rod");
         builder.add(PescatoreItems.AETHER_ROD, "Aether Rod");
+    }
+
+    public void buildFilet(TranslationBuilder builder, Item filet, Item cooked, String descriptor) {
+        String name = descriptor + " Fish Filet";
+        builder.add(filet, "Raw " + name);
+        builder.add(cooked, "Cooked " + name);
+    }
+
+    public void buildFilets(TranslationBuilder builder) {
+        buildFilet(builder, PescatoreItems.COMMON_FISH_FILET, PescatoreItems.COOKED_COMMON_FISH_FILET, "Mundane");
+        buildFilet(builder, PescatoreItems.UNCOMMON_FISH_FILET, PescatoreItems.COOKED_UNCOMMON_FISH_FILET, "Unique");
+        buildFilet(builder, PescatoreItems.RARE_FISH_FILET, PescatoreItems.COOKED_RARE_FISH_FILET, "Exotic");
+        buildFilet(builder, PescatoreItems.VERY_RARE_FISH_FILET, PescatoreItems.COOKED_VERY_RARE_FISH_FILET, "Extraordinary");
     }
 
     public void buildNoFish(TranslationBuilder builder, int i, String message) {

@@ -20,5 +20,6 @@ public class PescatoreModels extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         PescatoreItems.FISH.forEach(fish -> itemModelGenerator.register(fish, Models.GENERATED));
+        PescatoreItems.FOOD.forEach(fish -> itemModelGenerator.register(fish, Models.GENERATED));
     }
 }

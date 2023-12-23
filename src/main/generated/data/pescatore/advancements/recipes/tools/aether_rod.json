@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_adept_rod": {
+    "has_expert_rod": {
       "conditions": {
         "items": [
           {
             "items": [
-              "pescatore:adept_rod"
+              "pescatore:expert_rod"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "pescatore:expert_rod"
+        "recipe": "pescatore:aether_rod"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +23,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_adept_rod"
+      "has_expert_rod"
     ]
   ],
   "rewards": {
     "recipes": [
-      "pescatore:expert_rod"
+      "pescatore:aether_rod"
     ]
   }
 }

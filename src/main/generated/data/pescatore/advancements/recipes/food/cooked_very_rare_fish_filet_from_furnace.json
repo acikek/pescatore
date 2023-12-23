@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cooked_very_rare_fish_filet_from_furnace"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_very_rare_fish_filet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pescatore:very_rare_fish_filet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_very_rare_fish_filet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cooked_very_rare_fish_filet_from_furnace"
+    ]
+  }
+}

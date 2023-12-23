@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_adept_rod": {
+    "has_fish": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "pescatore:adept_rod"
-            ]
+            "tag": "pescatore:common_fish"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "pescatore:expert_rod"
+        "recipe": "pescatore:common_fish_filet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_adept_rod"
+      "has_fish"
     ]
   ],
   "rewards": {
     "recipes": [
-      "pescatore:expert_rod"
+      "pescatore:common_fish_filet"
     ]
   }
 }

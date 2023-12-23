@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:nether_star"
+    },
+    "R": {
+      "tag": "c:netherite_ingots"
+    },
+    "T": {
+      "item": "pescatore:expert_rod"
+    }
+  },
+  "pattern": [
+    "  R",
+    " TR",
+    "BTR"
+  ],
+  "result": {
+    "item": "pescatore:aether_rod"
+  }
+}
