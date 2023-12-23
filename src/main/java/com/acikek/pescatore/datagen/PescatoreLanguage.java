@@ -4,11 +4,13 @@ import com.acikek.pescatore.api.properties.MinigameFishRarity;
 import com.acikek.pescatore.api.type.MinigameFishType;
 import com.acikek.pescatore.api.type.MinigameFishTypes;
 import com.acikek.pescatore.item.PescatoreItems;
+import com.ibm.icu.lang.UCharacter;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.item.Item;
 import org.apache.commons.lang3.EnumUtils;
-import org.apache.commons.lang3.StringUtils;
+
+import java.util.Locale;
 
 public class PescatoreLanguage extends FabricLanguageProvider {
 
@@ -18,10 +20,12 @@ public class PescatoreLanguage extends FabricLanguageProvider {
     @Override
     public void generateTranslations(TranslationBuilder builder) {
         buildItems(builder);
+        buildFilets(builder);
         buildNoFish(builder);
         buildAdvancements(builder);
         buildTypes(builder);
-        buildStats(builder);
+        buildRarities(builder);
+        builder.add("stat.pescatore.total_fish_caught", "Total fish caught");
     }
 
     public void buildItems(TranslationBuilder builder) {
@@ -103,11 +107,11 @@ public class PescatoreLanguage extends FabricLanguageProvider {
         buildType(builder, MinigameFishTypes.THE_CUBE, "The Cube");
     }
 
-    public void buildStats(TranslationBuilder builder) {
-        builder.add("stat.pescatore.total_fish_caught", "Total fish caught");
+    public void buildRarities(TranslationBuilder builder) {
         for (MinigameFishRarity rarity : EnumUtils.getEnumList(MinigameFishRarity.class)) {
-            String desc = StringUtils.capitalize(rarity.asString().replace('_', ' ')) + " fish caught";
-            builder.add(rarity.getStat().getValue().toTranslationKey("stat"), desc);
+            String desc = UCharacter.toTitleCase(Locale.ROOT, rarity.asString().replace('_', ' '), null, 0);
+            builder.add(rarity.getStat().getValue().toTranslationKey("stat"), desc + " fish caught");
+            builder.add(rarity.tag.id().toTranslationKey("tag.item"), desc + " Fish");
         }
     }
 }

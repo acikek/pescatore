@@ -15,7 +15,7 @@
   "pattern": [
     "  R",
     " TR",
-    "BTR"
+    "B R"
   ],
   "result": {
     "item": "pescatore:adept_rod"

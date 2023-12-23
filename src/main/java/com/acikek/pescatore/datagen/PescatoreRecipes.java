@@ -27,7 +27,7 @@ public class PescatoreRecipes extends FabricRecipeProvider {
         return ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output)
                 .pattern("  R")
                 .pattern(" TR")
-                .pattern("BTR")
+                .pattern("B R")
                 .input('T', baseTool)
                 .criterion(hasItem(baseTool), RecipeProvider.conditionsFromItem(baseTool));
     }
@@ -56,7 +56,7 @@ public class PescatoreRecipes extends FabricRecipeProvider {
                 .input(rarity.tag)
                 .criterion("has_fish", RecipeProvider.conditionsFromTag(rarity.tag))
                 .offerTo(exporter);
-        float exp = 0.45f * ((rarity.ordinal() + 1) / 2.0f);
+        float exp = 0.45f * ((rarity.ordinal() / 2.0f) + 1.0f);
         offerFoodCookingRecipe(exporter, "furnace", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, filet, cooked, exp);
         offerFoodCookingRecipe(exporter, "campfire", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, filet, cooked, exp);
         offerFoodCookingRecipe(exporter, "smoker", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, filet, cooked, exp);

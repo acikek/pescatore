@@ -1,0 +1,6 @@
+{
+  "parent": "pescatore:item/aether_rod",
+  "textures": {
+    "layer0": "pescatore:item/aether_rod_cast"
+  }
+}
