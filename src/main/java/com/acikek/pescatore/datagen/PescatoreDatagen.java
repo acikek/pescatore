@@ -8,6 +8,7 @@ public class PescatoreDatagen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         var pack = fabricDataGenerator.createPack();
+        pack.addProvider(PescatoreAdvancements::new);
         pack.addProvider(PescatoreLanguage::new);
         pack.addProvider(PescatoreModels::new);
         pack.addProvider(PescatoreRecipes::new);

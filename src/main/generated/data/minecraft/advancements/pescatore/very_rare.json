@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:pescatore/rare",
+  "criteria": {
+    "catch_very_rare_fish": {
+      "conditions": {
+        "fish_rarity": "very_rare",
+        "rarity_caught": {}
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.very_rare.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "item": "pescatore:coelacanth"
+    },
+    "title": {
+      "translate": "advancement.pescatore.very_rare.title"
+    }
+  },
+  "requirements": [
+    [
+      "catch_very_rare_fish"
+    ]
+  ]
+}

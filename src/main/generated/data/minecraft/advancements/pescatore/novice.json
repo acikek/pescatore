@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:pescatore/root",
+  "criteria": {
+    "catch_one_fish": {
+      "conditions": {
+        "total_caught": {}
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.novice.description"
+    },
+    "icon": {
+      "item": "pescatore:goldfish"
+    },
+    "title": {
+      "translate": "advancement.pescatore.novice.title"
+    }
+  },
+  "requirements": [
+    [
+      "catch_one_fish"
+    ]
+  ]
+}

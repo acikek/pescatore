@@ -1,11 +1,22 @@
 package com.acikek.pescatore.api.properties;
 
+import com.acikek.pescatore.Pescatore;
+import com.mojang.serialization.Codec;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.stat.Stat;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.StringIdentifiable;
 import org.apache.commons.lang3.EnumUtils;
+import org.jetbrains.annotations.ApiStatus;
+
+import java.util.Locale;
 
 /**
  * Represents the rarity of a minigame fish.
  */
-public enum MinigameFishRarity {
+public enum MinigameFishRarity implements StringIdentifiable {
 
     /**
      * A common variety with a 65% chance of spawning.
@@ -30,12 +41,30 @@ public enum MinigameFishRarity {
     private final float chance;
 
     /**
+     * A statistic for how many fish of this rarity a player has caught.
+     */
+    private final Identifier stat;
+
+    /**
      * Constructs the rarity instance.
      * @param chance the chance value.
      */
     MinigameFishRarity(float chance) {
         this.chance = chance;
+        stat = Pescatore.id(asString());
     }
+
+    /**
+     * @return a statistic for how many fish of this rarity a player has caught
+     */
+    public Stat<Identifier> getStat() {
+        return Stats.CUSTOM.getOrCreateStat(stat);
+    }
+
+    /**
+     * A string-backed coded for a {@link MinigameFishRarity} instance.
+     */
+    public static final Codec<MinigameFishRarity> CODEC = StringIdentifiable.createCodec(MinigameFishRarity::values);
 
     /**
      * @param random the random roll, from {@code 0.0f} to {@code 1.0f}.
@@ -48,5 +77,18 @@ public enum MinigameFishRarity {
             }
         }
         return MinigameFishRarity.COMMON;
+    }
+
+    @ApiStatus.Internal
+    public static void registerStats() {
+        for (MinigameFishRarity rarity : EnumUtils.getEnumList(MinigameFishRarity.class)) {
+            Registry.register(Registries.CUSTOM_STAT, rarity.stat, rarity.stat);
+            rarity.getStat();
+        }
+    }
+
+    @Override
+    public String asString() {
+        return name().toLowerCase(Locale.ROOT);
     }
 }

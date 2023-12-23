@@ -1,4 +1,4 @@
-// 1.20.4	2023-12-21T12:56:58.866175	Pescatore/Model Definitions
+// 1.20.4	2023-12-22T17:49:50.6726506	Pescatore/Model Definitions
 ddd5543667bbcb620285b878a9307f588bda2db1 assets\pescatore\models\item\the_cube.json
 68493d3e9c83eceb8f13f901bc1b8bbacebbc069 assets\pescatore\models\item\crucian_carp.json
 ae6d7ccae3f492a3023a780e6b080be0f9d753c8 assets\pescatore\models\item\sardine.json
@@ -12,6 +12,6 @@ a6b2f04ee10c02f4f336686eabedc3e8ec8b6264 assets\pescatore\models\item\piranha.js
 7593b251288ca13010729f22f123b727e58af49e assets\pescatore\models\item\tuna.json
 4d771db505fc9f6050d83f239ffbf2b41c91113a assets\pescatore\models\item\arapaima.json
 8c68807fd6073cff4e123a0a1db42e6095ff8f43 assets\pescatore\models\item\red_snapper.json
-a176b98409e2a696025d33ee65e4d879b1b91e3a assets\pescatore\models\item\sturgeon.json
 a363deeac57ccc94b2789c4ffcedf2a582d1ec5d assets\pescatore\models\item\bullhead.json
+a176b98409e2a696025d33ee65e4d879b1b91e3a assets\pescatore\models\item\sturgeon.json
 397506b4bed32f983f8de21f85c3412a63d4b070 assets\pescatore\models\item\rainbow_trout.json

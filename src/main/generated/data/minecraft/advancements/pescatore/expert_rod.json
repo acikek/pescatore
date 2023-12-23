@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:pescatore/adept_rod",
+  "criteria": {
+    "has_expert_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pescatore:expert_rod"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.expert_rod.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "item": "pescatore:expert_rod",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancement.pescatore.expert_rod.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_expert_rod"
+    ]
+  ]
+}

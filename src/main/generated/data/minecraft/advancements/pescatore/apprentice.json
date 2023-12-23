@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:pescatore/novice",
+  "criteria": {
+    "catch_ten_fish": {
+      "conditions": {
+        "total_caught": {
+          "min": 10
+        }
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.apprentice.description"
+    },
+    "icon": {
+      "item": "pescatore:carp"
+    },
+    "title": {
+      "translate": "advancement.pescatore.apprentice.title"
+    }
+  },
+  "requirements": [
+    [
+      "catch_ten_fish"
+    ]
+  ]
+}

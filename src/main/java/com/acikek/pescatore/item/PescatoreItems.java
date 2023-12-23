@@ -22,6 +22,7 @@ public class PescatoreItems {
     public static final MinigameFishingRodItem ROOKIE_ROD = MinigameRodTier.ROOKIE.createRod();
     public static final MinigameFishingRodItem ADEPT_ROD = MinigameRodTier.ADEPT.createRod();
     public static final MinigameFishingRodItem EXPERT_ROD = MinigameRodTier.EXPERT.createRod();
+    public static final MinigameFishingRodItem AETHER_ROD = MinigameRodTier.AETHER.createRod();
 
     public static final Item GOLDFISH = new Item(defaultSettings());
     public static final Item SARDINE = new Item(defaultSettings());
@@ -75,6 +76,7 @@ public class PescatoreItems {
         registerRod("rookie_rod", ROOKIE_ROD);
         registerRod("adept_rod", ADEPT_ROD);
         registerRod("expert_rod", EXPERT_ROD);
+        registerRod("aether_rod", AETHER_ROD);
         registerFish("goldfish", GOLDFISH);
         registerFish("sardine", SARDINE);
         registerFish("crucian_carp", CRUCIAN_CARP);
@@ -91,6 +93,9 @@ public class PescatoreItems {
         registerFish("arapaima", ARAPAIMA);
         registerFish("octopus", OCTOPUS);
         registerFish("the_cube", THE_CUBE);
+    }
+
+    public static void registerItemGroupEntries() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             var stacks = RODS.stream().map(Item::getDefaultStack).toList();
             entries.addAfter(Items.FISHING_ROD, stacks);
@@ -103,8 +108,11 @@ public class PescatoreItems {
 
     public static void registerItemGroup() {
         Registry.register(Registries.ITEM_GROUP, ITEM_GROUP_KEY.getValue(), ITEM_GROUP);
-        /*ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP_KEY).register(entries ->
-                ITEMS.forEach(entries::add)
-        );*/
+    }
+
+    public static void register() {
+        registerItems();
+        registerItemGroupEntries();
+        registerItemGroup();
     }
 }

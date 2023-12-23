@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:pescatore/novice",
+  "criteria": {
+    "catch_rare_fish": {
+      "conditions": {
+        "fish_rarity": "rare",
+        "rarity_caught": {}
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.rare.description"
+    },
+    "icon": {
+      "item": "pescatore:piranha"
+    },
+    "title": {
+      "translate": "advancement.pescatore.rare.title"
+    }
+  },
+  "requirements": [
+    [
+      "catch_rare_fish"
+    ]
+  ]
+}

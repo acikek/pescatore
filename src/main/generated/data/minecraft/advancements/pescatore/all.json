@@ -1,0 +1,172 @@
+{
+  "parent": "minecraft:pescatore/very_rare",
+  "criteria": {
+    "catch_arapaima": {
+      "conditions": {
+        "fish_type": "pescatore:arapaima"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_bullhead": {
+      "conditions": {
+        "fish_type": "pescatore:bullhead"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_carp": {
+      "conditions": {
+        "fish_type": "pescatore:carp"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_coelacanth": {
+      "conditions": {
+        "fish_type": "pescatore:coelacanth"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_crucian_carp": {
+      "conditions": {
+        "fish_type": "pescatore:crucian_carp"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_empty": {
+      "conditions": {
+        "fish_type": "pescatore:empty"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_goldfish": {
+      "conditions": {
+        "fish_type": "pescatore:goldfish"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_octopus": {
+      "conditions": {
+        "fish_type": "pescatore:octopus"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_olive_flounder": {
+      "conditions": {
+        "fish_type": "pescatore:olive_flounder"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_piranha": {
+      "conditions": {
+        "fish_type": "pescatore:piranha"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_rainbow_trout": {
+      "conditions": {
+        "fish_type": "pescatore:rainbow_trout"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_red_snapper": {
+      "conditions": {
+        "fish_type": "pescatore:red_snapper"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_sardine": {
+      "conditions": {
+        "fish_type": "pescatore:sardine"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_sea_bass": {
+      "conditions": {
+        "fish_type": "pescatore:sea_bass"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_sturgeon": {
+      "conditions": {
+        "fish_type": "pescatore:sturgeon"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_the_cube": {
+      "conditions": {
+        "fish_type": "pescatore:the_cube"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    },
+    "catch_tuna": {
+      "conditions": {
+        "fish_type": "pescatore:tuna"
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.all.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "item": "pescatore:the_cube"
+    },
+    "title": {
+      "translate": "advancement.pescatore.all.title"
+    }
+  },
+  "requirements": [
+    [
+      "catch_empty"
+    ],
+    [
+      "catch_goldfish"
+    ],
+    [
+      "catch_sardine"
+    ],
+    [
+      "catch_crucian_carp"
+    ],
+    [
+      "catch_olive_flounder"
+    ],
+    [
+      "catch_carp"
+    ],
+    [
+      "catch_rainbow_trout"
+    ],
+    [
+      "catch_red_snapper"
+    ],
+    [
+      "catch_bullhead"
+    ],
+    [
+      "catch_sea_bass"
+    ],
+    [
+      "catch_tuna"
+    ],
+    [
+      "catch_coelacanth"
+    ],
+    [
+      "catch_piranha"
+    ],
+    [
+      "catch_sturgeon"
+    ],
+    [
+      "catch_arapaima"
+    ],
+    [
+      "catch_octopus"
+    ],
+    [
+      "catch_the_cube"
+    ]
+  ]
+}

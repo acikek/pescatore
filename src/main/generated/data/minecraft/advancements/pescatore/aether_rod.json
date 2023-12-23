@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:pescatore/expert_rod",
+  "criteria": {
+    "has_aether_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pescatore:aether_rod"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.aether_rod.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "pescatore:aether_rod",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancement.pescatore.aether_rod.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_aether_rod"
+    ]
+  ]
+}

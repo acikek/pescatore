@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:pescatore/apprentice",
+  "criteria": {
+    "catch_thirty_fish": {
+      "conditions": {
+        "total_caught": {
+          "min": 30
+        }
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.maven.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "item": "pescatore:arapaima"
+    },
+    "title": {
+      "translate": "advancement.pescatore.maven.title"
+    }
+  },
+  "requirements": [
+    [
+      "catch_thirty_fish"
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "has_rookie_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pescatore:rookie_rod"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/sand.png",
+    "description": {
+      "translate": "advancement.pescatore.root.description"
+    },
+    "icon": {
+      "item": "pescatore:rookie_rod",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancement.pescatore.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_rookie_rod"
+    ]
+  ]
+}

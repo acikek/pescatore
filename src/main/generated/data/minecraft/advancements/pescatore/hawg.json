@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:pescatore/novice",
+  "criteria": {
+    "catch_hawg": {
+      "conditions": {
+        "fish_size": {
+          "min": 3.0
+        }
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.hawg.description"
+    },
+    "icon": {
+      "item": "pescatore:tuna"
+    },
+    "title": {
+      "translate": "advancement.pescatore.hawg.title"
+    }
+  },
+  "requirements": [
+    [
+      "catch_hawg"
+    ]
+  ]
+}

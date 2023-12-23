@@ -4,22 +4,26 @@ import com.acikek.pescatore.Pescatore;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import java.util.Locale;
 
 public enum MinigameRodTier {
 
-    ROOKIE(1.0f, 100, 150),
-    ADEPT(1.15f, 70, 100),
-    EXPERT(1.35f, 50, 70);
+    ROOKIE(Rarity.COMMON, 1.0f, 100, 150),
+    ADEPT(Rarity.UNCOMMON, 1.15f, 70, 100),
+    EXPERT(Rarity.RARE, 1.35f, 50, 70),
+    AETHER(Rarity.EPIC, 2.0f, 20, 30);
 
+    public final Rarity rarity;
     public final float rarityBonus;
     public final int minDelay;
     public final int maxDelay;
 
     public final Identifier bobberTexture;
 
-    MinigameRodTier(float rarityBonus, int minDelay, int maxDelay) {
+    MinigameRodTier(Rarity rarity, float rarityBonus, int minDelay, int maxDelay) {
+        this.rarity = rarity;
         this.rarityBonus = rarityBonus;
         this.minDelay = minDelay;
         this.maxDelay = maxDelay;
