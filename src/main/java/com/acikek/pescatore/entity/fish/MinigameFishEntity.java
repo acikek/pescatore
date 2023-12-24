@@ -146,25 +146,17 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         // TODO: If player detected within a few blocks, disappear
     }
 
-    @FunctionalInterface
-    public interface OrbitPhysics {
-        Vec3d get(double r, double theta, double omega, double y);
-
-        OrbitPhysics POSITION = (r, theta, omega, y) -> new Vec3d(r * Math.cos(theta), y, r * Math.sin(theta));
-        OrbitPhysics VELOCITY = (r, theta, omega, y) -> new Vec3d(r * omega * -Math.sin(theta), y, r * omega * Math.cos(theta));
-    }
-
-    public Vec3d getOrbitVector(OrbitPhysics physics, double y) {
-        double omega = type.difficulty().orbitSpeed();
-        double theta = getOrbitTicks() * omega;
+    public Vec3d getOrbitPosition(double y) {
+        double theta = getOrbitTicks() * type.difficulty().orbitSpeed();
         double r = type.difficulty().orbitDistance();
-        return physics.get(r, theta, omega, y);
+        Vec3d offset = new Vec3d(r * Math.cos(theta), y, r * Math.sin(theta));
+        return bobber.getPos().add(offset);
     }
 
     @Override
     public void tickMovement() {
         if (bobber != null) {
-            setPosition(bobber.getPos().add(getOrbitVector(OrbitPhysics.POSITION, -0.8)));
+            setPosition(getOrbitPosition(-0.8));
             lookAtEntity(bobber, 360.0f, 0.0f);
         }
     }

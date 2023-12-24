@@ -150,8 +150,7 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         int tickOffset = getWorld().random.nextInt(120);
         MinigameFishEntity entity = new MinigameFishEntity(getWorld(), type, this, tickOffset);
         // TODO: not this
-        Vec3d offset = entity.getOrbitVector(MinigameFishEntity.OrbitPhysics.POSITION, 0.0);
-        entity.setPosition(getPos().add(offset).add(0.0, -0.8, 0.0));
+        entity.setPosition(entity.getOrbitPosition(-0.8));
         // TODO: particle fx
         getWorld().spawnEntity(entity);
     }
