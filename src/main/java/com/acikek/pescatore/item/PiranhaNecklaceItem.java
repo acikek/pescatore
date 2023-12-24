@@ -1,17 +1,20 @@
 package com.acikek.pescatore.item;
 
+import com.acikek.pescatore.Pescatore;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import dev.emi.trinkets.api.SlotReference;
-import dev.emi.trinkets.api.TrinketItem;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.UUID;
 
-public class PiranhaNecklaceItem extends TrinketItem {
+public class PiranhaNecklaceItem extends Item {
+
+    public static final UUID MODIFIER_UUID = UUID.fromString("90c13013-e895-493f-96e9-4fb3c045680a");
 
     public PiranhaNecklaceItem(Settings settings) {
         super(settings);
@@ -22,9 +25,11 @@ public class PiranhaNecklaceItem extends TrinketItem {
     }
 
     @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
-        var modifiers = super.getModifiers(stack, slot, entity, uuid);
-        modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, getAttributeModifier(uuid));
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+        Multimap<EntityAttribute, EntityAttributeModifier> modifiers = HashMultimap.create();
+        if (!Pescatore.USE_TRINKETS && slot == EquipmentSlot.OFFHAND) {
+            modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, getAttributeModifier(MODIFIER_UUID));
+        }
         return modifiers;
     }
 }

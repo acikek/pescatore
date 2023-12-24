@@ -34,6 +34,7 @@ dependencies {
     modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
 
     // Trinkets API
+    //modCompileOnlyApi "dev.emi:trinkets:${project.trinkets_version}"
     modImplementation("dev.emi:trinkets:${project.trinkets_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }

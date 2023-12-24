@@ -7,7 +7,9 @@ import com.acikek.pescatore.api.type.MinigameFishTypes;
 import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
 import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.item.PescatoreItems;
+import com.acikek.pescatore.item.trinket.PescatoreTrinketsCompat;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -19,6 +21,7 @@ public class Pescatore implements ModInitializer {
     public static final String ID = "pescatore";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ID);
+    public static final boolean USE_TRINKETS = FabricLoader.getInstance().isModLoaded("trinkets");
 
     public static Identifier id(String path) {
         return new Identifier(ID, path);
@@ -33,6 +36,9 @@ public class Pescatore implements ModInitializer {
         PescatoreItems.register();
         MinigameFishCaughtCriterion.register();
         registerStats();
+        if (USE_TRINKETS) {
+            PescatoreTrinketsCompat.register();
+        }
     }
 
     public static void registerStats() {
