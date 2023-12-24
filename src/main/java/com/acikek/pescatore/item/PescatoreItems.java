@@ -41,6 +41,19 @@ public class PescatoreItems {
     public static final Item OCTOPUS = new Item(defaultSettings());
     public static final Item THE_CUBE = new Item(defaultSettings());
 
+    public static final Item GOLDFISH_CRACKER = new Item(defaultSettings());
+    public static final Item EMPTY_SARDINE_CAN = new Item(defaultSettings());
+    public static final Item SARDINE_CAN = new Item(defaultSettings());
+    public static final Item OLIVE_FLOUNDER_PLATE = new Item(defaultSettings());
+    public static final Item COOKED_OLIVE_FLOUNDER_PLATE = new Item(defaultSettings());
+    public static final Item CARP_PLATE = new Item(defaultSettings());
+    public static final Item COOKED_CARP_PLATE = new Item(defaultSettings());
+    public static final Item RAINBOW_TROUT_PLATE = new Item(defaultSettings());
+    public static final Item COOKED_RAINBOW_TROUT_PLATE = new Item(defaultSettings());
+    public static final Item TUNA_SANDWICH = new Item(defaultSettings());
+    public static final Item OCTOPUS_TENTACLE = new Item(defaultSettings());
+    public static final Item COOKED_OCTOPUS_TENTACLE = new Item(defaultSettings());
+
     public static final Item COMMON_FISH_FILET = new Item(defaultSettings());
     public static final Item COOKED_COMMON_FISH_FILET = new Item(defaultSettings());
     public static final Item UNCOMMON_FISH_FILET = new Item(defaultSettings());
@@ -49,6 +62,10 @@ public class PescatoreItems {
     public static final Item COOKED_RARE_FISH_FILET = new Item(defaultSettings());
     public static final Item VERY_RARE_FISH_FILET = new Item(defaultSettings());
     public static final Item COOKED_VERY_RARE_FISH_FILET = new Item(defaultSettings());
+
+    public static final Item COELACANTH_CHESTPLATE = new Item(defaultSettings());
+    public static final Item PIRANHA_TOOTH_NECKLACE = new Item(defaultSettings());
+    public static final Item ARAPAIMA_LEGGINGS = new Item(defaultSettings());
 
     public static final List<Item> ITEMS = new ArrayList<>();
     public static final List<Item> RODS = new ArrayList<>();
@@ -108,6 +125,18 @@ public class PescatoreItems {
         registerFish("arapaima", ARAPAIMA);
         registerFish("octopus", OCTOPUS);
         registerFish("the_cube", THE_CUBE);
+        registerFood("goldfish_cracker", GOLDFISH_CRACKER);
+        registerFood("empty_sardine_can", EMPTY_SARDINE_CAN);
+        registerFood("sardine_can", SARDINE_CAN);
+        registerFood("olive_flounder_plate", OLIVE_FLOUNDER_PLATE);
+        registerFood("cooked_olive_flounder_plate", COOKED_OLIVE_FLOUNDER_PLATE);
+        registerFood("carp_plate", CARP_PLATE);
+        registerFood("cooked_carp_plate", COOKED_CARP_PLATE);
+        registerFood("rainbow_trout_plate", RAINBOW_TROUT_PLATE);
+        registerFood("cooked_rainbow_trout_plate", COOKED_RAINBOW_TROUT_PLATE);
+        registerFood("tuna_sandwich", TUNA_SANDWICH);
+        registerFood("octopus_tentacle", OCTOPUS_TENTACLE);
+        registerFood("cooked_octopus_tentacle", COOKED_OCTOPUS_TENTACLE);
         registerFood("common_fish_filet", COMMON_FISH_FILET);
         registerFood("cooked_common_fish_filet", COOKED_COMMON_FISH_FILET);
         registerFood("uncommon_fish_filet", UNCOMMON_FISH_FILET);
@@ -116,6 +145,9 @@ public class PescatoreItems {
         registerFood("cooked_rare_fish_filet", COOKED_RARE_FISH_FILET);
         registerFood("very_rare_fish_filet", VERY_RARE_FISH_FILET);
         registerFood("cooked_very_rare_fish_filet", COOKED_VERY_RARE_FISH_FILET);
+        registerItem("coelacanth_chestplate", COELACANTH_CHESTPLATE);
+        registerItem("piranha_tooth_necklace", PIRANHA_TOOTH_NECKLACE);
+        registerItem("arapaima_leggings", ARAPAIMA_LEGGINGS);
     }
 
     public static void registerItemGroupEntries() {

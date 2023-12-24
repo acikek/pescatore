@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "pescatore:carp"
+    },
+    "G": {
+      "item": "minecraft:seagrass"
+    },
+    "L": {
+      "tag": "c:yellow_dyes"
+    },
+    "P": {
+      "item": "minecraft:baked_potato"
+    }
+  },
+  "pattern": [
+    "CL",
+    "GP"
+  ],
+  "result": {
+    "item": "pescatore:carp_plate"
+  }
+}

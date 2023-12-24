@@ -20,7 +20,10 @@ public class PescatoreRecipes extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter exporter) {
         generateRods(exporter);
+        generateMisc(exporter);
+        generateCookedFoods(exporter);
         generateFilets(exporter);
+        generateEquipment(exporter);
     }
 
     public static ShapedRecipeJsonBuilder generateRodBuilder(ItemConvertible baseTool, ItemConvertible output) {
@@ -51,15 +54,19 @@ public class PescatoreRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
     }
 
+    public void generateCooking(RecipeExporter exporter, ItemConvertible raw, ItemConvertible cooked, float xp) {
+        offerFoodCookingRecipe(exporter, "furnace", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, raw, cooked, xp);
+        offerFoodCookingRecipe(exporter, "campfire", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, raw, cooked, xp);
+        offerFoodCookingRecipe(exporter, "smoker", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, raw, cooked, xp);
+    }
+
     public void generateFilet(RecipeExporter exporter, ItemConvertible filet, ItemConvertible cooked, MinigameFishRarity rarity) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, filet)
                 .input(rarity.tag)
                 .criterion("has_fish", RecipeProvider.conditionsFromTag(rarity.tag))
                 .offerTo(exporter);
-        float exp = 0.45f * ((rarity.ordinal() / 2.0f) + 1.0f);
-        offerFoodCookingRecipe(exporter, "furnace", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, filet, cooked, exp);
-        offerFoodCookingRecipe(exporter, "campfire", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, filet, cooked, exp);
-        offerFoodCookingRecipe(exporter, "smoker", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, filet, cooked, exp);
+        float xp = 0.45f * ((rarity.ordinal() / 2.0f) + 1.0f);
+        generateCooking(exporter, filet, cooked, xp);
     }
 
     public void generateFilets(RecipeExporter exporter) {
@@ -67,5 +74,103 @@ public class PescatoreRecipes extends FabricRecipeProvider {
         generateFilet(exporter, PescatoreItems.UNCOMMON_FISH_FILET, PescatoreItems.COOKED_UNCOMMON_FISH_FILET, MinigameFishRarity.UNCOMMON);
         generateFilet(exporter, PescatoreItems.RARE_FISH_FILET, PescatoreItems.COOKED_RARE_FISH_FILET, MinigameFishRarity.RARE);
         generateFilet(exporter, PescatoreItems.VERY_RARE_FISH_FILET, PescatoreItems.COOKED_VERY_RARE_FISH_FILET, MinigameFishRarity.VERY_RARE);
+    }
+
+    public void generateMisc(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.GOLDFISH_CRACKER)
+                .pattern("B")
+                .pattern("G")
+                .pattern("B")
+                .input('B', Items.BREAD)
+                .input('G', PescatoreItems.GOLDFISH)
+                .criterion(hasItem(PescatoreItems.GOLDFISH), RecipeProvider.conditionsFromItem(PescatoreItems.GOLDFISH))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.TUNA_SANDWICH)
+                .pattern("BT")
+                .pattern("EB")
+                .input('B', Items.BREAD)
+                .input('T', PescatoreItems.TUNA)
+                .input('E', Items.EGG)
+                .criterion(hasItem(PescatoreItems.TUNA), RecipeProvider.conditionsFromItem(PescatoreItems.TUNA))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.EMPTY_SARDINE_CAN)
+                .pattern("N N")
+                .pattern("NIN")
+                .input('N', Items.IRON_NUGGET)
+                .input('I', ConventionalItemTags.IRON_INGOTS)
+                .criterion("has_iron_ingot", RecipeProvider.conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.SARDINE_CAN)
+                .pattern("SS")
+                .pattern("SC")
+                .input('S', PescatoreItems.SARDINE)
+                .input('C', PescatoreItems.EMPTY_SARDINE_CAN)
+                .criterion(hasItem(PescatoreItems.SARDINE), RecipeProvider.conditionsFromItem(PescatoreItems.SARDINE))
+                .offerTo(exporter);
+    }
+
+    public void generateCookedFoods(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.OLIVE_FLOUNDER_PLATE)
+                .pattern("FL")
+                .pattern("GG")
+                .input('F', PescatoreItems.OLIVE_FLOUNDER)
+                .input('L', ConventionalItemTags.YELLOW_DYES)
+                .input('G', Items.SEAGRASS)
+                .criterion(hasItem(PescatoreItems.OLIVE_FLOUNDER), RecipeProvider.conditionsFromItem(PescatoreItems.OLIVE_FLOUNDER))
+                .offerTo(exporter);
+        generateCooking(exporter, PescatoreItems.OLIVE_FLOUNDER_PLATE, PescatoreItems.COOKED_OLIVE_FLOUNDER_PLATE, 0.45f);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.CARP_PLATE)
+                .pattern("CL")
+                .pattern("GP")
+                .input('C', PescatoreItems.CARP)
+                .input('L', ConventionalItemTags.YELLOW_DYES)
+                .input('G', Items.SEAGRASS)
+                .input('P', Items.BAKED_POTATO)
+                .criterion(hasItem(PescatoreItems.CARP), RecipeProvider.conditionsFromItem(PescatoreItems.CARP))
+                .offerTo(exporter);
+        generateCooking(exporter, PescatoreItems.CARP_PLATE, PescatoreItems.COOKED_CARP_PLATE, 0.45f);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.RAINBOW_TROUT_PLATE)
+                .pattern("TL")
+                .pattern("LG")
+                .input('T', PescatoreItems.RAINBOW_TROUT)
+                .input('L', ConventionalItemTags.YELLOW_DYES)
+                .input('G', Items.SEAGRASS)
+                .criterion(hasItem(PescatoreItems.RAINBOW_TROUT), RecipeProvider.conditionsFromItem(PescatoreItems.RAINBOW_TROUT))
+                .offerTo(exporter);
+        generateCooking(exporter, PescatoreItems.RAINBOW_TROUT_PLATE, PescatoreItems.COOKED_RAINBOW_TROUT_PLATE, 0.45f);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.OCTOPUS_TENTACLE, 8)
+                .input(PescatoreItems.OCTOPUS)
+                .criterion(hasItem(PescatoreItems.OCTOPUS), RecipeProvider.conditionsFromItem(PescatoreItems.OCTOPUS))
+                .offerTo(exporter);
+        generateCooking(exporter, PescatoreItems.OCTOPUS_TENTACLE, PescatoreItems.COOKED_OCTOPUS_TENTACLE, 0.45f);
+    }
+
+    public void generateEquipment(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PescatoreItems.COELACANTH_CHESTPLATE)
+                .pattern("I I")
+                .pattern("CBC")
+                .pattern("III")
+                .input('I', ConventionalItemTags.IRON_INGOTS)
+                .input('C', PescatoreItems.COELACANTH)
+                .input('B', Items.IRON_BLOCK)
+                .criterion("has_iron", RecipeProvider.conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
+                .criterion(hasItem(PescatoreItems.COELACANTH), RecipeProvider.conditionsFromItem(PescatoreItems.COELACANTH))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PescatoreItems.PIRANHA_TOOTH_NECKLACE)
+                .pattern("SSS")
+                .pattern("S S")
+                .pattern(" P ")
+                .input('S', Items.STRING)
+                .input('P', PescatoreItems.PIRANHA)
+                .criterion(hasItem(PescatoreItems.PIRANHA), RecipeProvider.conditionsFromItem(PescatoreItems.PIRANHA))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PescatoreItems.ARAPAIMA_LEGGINGS)
+                .pattern("LAL")
+                .pattern("L L")
+                .pattern("A A")
+                .input('L', Items.LEATHER)
+                .input('A', PescatoreItems.ARAPAIMA)
+                .criterion(hasItem(PescatoreItems.ARAPAIMA), RecipeProvider.conditionsFromItem(PescatoreItems.ARAPAIMA))
+                .offerTo(exporter);
     }
 }

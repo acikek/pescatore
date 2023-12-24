@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bread"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    },
+    "T": {
+      "item": "pescatore:tuna"
+    }
+  },
+  "pattern": [
+    "BT",
+    "EB"
+  ],
+  "result": {
+    "item": "pescatore:tuna_sandwich"
+  }
+}

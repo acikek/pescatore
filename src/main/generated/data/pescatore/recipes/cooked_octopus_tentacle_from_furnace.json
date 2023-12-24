@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.45,
+  "ingredient": {
+    "item": "pescatore:octopus_tentacle"
+  },
+  "result": "pescatore:cooked_octopus_tentacle"
+}

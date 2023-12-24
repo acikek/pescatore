@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:iron_block"
+    },
+    "C": {
+      "item": "pescatore:coelacanth"
+    },
+    "I": {
+      "tag": "c:iron_ingots"
+    }
+  },
+  "pattern": [
+    "I I",
+    "CBC",
+    "III"
+  ],
+  "result": {
+    "item": "pescatore:coelacanth_chestplate"
+  }
+}

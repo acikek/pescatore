@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "P": {
+      "item": "pescatore:piranha"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "S S",
+    " P "
+  ],
+  "result": {
+    "item": "pescatore:piranha_tooth_necklace"
+  }
+}

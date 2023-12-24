@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "pescatore:olive_flounder"
+    },
+    "G": {
+      "item": "minecraft:seagrass"
+    },
+    "L": {
+      "tag": "c:yellow_dyes"
+    }
+  },
+  "pattern": [
+    "FL",
+    "GG"
+  ],
+  "result": {
+    "item": "pescatore:olive_flounder_plate"
+  }
+}

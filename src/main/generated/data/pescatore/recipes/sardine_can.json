@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "pescatore:empty_sardine_can"
+    },
+    "S": {
+      "item": "pescatore:sardine"
+    }
+  },
+  "pattern": [
+    "SS",
+    "SC"
+  ],
+  "result": {
+    "item": "pescatore:sardine_can"
+  }
+}

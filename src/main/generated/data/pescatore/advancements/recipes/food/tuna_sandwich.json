@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "pescatore:tuna_sandwich"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tuna": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pescatore:tuna"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tuna"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pescatore:tuna_sandwich"
+    ]
+  }
+}

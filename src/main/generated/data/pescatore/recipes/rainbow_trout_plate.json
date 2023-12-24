@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:seagrass"
+    },
+    "L": {
+      "tag": "c:yellow_dyes"
+    },
+    "T": {
+      "item": "pescatore:rainbow_trout"
+    }
+  },
+  "pattern": [
+    "TL",
+    "LG"
+  ],
+  "result": {
+    "item": "pescatore:rainbow_trout_plate"
+  }
+}

@@ -33,6 +33,21 @@ public class PescatoreLanguage extends FabricLanguageProvider {
         builder.add(PescatoreItems.ADEPT_ROD, "Adept Rod");
         builder.add(PescatoreItems.EXPERT_ROD, "Expert Rod");
         builder.add(PescatoreItems.AETHER_ROD, "Aether Rod");
+        builder.add(PescatoreItems.GOLDFISH_CRACKER, "Goldfish Cracker");
+        builder.add(PescatoreItems.EMPTY_SARDINE_CAN, "Empty Sardine Can");
+        builder.add(PescatoreItems.SARDINE_CAN, "Canned Sardines");
+        builder.add(PescatoreItems.OLIVE_FLOUNDER_PLATE, "Plate o' Flounder");
+        builder.add(PescatoreItems.COOKED_OLIVE_FLOUNDER_PLATE, "Flounder Piccata");
+        builder.add(PescatoreItems.CARP_PLATE, "Plate o' Carp");
+        builder.add(PescatoreItems.COOKED_CARP_PLATE, "Fried Carp");
+        builder.add(PescatoreItems.RAINBOW_TROUT_PLATE, "Plate o' Trout");
+        builder.add(PescatoreItems.COOKED_RAINBOW_TROUT_PLATE, "Baked Rainbow Trout");
+        builder.add(PescatoreItems.TUNA_SANDWICH, "Tuna Sandwich");
+        builder.add(PescatoreItems.OCTOPUS_TENTACLE, "Octopus Tentacles");
+        builder.add(PescatoreItems.COOKED_OCTOPUS_TENTACLE, "Grilled Tentacles");
+        builder.add(PescatoreItems.COELACANTH_CHESTPLATE, "Coelacanth Aegis");
+        builder.add(PescatoreItems.PIRANHA_TOOTH_NECKLACE, "Piranha Tooth Necklace");
+        builder.add(PescatoreItems.ARAPAIMA_LEGGINGS, "Arapaima Swift Chausses");
     }
 
     public void buildFilet(TranslationBuilder builder, Item filet, Item cooked, String descriptor) {

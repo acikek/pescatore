@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "pescatore:arapaima"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "pattern": [
+    "LAL",
+    "L L",
+    "A A"
+  ],
+  "result": {
+    "item": "pescatore:arapaima_leggings"
+  }
+}
