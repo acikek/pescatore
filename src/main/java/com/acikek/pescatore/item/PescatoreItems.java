@@ -64,7 +64,7 @@ public class PescatoreItems {
     public static final Item COOKED_VERY_RARE_FISH_FILET = new Item(defaultSettings());
 
     public static final Item COELACANTH_CHESTPLATE = new Item(defaultSettings());
-    public static final Item PIRANHA_TOOTH_NECKLACE = new Item(defaultSettings());
+    public static final PiranhaNecklaceItem PIRANHA_TOOTH_NECKLACE = new PiranhaNecklaceItem(defaultSettings());
     public static final Item ARAPAIMA_LEGGINGS = new Item(defaultSettings());
 
     public static final List<Item> ITEMS = new ArrayList<>();
