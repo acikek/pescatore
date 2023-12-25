@@ -1,4 +1,4 @@
-// 1.20.4	2023-12-23T18:06:19.7886847	Pescatore/Model Definitions
+// 1.20.4	2023-12-24T21:43:32.5461148	Pescatore/Model Definitions
 9daa393bf29cfcadeb4a9ec046cd074b62924bc1 assets\pescatore\models\item\cooked_rare_fish_filet.json
 9f8e26bc16c2520b6e568653c6176c031436c490 assets\pescatore\models\item\goldfish_cracker.json
 e365c896bf918c963c53a43d747228f4f2707a68 assets\pescatore\models\item\cooked_carp_plate.json
@@ -21,8 +21,8 @@ ddd5543667bbcb620285b878a9307f588bda2db1 assets\pescatore\models\item\the_cube.j
 68493d3e9c83eceb8f13f901bc1b8bbacebbc069 assets\pescatore\models\item\crucian_carp.json
 43c723397318f96bdefd066af2b501d5c6a0dba6 assets\pescatore\models\item\cooked_common_fish_filet.json
 aaf3a589bca3e51591b335cb8bbaea89e3ea3df5 assets\pescatore\models\item\arapaima_leggings.json
-ae6d7ccae3f492a3023a780e6b080be0f9d753c8 assets\pescatore\models\item\sardine.json
 34abd067d9fbe6c305473232ae1d69925c879947 assets\pescatore\models\item\cooked_octopus_tentacle.json
+ae6d7ccae3f492a3023a780e6b080be0f9d753c8 assets\pescatore\models\item\sardine.json
 d31938f5024c82714763be9939807e6b395b7f49 assets\pescatore\models\item\rare_fish_filet.json
 f589e79f784d779247ecb604245e741721f2c345 assets\pescatore\models\item\piranha_tooth_necklace.json
 1c07337ab704c34d08cd05ea97b17ad702992914 assets\pescatore\models\item\olive_flounder.json

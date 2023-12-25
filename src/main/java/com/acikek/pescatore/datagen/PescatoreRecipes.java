@@ -11,6 +11,9 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class PescatoreRecipes extends FabricRecipeProvider {
 
     public PescatoreRecipes(FabricDataOutput output) {
@@ -65,8 +68,9 @@ public class PescatoreRecipes extends FabricRecipeProvider {
                 .input(rarity.tag)
                 .criterion("has_fish", RecipeProvider.conditionsFromTag(rarity.tag))
                 .offerTo(exporter);
-        float xp = 0.45f * ((rarity.ordinal() / 2.0f) + 1.0f);
-        generateCooking(exporter, filet, cooked, xp);
+        BigDecimal xp = BigDecimal.valueOf(0.45f * ((rarity.ordinal() / 2.0f) + 1.0f))
+                .setScale(3, RoundingMode.HALF_UP);
+        generateCooking(exporter, filet, cooked, xp.floatValue());
     }
 
     public void generateFilets(RecipeExporter exporter) {
