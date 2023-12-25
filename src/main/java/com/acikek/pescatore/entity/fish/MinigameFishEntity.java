@@ -5,12 +5,15 @@ import com.acikek.pescatore.api.type.MinigameFishType;
 import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.WaterCreatureEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -30,6 +33,8 @@ public class MinigameFishEntity extends WaterCreatureEntity {
                     .trackRangeChunks(4).trackedUpdateRate(Integer.MAX_VALUE)
                     .build();
 
+    public static final int STRIKE_INTERVAL = 30;
+
     public static final TrackedData<Integer> TYPE_ID = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final TrackedData<Integer> BOBBER_ID = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final TrackedData<Long> RANDOM_SEED = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.LONG);
@@ -38,7 +43,8 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     private MinigameFishingBobberEntity bobber;
     private int orbitOffset = -1;
     private int strikeOffset = -1;
-    private int nibbles = -1;
+    private int strikeLength = -1;
+    private int strikeTicks = 0;
     private int revolutionTicks;
     private int currentRevolution;
     public final AnimationState animation = new AnimationState();
@@ -133,8 +139,9 @@ public class MinigameFishEntity extends WaterCreatureEntity {
 
     public void initRandomness() {
         orbitOffset = random.nextInt(360);
-        strikeOffset = random.nextBetween(80, 160);
-        nibbles = random.nextBetween(type.difficulty().minNibbles(), type.difficulty().maxNibbles());
+        strikeOffset = 10; //random.nextBetween(80, 160);
+        strikeLength = 5 * STRIKE_INTERVAL;
+        //nibbles = 5; //random.nextBetween(type.difficulty().minNibbles(), type.difficulty().maxNibbles());
     }
 
     public void flee() {
@@ -149,7 +156,22 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         remove(RemovalReason.DISCARDED);
     }
 
-    
+    @Override
+    protected void onBlockCollision(BlockState state) {
+        if (!state.isOf(Blocks.WATER)) {
+            vanish();
+        }
+    }
+
+    @Override
+    public boolean collidesWith(Entity other) {
+        return other instanceof PlayerEntity;
+    }
+
+    @Override
+    public void onPlayerCollision(PlayerEntity player) {
+        flee();
+    }
 
     @Override
     public void baseTick() {
@@ -157,12 +179,29 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         if (!touchingWater) {
             vanish();
         }
+        if (age > strikeOffset) {
+            strikeTicks = age - strikeOffset;
+        }
         // TODO: If player detected within a few blocks, disappear
+    }
+
+    public double getOrbitRadius() {
+        double base = type.difficulty().orbitDistance();
+        if (strikeTicks <= 0) {
+            return base;
+        }
+        int ticks = strikeTicks % STRIKE_INTERVAL;
+        int t = type.difficulty().strikeDuration();
+        double s = 0.35 * type.size().scale() / base;
+        double mul = ticks <= t
+                ? ticks * ((s - 1.0) / t) + 1.0
+                : (ticks - STRIKE_INTERVAL) * ((1.0 - s) / (STRIKE_INTERVAL - t)) + 1.0;
+        return base * mul;
     }
 
     public Vec3d getOrbitPosition(double y) {
         double theta = getOrbitTicks() * type.difficulty().orbitSpeed();
-        double r = type.difficulty().orbitDistance();
+        double r = getOrbitRadius();
         Vec3d offset = new Vec3d(r * Math.cos(theta), y, r * Math.sin(theta));
         return bobber.getPos().add(offset);
     }
@@ -197,6 +236,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         nbt.putLong("FishSeed", getRandomSeed());
         nbt.putInt("OrbitOffset", orbitOffset);
         nbt.putInt("StrikeOffset", strikeOffset);
+        nbt.putInt("StrikeLength", strikeLength);
         if (bobber != null) {
             nbt.putInt("BobberId", bobber.getId());
         }
@@ -209,6 +249,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         setRandomSeed(nbt.getLong("FishSeed"));
         orbitOffset = nbt.getInt("OrbitOffset");
         strikeOffset = nbt.getInt("StrikeOffset");
+        strikeLength = nbt.getInt("StrikeLength");
         setBobberId(nbt.getInt("BobberId"));
     }
 

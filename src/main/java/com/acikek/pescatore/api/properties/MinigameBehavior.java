@@ -8,14 +8,14 @@ import net.minecraft.util.math.MathHelper;
  * @param orbitDistance the distance, in blocks, at which the fish orbits the bobber
  * @param orbitFlipChance the chance, from {@code 0.0f} to {@code 1.0f}, that the fish will
  *                        flip its orbit direction after completing a revolution
- * @param strikeSpeed how fast, in blocks/s, the fish will rush for a nibble or bite
+ * @param strikeDuration the duration, in ticks, the fish will rush for a nibble or bite
  * @param minNibbles the minimum amount of nibbles the fish will perform before a bite
  * @param maxNibbles the maximum amount of nibbles the fish will perform before a bite
  * @param catchDuration a multiplier for {@link MinigameFishSize#holdTime()} specifying the amount
  *                      of time, in ticks, the player has to let go and reel in the fish
  */
 public record MinigameBehavior(
-        double orbitSpeed, double orbitDistance, float orbitFlipChance, double strikeSpeed,
+        double orbitSpeed, double orbitDistance, float orbitFlipChance, int strikeDuration,
         int minNibbles, int maxNibbles, float catchDuration) {
 
     /**
@@ -47,15 +47,15 @@ public record MinigameBehavior(
     /**
      * A slow strike speed.
      */
-    public static final double SLOW_STRIKE = 0.5;
+    public static final int SLOW_STRIKE = 15;
     /**
      * A normal strike speed.
      */
-    public static final double NORMAL_STRIKE = 1.0;
+    public static final int NORMAL_STRIKE = 8;
     /**
      * A quick strike speed.
      */
-    public static final double QUICK_STRIKE = 1.75;
+    public static final int QUICK_STRIKE = 4;
 
     /**
      * A slow catch duration multiplier.
