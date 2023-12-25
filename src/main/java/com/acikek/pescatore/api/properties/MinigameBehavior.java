@@ -18,6 +18,7 @@ public record MinigameBehavior(
         double orbitSpeed, double orbitDistance, float orbitFlipChance, int strikeDuration,
         int minNibbles, int maxNibbles, float catchDuration) {
 
+    // TODO: All orbits need to be MUCH slower
     /**
      * A slow orbit speed.
      */
@@ -31,6 +32,7 @@ public record MinigameBehavior(
      */
     public static final double FAST_ORBIT = MathHelper.PI / 20.0;
 
+    // TODO: All orbits need to be closer
     /**
      * A close orbit distance.
      */
@@ -44,6 +46,7 @@ public record MinigameBehavior(
      */
     public static final double FAR_ORBIT = 2.75;
 
+    // TODO: Normal/Slow strike speeds are too slow.
     /**
      * A slow strike speed.
      */

@@ -33,7 +33,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
                     .trackRangeChunks(4).trackedUpdateRate(Integer.MAX_VALUE)
                     .build();
 
-    public static final int STRIKE_INTERVAL = 30;
+    public static final int TOTAL_STRIKE_INTERVAL = 40;
 
     public static final TrackedData<Integer> TYPE_ID = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final TrackedData<Integer> BOBBER_ID = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -43,8 +43,10 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     private MinigameFishingBobberEntity bobber;
     private int orbitOffset = -1;
     private int strikeOffset = -1;
-    private int strikeLength = -1;
-    private int strikeTicks = 0;
+    private int combinedStrikeLength = -1;
+    private int combinedStrikeTicks = 0;
+    private double strikeInterval = 0;
+    private int bitingTicks = 0;
     private int revolutionTicks;
     private int currentRevolution;
     public final AnimationState animation = new AnimationState();
@@ -140,8 +142,8 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     public void initRandomness() {
         orbitOffset = random.nextInt(360);
         strikeOffset = 10; //random.nextBetween(80, 160);
-        strikeLength = 5 * STRIKE_INTERVAL;
-        //nibbles = 5; //random.nextBetween(type.difficulty().minNibbles(), type.difficulty().maxNibbles());
+        int nibbles = 5; //random.nextBetween(type.difficulty().minNibbles(), type.difficulty().maxNibbles());
+        combinedStrikeLength = TOTAL_STRIKE_INTERVAL * nibbles + type.difficulty().strikeDuration();
     }
 
     public void flee() {
@@ -173,30 +175,47 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         flee();
     }
 
+    public int getStrikeTicks() {
+        return combinedStrikeTicks % TOTAL_STRIKE_INTERVAL;
+    }
+
     @Override
     public void baseTick() {
         super.baseTick();
         if (!touchingWater) {
             vanish();
         }
+        if (bitingTicks > 0) {
+            bitingTicks++;
+            return;
+        }
         if (age > strikeOffset) {
-            strikeTicks = age - strikeOffset;
+            if (getStrikeTicks() == 0) {
+                strikeInterval = TOTAL_STRIKE_INTERVAL * (0.6 + random.nextDouble() * 0.3);
+            }
+            combinedStrikeTicks++;
+            if (combinedStrikeTicks >= combinedStrikeLength) {
+                bitingTicks = 1;
+            }
         }
         // TODO: If player detected within a few blocks, disappear
     }
 
     public double getOrbitRadius() {
         double base = type.difficulty().orbitDistance();
-        if (strikeTicks <= 0) {
+        if (combinedStrikeTicks <= 0) {
             return base;
         }
-        int ticks = strikeTicks % STRIKE_INTERVAL;
-        int t = type.difficulty().strikeDuration();
         double s = 0.35 * type.size().scale() / base;
+        if (bitingTicks > 0) {
+            return base * s;
+        }
+        int ticks = getStrikeTicks();
+        int t = type.difficulty().strikeDuration();
         double mul = ticks <= t
                 ? ticks * ((s - 1.0) / t) + 1.0
-                : (ticks - STRIKE_INTERVAL) * ((1.0 - s) / (STRIKE_INTERVAL - t)) + 1.0;
-        return base * mul;
+                : (ticks - strikeInterval) * ((1.0 - s) / (strikeInterval - t)) + 1.0;
+        return base * Math.min(mul, 1.0);
     }
 
     public Vec3d getOrbitPosition(double y) {
@@ -209,6 +228,8 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     @Override
     public void tickMovement() {
         if (bobber != null) {
+            // TODO: Interpolate y value when striking
+            // TODO: Sin wave of y when not striking
             setPosition(getOrbitPosition(-0.8));
             lookAtEntity(bobber, 360.0f, 0.0f);
         }
@@ -224,7 +245,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         // TODO: Fix summon crash (you shouldn't be summoning anyway but eh)
-        // TODO: random size
+        // TODO: random type
         setTypeId(MinigameFishType.EMPTY);
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
@@ -236,7 +257,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         nbt.putLong("FishSeed", getRandomSeed());
         nbt.putInt("OrbitOffset", orbitOffset);
         nbt.putInt("StrikeOffset", strikeOffset);
-        nbt.putInt("StrikeLength", strikeLength);
+        nbt.putInt("StrikeLength", combinedStrikeLength);
         if (bobber != null) {
             nbt.putInt("BobberId", bobber.getId());
         }
@@ -249,7 +270,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         setRandomSeed(nbt.getLong("FishSeed"));
         orbitOffset = nbt.getInt("OrbitOffset");
         strikeOffset = nbt.getInt("StrikeOffset");
-        strikeLength = nbt.getInt("StrikeLength");
+        combinedStrikeLength = nbt.getInt("StrikeLength");
         setBobberId(nbt.getInt("BobberId"));
     }
 
