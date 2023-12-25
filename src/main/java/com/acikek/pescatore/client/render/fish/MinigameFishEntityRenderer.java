@@ -23,7 +23,8 @@ public class MinigameFishEntityRenderer extends MobEntityRenderer<MinigameFishEn
 
     @Override
     protected void scale(MinigameFishEntity entity, MatrixStack matrices, float amount) {
-        matrices.scale(entity.getScale(), entity.getScale(), entity.getScale());
+        float scale = entity.type().size().scale();
+        matrices.scale(scale, scale, scale);
     }
 
     public static void register() {

@@ -147,8 +147,7 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
             return;
         }
         type = randomType.get();
-        int tickOffset = getWorld().random.nextInt(120);
-        MinigameFishEntity entity = new MinigameFishEntity(getWorld(), type, this, tickOffset);
+        MinigameFishEntity entity = new MinigameFishEntity(getWorld(), type, this, random.nextLong());
         // TODO: not this
         entity.setPosition(entity.getOrbitPosition(-0.8));
         // TODO: particle fx

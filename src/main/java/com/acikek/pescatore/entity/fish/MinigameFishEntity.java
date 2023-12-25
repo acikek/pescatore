@@ -12,9 +12,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
@@ -24,8 +21,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Function;
-
+// TODO: flee when bobber is null
 public class MinigameFishEntity extends WaterCreatureEntity {
 
     public static final EntityType<MinigameFishEntity> ENTITY_TYPE =
@@ -34,44 +30,49 @@ public class MinigameFishEntity extends WaterCreatureEntity {
                     .trackRangeChunks(4).trackedUpdateRate(Integer.MAX_VALUE)
                     .build();
 
-    public static final TrackedData<Float> FISH_SCALE = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.FLOAT);
+    public static final TrackedData<Integer> TYPE_ID = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final TrackedData<Integer> BOBBER_ID = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public static final TrackedData<Integer> TICK_OFFSET = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final TrackedData<Long> RANDOM_SEED = DataTracker.registerData(MinigameFishEntity.class, TrackedDataHandlerRegistry.LONG);
 
     private MinigameFishType type;
     private MinigameFishingBobberEntity bobber;
+    private int orbitOffset = -1;
+    private int strikeOffset = -1;
+    private int nibbles = -1;
+    private int revolutionTicks;
+    private int currentRevolution;
     public final AnimationState animation = new AnimationState();
 
-    public MinigameFishEntity(EntityType<MinigameFishEntity> entityType, World world, MinigameFishType type, MinigameFishingBobberEntity bobber, int tickOffset) {
+    public MinigameFishEntity(EntityType<MinigameFishEntity> entityType, World world, MinigameFishType type, MinigameFishingBobberEntity bobber, long seed) {
         super(entityType, world);
-        setType(type);
+        setTypeId(type);
         if (bobber != null) {
             setBobberId(bobber);
         }
-        setTickOffset(tickOffset);
-        reinitDimensions();
+        setRandomSeed(seed);
         animation.startIfNotRunning(age);
     }
 
     public MinigameFishEntity(EntityType<MinigameFishEntity> entityType, World world) {
-        this(entityType, world, MinigameFishType.EMPTY, null, 0);
+        this(entityType, world, MinigameFishType.EMPTY, null, 0L);
     }
 
-    public MinigameFishEntity(World world, MinigameFishType type, MinigameFishingBobberEntity bobber, int tickOffset) {
-        this(ENTITY_TYPE, world, type, bobber, tickOffset);
+    public MinigameFishEntity(World world, MinigameFishType type, MinigameFishingBobberEntity bobber, long seed) {
+        this(ENTITY_TYPE, world, type, bobber, seed);
     }
 
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        getDataTracker().startTracking(FISH_SCALE, 1.0f);
+        getDataTracker().startTracking(TYPE_ID, 0);
         getDataTracker().startTracking(BOBBER_ID, 0);
-        getDataTracker().startTracking(TICK_OFFSET, 0);
+        getDataTracker().startTracking(RANDOM_SEED, 0L);
     }
 
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
-        if (data.equals(FISH_SCALE)) {
+        if (data.equals(TYPE_ID)) {
+            type = MinigameFishType.REGISTRY.get(getTypeId());
             calculateDimensions();
         }
         if (data.equals(BOBBER_ID)) {
@@ -80,29 +81,34 @@ public class MinigameFishEntity extends WaterCreatureEntity {
                 bobber = entity;
             }
         }
+        if (data.equals(RANDOM_SEED)) {
+            random.setSeed(getRandomSeed());
+            if (orbitOffset < 0) {
+                initRandomness();
+            }
+        }
         super.onTrackedDataSet(data);
     }
 
     @Override
     public EntityDimensions getDimensions(EntityPose pose) {
-        return super.getDimensions(pose).scaled(getScale());
+        return super.getDimensions(pose).scaled(type.size().scale());
     }
 
-    public float getScale() {
-        return getDataTracker().get(FISH_SCALE);
+    public void setTypeId(int id) {
+        getDataTracker().set(TYPE_ID, id);
     }
 
-    private void setScale(float scale) {
-        getDataTracker().set(FISH_SCALE, scale);
+    public void setTypeId(MinigameFishType type) {
+        setTypeId(MinigameFishType.REGISTRY.getRawId(type));
+    }
+
+    public int getTypeId() {
+        return getDataTracker().get(TYPE_ID);
     }
 
     public MinigameFishType type() {
         return type;
-    }
-
-    public void setType(MinigameFishType type) {
-        this.type = type;
-        setScale(type.size().scale());
     }
 
     public void setBobberId(int id) {
@@ -113,16 +119,22 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         setBobberId(bobber.getId());
     }
 
-    public int getTickOffset() {
-        return getDataTracker().get(TICK_OFFSET);
-    }
-
-    public void setTickOffset(int offset) {
-        getDataTracker().set(TICK_OFFSET, offset);
-    }
-
     public int getOrbitTicks() {
-        return age + getTickOffset();
+        return age + orbitOffset;
+    }
+
+    public long getRandomSeed() {
+        return getDataTracker().get(RANDOM_SEED);
+    }
+
+    public void setRandomSeed(long seed) {
+        getDataTracker().set(RANDOM_SEED, seed);
+    }
+
+    public void initRandomness() {
+        orbitOffset = random.nextInt(360);
+        strikeOffset = random.nextBetween(80, 160);
+        nibbles = random.nextBetween(type.difficulty().minNibbles(), type.difficulty().maxNibbles());
     }
 
     public void flee() {
@@ -136,6 +148,8 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         playSound(SoundEvents.ENTITY_FISH_SWIM, 1.0f, 1.0f);
         remove(RemovalReason.DISCARDED);
     }
+
+    
 
     @Override
     public void baseTick() {
@@ -170,15 +184,19 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        setType(MinigameFishType.EMPTY);
+        // TODO: Fix summon crash (you shouldn't be summoning anyway but eh)
+        // TODO: random size
+        setTypeId(MinigameFishType.EMPTY);
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-        nbt.putFloat("FishScale", getScale());
-        nbt.putInt("TickOffset", getTickOffset());
+        nbt.putFloat("FishTypeId", getTypeId());
+        nbt.putLong("FishSeed", getRandomSeed());
+        nbt.putInt("OrbitOffset", orbitOffset);
+        nbt.putInt("StrikeOffset", strikeOffset);
         if (bobber != null) {
             nbt.putInt("BobberId", bobber.getId());
         }
@@ -187,8 +205,10 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        setScale(nbt.getFloat("FishScale"));
-        setTickOffset(nbt.getInt("TickOffset"));
+        setTypeId(nbt.getInt("FishTypeId"));
+        setRandomSeed(nbt.getLong("FishSeed"));
+        orbitOffset = nbt.getInt("OrbitOffset");
+        strikeOffset = nbt.getInt("StrikeOffset");
         setBobberId(nbt.getInt("BobberId"));
     }
 
