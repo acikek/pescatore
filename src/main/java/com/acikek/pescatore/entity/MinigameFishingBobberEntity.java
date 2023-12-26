@@ -3,7 +3,6 @@ package com.acikek.pescatore.entity;
 import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.api.lookup.MinigameFishTypeLookup;
 import com.acikek.pescatore.api.type.MinigameFishType;
-import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.item.MinigameRodTier;
 import com.acikek.pescatore.util.FishMinigamePlayer;
 import com.sun.jna.platform.EnumUtils;
@@ -144,7 +143,6 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         float roll = getWorld().random.nextFloat() / getTier().rarityBonus;
         var lookup = MinigameFishTypeLookup.create();
         maxOrbitDistance.ifPresent(dist -> lookup.byDifficulty(diff -> diff.orbitDistance() <= dist));
-        System.out.println(roll);
         var randomType = lookup.rollRarity(roll).random(getWorld().random);
         if (randomType.isEmpty()) {
             int message = getWorld().random.nextInt(5);

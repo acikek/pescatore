@@ -4,7 +4,7 @@
 package com.acikek.pescatore.client.render.fish;
 
 import com.acikek.pescatore.Pescatore;
-import com.acikek.pescatore.entity.fish.MinigameFishEntity;
+import com.acikek.pescatore.entity.MinigameFishEntity;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelLayer;

@@ -1,8 +1,7 @@
-package com.acikek.pescatore.entity.fish;
+package com.acikek.pescatore.entity;
 
 import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.api.type.MinigameFishType;
-import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.BlockState;

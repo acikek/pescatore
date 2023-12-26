@@ -1,7 +1,7 @@
 package com.acikek.pescatore.util;
 
 import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
-import com.acikek.pescatore.entity.fish.MinigameFishEntity;
+import com.acikek.pescatore.entity.MinigameFishEntity;
 
 public interface FishMinigamePlayer {
 

@@ -1,7 +1,7 @@
 package com.acikek.pescatore.mixin;
 
 import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
-import com.acikek.pescatore.entity.fish.MinigameFishEntity;
+import com.acikek.pescatore.entity.MinigameFishEntity;
 import com.acikek.pescatore.util.FishMinigamePlayer;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
