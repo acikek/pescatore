@@ -13,10 +13,14 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -40,6 +44,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
 
     private MinigameFishType type;
     private MinigameFishingBobberEntity bobber;
+    private Vec3d initialBobberPos;
     private double orbitAngle = -1.0;
     private int strikeOffset = -1;
     private int combinedStrikeLength = -1;
@@ -49,7 +54,6 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     private int revolutionTicks;
     private int currentRevolution;
     public final AnimationState animation = new AnimationState();
-    public boolean caught;
 
     public MinigameFishEntity(EntityType<MinigameFishEntity> entityType, World world, MinigameFishType type, MinigameFishingBobberEntity bobber, long seed) {
         super(entityType, world);
@@ -90,6 +94,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
                 if (bobber.spawnedFish == null) {
                     bobber.spawnedFish = this;
                 }
+                initialBobberPos = bobber.getPos();
             }
         }
         if (data.equals(RANDOM_SEED)) {
@@ -110,8 +115,9 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     }
 
     public void nibble() {
-        if (!getWorld().isClient()) {
+        if (getWorld() instanceof ServerWorld serverWorld) {
             playSound(SoundEvents.BLOCK_POINTED_DRIPSTONE_DRIP_WATER_INTO_CAULDRON, 1.5f, 1.0f);
+            bobber.spawnParticles(serverWorld, ParticleTypes.FISHING, 1.0);
         }
     }
 
@@ -126,8 +132,10 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     }
 
     public void bite() {
-        if (!getWorld().isClient()) {
+        if (getWorld() instanceof ServerWorld serverWorld) {
             playSound(SoundEvents.ENTITY_AXOLOTL_SWIM, 1.5f, 1.0f);
+            bobber.spawnParticles(serverWorld, ParticleTypes.BUBBLE, 0.2);
+            bobber.spawnParticles(serverWorld, ParticleTypes.FISHING, 0.2);
         }
     }
 
@@ -156,6 +164,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
                     breakLine();
                 }
             }
+            bobber.setPosition(initialBobberPos.add(0.0, -0.35 * type.size().scale(), 0.0));
             return;
         }
         if (age <= strikeOffset) {
@@ -175,19 +184,19 @@ public class MinigameFishEntity extends WaterCreatureEntity {
 
     public double getOrbitRadius() {
         double base = type.difficulty().orbitDistance();
+        double halfSize = 0.35 * type.size().scale();
         if (combinedStrikeTicks <= 0) {
-            return base;
+            return base + halfSize;
         }
-        double s = 0.4 * type.size().scale() / base;
         if (bitingTicks > 0) {
-            return base * s;
+            return halfSize;
         }
         int ticks = getStrikeTicks();
         int t = type.difficulty().strikeDuration();
         double mul = ticks <= t
-                ? ticks * ((s - 1.0) / t) + 1.0
-                : (ticks - strikeInterval) * ((1.0 - s) / (strikeInterval - t)) + 1.0;
-        return base * Math.min(mul, 1.0);
+                ? ticks * (1.0 / t) + 1.0
+                : (ticks - strikeInterval) * (1.0 / (strikeInterval - t)) + 1.0;
+        return base * Math.min(mul, 1.0) + halfSize;
     }
 
     public double getOrbitSpeed() {
@@ -195,15 +204,14 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         return bitingTicks > 0
                 ? base * 0.2
                 : base * (getStrikeTicks() < strikeInterval ? 0.75 : 1.0);
-        //* (Math.cos(getStrikeTicks() * Math.PI / type.difficulty().strikeDuration()) + 1.0) / 2.0;
     }
 
     public Vec3d getOrbitPosition() {
         double r = getOrbitRadius();
         // TODO: Interpolation needed?
-        double y = -0.8; //-0.4 - r / type.difficulty().orbitDistance() * 0.8;
+        double y = -0.4 * type.size().scale(); //-0.4 - r / type.difficulty().orbitDistance() * 0.8;
         Vec3d offset = new Vec3d(r * Math.cos(orbitAngle), y, r * Math.sin(orbitAngle));
-        return bobber.getPos().add(offset);
+        return initialBobberPos.add(offset);
     }
 
     @Override
@@ -214,7 +222,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         }
         orbitAngle += getOrbitSpeed();
         setPosition(getOrbitPosition());
-        if (!getWorld().getBlockState(getBlockPos()).isOf(Blocks.WATER)) {
+        if (!getWorld().getFluidState(getBlockPos()).isOf(Fluids.WATER)) {
             vanish();
         }
         lookAtEntity(bobber, 180.0f, 0.0f);

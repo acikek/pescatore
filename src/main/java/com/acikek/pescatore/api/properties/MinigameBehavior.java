@@ -22,39 +22,39 @@ public record MinigameBehavior(
     /**
      * A slow orbit speed.
      */
-    public static final double SLOW_ORBIT = MathHelper.PI / 40.0;
+    public static final double SLOW_ORBIT = Math.PI / 80.0;
     /**
      * A normal orbit speed.
      */
-    public static final double NORMAL_ORBIT = MathHelper.PI * 3.0f / 80.0;
+    public static final double NORMAL_ORBIT = Math.PI / 60.0;
     /**
      * A fast orbit speed.
      */
-    public static final double FAST_ORBIT = MathHelper.PI / 20.0;
+    public static final double FAST_ORBIT = Math.PI / 40.0;
 
     // TODO: All orbits need to be closer
     /**
      * A close orbit distance.
      */
-    public static final double CLOSE_ORBIT = 1.0;
+    public static final double CLOSE_ORBIT = 0.75;
     /**
      * A medium (normal) orbit distance.
      */
-    public static final double MEDIUM_ORBIT = 1.75;
+    public static final double MEDIUM_ORBIT = 1.25;
     /**
      * A far orbit distance.
      */
-    public static final double FAR_ORBIT = 2.75;
+    public static final double FAR_ORBIT = 1.65;
 
     // TODO: Normal/Slow strike speeds are too slow.
     /**
      * A slow strike speed.
      */
-    public static final int SLOW_STRIKE = 15;
+    public static final int SLOW_STRIKE = 10;
     /**
      * A normal strike speed.
      */
-    public static final int NORMAL_STRIKE = 8;
+    public static final int NORMAL_STRIKE = 7;
     /**
      * A quick strike speed.
      */
@@ -201,7 +201,7 @@ public record MinigameBehavior(
      * A minigame difficulty of 9/10.
      * <p>
      *     <b>Orbit Speed</b>: Fast<br>
-     *     <b>Orbit Distance</b>: Close<br>
+     *     <b>Orbit Distance</b>: Medium<br>
      *     <b>Orbit Flip Chance</b>: 0%<br>
      *     <b>Strike Speed</b>: Quick<br>
      *     <b>Nibbles</b>: 1-4<br>
@@ -209,7 +209,7 @@ public record MinigameBehavior(
      * </p>
      */
     public static final MinigameBehavior DIFFICULTY_9 = new MinigameBehavior(
-            FAST_ORBIT, CLOSE_ORBIT, 0.0f, QUICK_STRIKE, 1, 4, FAST_CATCH_DURATION
+            FAST_ORBIT, MEDIUM_ORBIT, 0.0f, QUICK_STRIKE, 1, 4, FAST_CATCH_DURATION
     );
 
     /**
@@ -218,12 +218,12 @@ public record MinigameBehavior(
      *     <b>Orbit Speed</b>: Fast<br>
      *     <b>Orbit Distance</b>: Close<br>
      *     <b>Orbit Flip Chance</b>: 75%<br>
-     *     <b>Strike Speed</b>: Quick<br>
+     *     <b>Strike Speed</b>: Normal<br>
      *     <b>Nibbles</b>: 1-5<br>
      *     <b>Catch Duration</b>: Faster
      * </p>
      */
     public static final MinigameBehavior DIFFICULTY_10 = new MinigameBehavior(
-            FAST_ORBIT, CLOSE_ORBIT, 0.75f, QUICK_STRIKE, 1, 5, FASTER_CATCH_DURATION
+            FAST_ORBIT, CLOSE_ORBIT, 0.75f, NORMAL_STRIKE, 1, 5, FASTER_CATCH_DURATION
     );
 }

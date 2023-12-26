@@ -3,6 +3,7 @@ package com.acikek.pescatore.entity;
 import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.api.lookup.MinigameFishTypeLookup;
 import com.acikek.pescatore.api.type.MinigameFishType;
+import com.acikek.pescatore.api.type.MinigameFishTypes;
 import com.acikek.pescatore.item.MinigameRodTier;
 import com.acikek.pescatore.util.FishMinigamePlayer;
 import com.sun.jna.platform.EnumUtils;
@@ -20,9 +21,13 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Pair;
@@ -160,9 +165,11 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
 
     public void tickBobbing(BlockPos blockPos, float waterHeight) {
         if (!getWorld().isClient() && appearTimer > 0) {
-            appearTimer--;
-            if (appearTimer == 0) {
-                trySpawnFish();
+            if (getVelocity().length() < 0.1) {
+                appearTimer--;
+                if (appearTimer == 0) {
+                    trySpawnFish();
+                }
             }
         }
         Vec3d veclocity = this.getVelocity();
@@ -235,6 +242,10 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         }
         stack.damage(damage, player, p -> p.sendToolBreakStatus(match.getRight()));
         discard();
+    }
+
+    public <T extends ParticleEffect> void spawnParticles(ServerWorld world, T type, double speed) {
+        world.spawnParticles(type, getX(), getY() + 0.5, getZ(), (int) (1.0f + getWidth() * 20.0f), getWidth(), 0.0, getWidth(), speed);
     }
 
     @Override
