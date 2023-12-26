@@ -25,11 +25,14 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -50,6 +53,7 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
     private boolean bobbing;
     private Optional<Double> maxOrbitDistance;
     private MinigameFishType type;
+    public MinigameFishEntity spawnedFish;
     private int appearTimer;
 
     public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world, MinigameRodTier tier) {
@@ -137,9 +141,10 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
     }
 
     public void trySpawnFish() {
-        float roll = getWorld().random.nextFloat() * getTier().rarityBonus;
+        float roll = getWorld().random.nextFloat() / getTier().rarityBonus;
         var lookup = MinigameFishTypeLookup.create();
         maxOrbitDistance.ifPresent(dist -> lookup.byDifficulty(diff -> diff.orbitDistance() <= dist));
+        System.out.println(roll);
         var randomType = lookup.rollRarity(roll).random(getWorld().random);
         if (randomType.isEmpty()) {
             int message = getWorld().random.nextInt(5);
@@ -148,10 +153,11 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         }
         type = randomType.get();
         MinigameFishEntity entity = new MinigameFishEntity(getWorld(), type, this, random.nextLong());
-        // TODO: not this
-        entity.setPosition(entity.getOrbitPosition(-0.8));
+        // TODO: find lower spot, spawn there, and rise up?
+        entity.setPosition(entity.getOrbitPosition());
         // TODO: particle fx
         getWorld().spawnEntity(entity);
+        spawnedFish = entity;
     }
 
     public void tickBobbing(BlockPos blockPos, float waterHeight) {
@@ -170,7 +176,6 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
     }
 
     public void tick() {
-        //this.velocityRandom.setSeed(this.getUuid().getLeastSignificantBits() ^ this.getWorld().getTime());
         super.tick();
         PlayerEntity player = this.getPlayerOwner();
         if (player == null) {
@@ -196,24 +201,6 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         if (bobbing) {
             tickBobbing(blockPos, waterHeight);
         }
-        /*if (this.hookCountdown <= 0 && this.fishTravelCountdown <= 0) {
-            this.inOpenWater = true;
-        } else {
-            this.inOpenWater = this.inOpenWater && this.outOfOpenWaterTicks < 10 && this.isOpenOrWaterAround(blockPos);
-        }
-
-        if (bl) {
-            this.outOfOpenWaterTicks = Math.max(0, this.outOfOpenWaterTicks - 1);
-            if (this.caughtFish) {
-                this.setVelocity(this.getVelocity().add(0.0, -0.1 * (double)this.velocityRandom.nextFloat() * (double)this.velocityRandom.nextFloat(), 0.0));
-            }
-
-            if (!this.getWorld().isClient) {
-                this.tickFishingLogic(blockPos);
-            }
-        } else {
-            this.outOfOpenWaterTicks = Math.min(10, this.outOfOpenWaterTicks + 1);
-        }*/
         if (!fluidState.isIn(FluidTags.WATER)) {
             setVelocity(getVelocity().add(0.0, -0.03, 0.0));
         }
@@ -226,19 +213,30 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         refreshPosition();
     }
 
-    // Returns how much damage rod should take
-    public int use(ItemStack usedItem) {
+    public void use() {
         PlayerEntity player = getPlayerOwner();
         if (getWorld().isClient() || player == null || removeIfInvalid(player)) {
-            return 0;
+            return;
         }
-        int damage = 0;
-        // TODO: Actual logic here
-        if (isOnGround()) {
-            damage = 2;
+        var match = getMatchingStack();
+        if (match == null) {
+            return;
         }
+        ItemStack stack = match.getLeft();
+        if (stack.hasNbt()) {
+            NbtCompound nbt = stack.getNbt();
+            nbt.remove("CustomModelData");
+            nbt.remove("Reeling");
+            nbt.remove("MaxHoldTicks");
+        }
+        player.emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
+        int damage = isOnGround() ? 2 : 0;
+        if (spawnedFish != null) {
+            damage *= (int) type.size().scale();
+            damage = Math.min(5, damage);
+        }
+        stack.damage(damage, player, p -> p.sendToolBreakStatus(match.getRight()));
         discard();
-        return damage;
     }
 
     @Override
@@ -251,11 +249,6 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         super.onBlockHit(blockHitResult);
         setVelocity(getVelocity().normalize().multiply(blockHitResult.squaredDistanceTo(this)));
     }
-
-    /*@Override
-    public void handleStatus(byte status) {
-        super.handleStatus(status);
-    }*/
 
     @Override
     protected MoveEffect getMoveEffect() {
@@ -301,6 +294,22 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
 
     public void setTier(MinigameRodTier tier) {
         setTier(tier.ordinal());
+    }
+
+    public Pair<ItemStack, Hand> getMatchingStack() {
+        PlayerEntity player = getPlayerOwner();
+        if (player == null) {
+            return null;
+        }
+        ItemStack main = player.getStackInHand(Hand.MAIN_HAND);
+        if (getTier().matchesStack(main)) {
+            return new Pair<>(main, Hand.MAIN_HAND);
+        }
+        ItemStack offhand = player.getStackInHand(Hand.OFF_HAND);
+        if (getTier().matchesStack(offhand)) {
+            return new Pair<>(offhand, Hand.OFF_HAND);
+        }
+        return null;
     }
 
     @Override

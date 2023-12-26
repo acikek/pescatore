@@ -80,9 +80,10 @@ public enum MinigameFishRarity implements StringIdentifiable {
      * @return a rarity instance based on the random roll
      */
     public static MinigameFishRarity roll(float random) {
-        for (MinigameFishRarity rarity : EnumUtils.getEnumList(MinigameFishRarity.class)) {
-            if (random < rarity.chance) {
-                return rarity;
+        var values = MinigameFishRarity.values();
+        for (int i = values.length - 1; i >= 0; i--) {
+            if (random < values[i].chance) {
+                return values[i];
             }
         }
         return MinigameFishRarity.COMMON;

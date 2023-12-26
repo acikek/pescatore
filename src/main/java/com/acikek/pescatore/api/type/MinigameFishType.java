@@ -1,11 +1,13 @@
 package com.acikek.pescatore.api.type;
 
 import com.acikek.pescatore.Pescatore;
+import com.acikek.pescatore.api.PescatoreAPI;
 import com.acikek.pescatore.api.properties.MinigameBehavior;
 import com.acikek.pescatore.api.properties.MinigameFishRarity;
 import com.acikek.pescatore.api.properties.MinigameFishSize;
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -40,6 +42,24 @@ public record MinigameFishType(MinigameFishSize size, MinigameBehavior difficult
 
     public Stat<Identifier> getStat() {
         return Stats.CUSTOM.getOrCreateStat(getId());
+    }
+
+    public int getPerfectHoldTime() {
+        return (int) (size.holdTime() * difficulty.catchDuration());
+    }
+
+    public int getMaxHoldTime() {
+        return (int) (getPerfectHoldTime() * (1.0f + 0.35f * difficulty.catchDuration()));
+    }
+
+    public void increaseStats(PlayerEntity player, int amount) {
+        player.increaseStat(getStat(), amount);
+        player.increaseStat(rarity.getStat(), amount);
+        player.increaseStat(PescatoreAPI.getTotalCaughtStat(), amount);
+    }
+
+    public void incrementStats(PlayerEntity player) {
+        increaseStats(player, 1);
     }
 
     void register(Identifier id, boolean stat) {

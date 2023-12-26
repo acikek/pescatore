@@ -1,6 +1,7 @@
 package com.acikek.pescatore.mixin;
 
 import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
+import com.acikek.pescatore.entity.fish.MinigameFishEntity;
 import com.acikek.pescatore.util.FishMinigamePlayer;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,6 +13,9 @@ public class PlayerEntityMixin implements FishMinigamePlayer {
     @Unique
     private MinigameFishingBobberEntity hook;
 
+    @Unique
+    private MinigameFishEntity fish;
+
     @Override
     public MinigameFishingBobberEntity pescatore$getHook() {
         return hook;
@@ -20,5 +24,15 @@ public class PlayerEntityMixin implements FishMinigamePlayer {
     @Override
     public void pescatore$setHook(MinigameFishingBobberEntity entity) {
         hook = entity;
+    }
+
+    @Override
+    public MinigameFishEntity pescatore$getFish() {
+        return fish;
+    }
+
+    @Override
+    public void pescatore$setFish(MinigameFishEntity entity) {
+        fish = entity;
     }
 }

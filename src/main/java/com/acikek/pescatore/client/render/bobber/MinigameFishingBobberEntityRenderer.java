@@ -13,8 +13,12 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
+import net.minecraft.util.Colors;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
@@ -48,7 +52,7 @@ public class MinigameFishingBobberEntityRenderer extends EntityRenderer<Minigame
         matrices.pop();
     }
 
-    public static void renderFishingLineSegment(float x, float y, float z, VertexConsumer buffer, MatrixStack.Entry matrices, float segmentStart, float segmentEnd) {
+    public static void renderFishingLineSegment(float x, float y, float z, VertexConsumer buffer, MatrixStack.Entry matrices, float segmentStart, float segmentEnd, float colorDelta) {
         float vertexX = x * segmentStart;
         float vertexY = y * (segmentStart * segmentStart + segmentStart) * 0.5f + 0.25f;
         float vertexZ = z * segmentStart;
@@ -56,17 +60,23 @@ public class MinigameFishingBobberEntityRenderer extends EntityRenderer<Minigame
         float normalY = y * (segmentEnd * segmentEnd + segmentEnd) * 0.5f + 0.25f - vertexY;
         float normalZ = z * segmentEnd - vertexZ;
         Vector3f normal = new Vector3f(normalX, normalY, normalZ).normalize();
+        int color = colorDelta > 0.0f ? ColorHelper.Argb.lerp(colorDelta, 0x00FF0000, 0x0000FF00) : 0;
         buffer.vertex(matrices.getPositionMatrix(), vertexX, vertexY, vertexZ)
-                .color(0, 0, 0, 255)
+                .color(ColorHelper.Argb.getRed(color), ColorHelper.Argb.getGreen(color), ColorHelper.Argb.getBlue(color), 255)
                 .normal(matrices.getNormalMatrix(), normal.x, normal.y, normal.z)
                 .next();
     }
 
     public void renderFishingLine(MinigameFishingBobberEntity entity, PlayerEntity player, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers) {
         int xOffset = player.getMainArm() == Arm.RIGHT ? 1 : -1;
-        if (!entity.getTier().matchesStack(player.getMainHandStack())) {
+        var stackMatch = entity.getMatchingStack();
+        if (stackMatch == null) {
+            return;
+        }
+        if (stackMatch.getRight() == Hand.OFF_HAND) {
             xOffset = -xOffset;
         }
+        ItemStack stack = stackMatch.getLeft();
         float swingY = MathHelper.sin(MathHelper.sqrt(player.getHandSwingProgress(tickDelta)) * MathHelper.PI);
         float tickYaw = MathHelper.lerp(tickDelta, player.prevBodyYaw, player.bodyYaw) * MathHelper.RADIANS_PER_DEGREE;
         double yawY = MathHelper.sin(tickYaw);
@@ -101,8 +111,16 @@ public class MinigameFishingBobberEntityRenderer extends EntityRenderer<Minigame
         float z = (float) (playerZ - entityZ);
         VertexConsumer segmentBuffer = vertexConsumers.getBuffer(RenderLayer.getLineStrip());
         MatrixStack.Entry segmentMatrices = matrices.peek();
+        float colorDelta = -1.0f;
+        if (stack.hasNbt() && stack.getNbt().contains("Reeling")) {
+            colorDelta = (float) player.getItemUseTime() / entity.spawnedFish.type().getPerfectHoldTime() * 1.2f;
+            if (colorDelta > 1.2f) {
+                colorDelta = 2.4f - colorDelta;
+            }
+            colorDelta = Math.min(1.0f, colorDelta);
+        }
         for (int i = 0; i <= 16; i++) {
-            renderFishingLineSegment(x, y, z, segmentBuffer, segmentMatrices, i / 16.0f, (i + 1) / 16.0f);
+            renderFishingLineSegment(x, y, z, segmentBuffer, segmentMatrices, i / 16.0f, (i + 1) / 16.0f, colorDelta);
         }
     }
 
