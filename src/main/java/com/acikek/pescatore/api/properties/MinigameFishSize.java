@@ -1,12 +1,14 @@
 package com.acikek.pescatore.api.properties;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Represents the size of a minigame fish.
  * @param scale the scale multiplier of the entity.
  * @param holdTime how much time, in ticks, the player has to keep holding before
  *                 the fish can be caught.
  */
-public record MinigameFishSize(float scale, int holdTime) {
+public record MinigameFishSize(float scale, int holdTime) implements Comparable<MinigameFishSize> {
 
     /**
      * A very small ("dinky") fish size.
@@ -52,4 +54,9 @@ public record MinigameFishSize(float scale, int holdTime) {
      * </p>
      */
     public static final MinigameFishSize GARGANTUAN = new MinigameFishSize(4.0f, 75);
+
+    @Override
+    public int compareTo(@NotNull MinigameFishSize o) {
+        return (int) Math.signum(scale - o.scale);
+    }
 }

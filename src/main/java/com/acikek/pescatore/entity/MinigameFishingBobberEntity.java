@@ -2,6 +2,7 @@ package com.acikek.pescatore.entity;
 
 import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.api.lookup.MinigameFishTypeLookup;
+import com.acikek.pescatore.api.properties.MinigameFishSize;
 import com.acikek.pescatore.api.type.MinigameFishType;
 import com.acikek.pescatore.api.type.MinigameFishTypes;
 import com.acikek.pescatore.item.MinigameRodTier;
@@ -16,6 +17,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
@@ -40,6 +42,7 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 // TODO: Ambient sound of conduit something
 public class MinigameFishingBobberEntity extends ProjectileEntity {
@@ -55,10 +58,12 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
 
     private int removalTimer;
     private boolean bobbing;
-    private Optional<Double> maxOrbitDistance;
     private MinigameFishType type;
     public MinigameFishEntity spawnedFish;
     private int appearTimer;
+
+    public final Predicate<BlockPos> notWater = pos -> !getWorld().getFluidState(pos).isOf(Fluids.WATER);
+    public final Predicate<BlockPos> belowMe = pos -> getBlockPos().subtract(pos).getY() > 0;
 
     public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world, MinigameRodTier tier) {
         super(entityType, world);
@@ -134,20 +139,21 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         return false;
     }
 
+
+
     public void setBobbing() {
         setVelocity(this.getVelocity().multiply(0.3, 0.2, 0.3));
         bobbing = true;
-        if (!getWorld().isClient()) {
-            var solid = BlockPos.findClosest(getBlockPos(), 7, 0,
-                    pos -> !getWorld().getBlockState(pos).isOf(Blocks.WATER));
-            maxOrbitDistance = solid.map(pos -> Math.sqrt(pos.getSquaredDistance(getBlockPos())) - 1.5);
-        }
     }
 
     public void trySpawnFish() {
+        var orbitSolid = BlockPos.findClosest(getBlockPos(), 7, 0, notWater);
+        var maxOrbitDistance = orbitSolid.map(pos -> Math.sqrt(pos.getSquaredDistance(getBlockPos())) - 1.5);
+        var belowSolid = BlockPos.findClosest(getBlockPos(), maxOrbitDistance.orElse(7.0).intValue(), 1, notWater.and(belowMe));
         float roll = getWorld().random.nextFloat() / getTier().rarityBonus;
         var lookup = MinigameFishTypeLookup.create();
         maxOrbitDistance.ifPresent(dist -> lookup.byDifficulty(diff -> diff.orbitDistance() <= dist));
+        belowSolid.ifPresent(pos -> lookup.bySize(size -> size.compareTo(MinigameFishSize.FATTY) <= 0));
         var randomType = lookup.rollRarity(roll).random(getWorld().random);
         if (randomType.isEmpty()) {
             int message = getWorld().random.nextInt(5);
