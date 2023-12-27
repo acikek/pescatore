@@ -4,10 +4,9 @@ import com.acikek.pescatore.Pescatore;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.Items;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -41,27 +40,41 @@ public class PescatoreItems {
     public static final Item OCTOPUS = new Item(defaultSettings());
     public static final Item THE_CUBE = new Item(defaultSettings());
 
-    public static final Item GOLDFISH_CRACKER = new Item(defaultSettings());
+    public static final Item GOLDFISH_CRACKER = new Item(defaultSettings().food(
+            new FoodComponent.Builder()
+                    .hunger(1)
+                    .saturationModifier(1.0f)
+                    .snack()
+                    .build()
+    ));
+
+    public static final Item TUNA_SANDWICH = new Item(defaultSettings().food(
+            new FoodComponent.Builder()
+                    .hunger(6)
+                    .saturationModifier(16.0f)
+                    .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 900, 0), 1.0f)
+                    .build()
+    ));
+
     public static final Item EMPTY_SARDINE_CAN = new Item(defaultSettings());
     public static final Item SARDINE_CAN = new Item(defaultSettings());
-    public static final Item OLIVE_FLOUNDER_PLATE = new Item(defaultSettings());
-    public static final Item COOKED_OLIVE_FLOUNDER_PLATE = new Item(defaultSettings());
-    public static final Item CARP_PLATE = new Item(defaultSettings());
-    public static final Item COOKED_CARP_PLATE = new Item(defaultSettings());
-    public static final Item RAINBOW_TROUT_PLATE = new Item(defaultSettings());
-    public static final Item COOKED_RAINBOW_TROUT_PLATE = new Item(defaultSettings());
-    public static final Item TUNA_SANDWICH = new Item(defaultSettings());
-    public static final Item OCTOPUS_TENTACLE = new Item(defaultSettings());
-    public static final Item COOKED_OCTOPUS_TENTACLE = new Item(defaultSettings());
+    public static final Item OLIVE_FLOUNDER_PLATE = new Item(foodSettings(2, 0.0f));
+    public static final Item COOKED_OLIVE_FLOUNDER_PLATE = new Item(foodSettings(8, 8.0f));
+    public static final Item CARP_PLATE = new Item(foodSettings(1, 0.0f));
+    public static final Item COOKED_CARP_PLATE = new Item(foodSettings(3, 7.0f));
+    public static final Item RAINBOW_TROUT_PLATE = new Item(foodSettings(2, 0.0f));
+    public static final Item COOKED_RAINBOW_TROUT_PLATE = new Item(foodSettings(9, 4.0f));
+    public static final Item OCTOPUS_TENTACLE = new Item(foodSettings(1, 0.0f));
+    public static final Item COOKED_OCTOPUS_TENTACLE = new Item(foodSettings(3, 6.0f));
 
-    public static final Item COMMON_FISH_FILET = new Item(defaultSettings());
-    public static final Item COOKED_COMMON_FISH_FILET = new Item(defaultSettings());
-    public static final Item UNCOMMON_FISH_FILET = new Item(defaultSettings());
-    public static final Item COOKED_UNCOMMON_FISH_FILET = new Item(defaultSettings());
-    public static final Item RARE_FISH_FILET = new Item(defaultSettings());
-    public static final Item COOKED_RARE_FISH_FILET = new Item(defaultSettings());
-    public static final Item VERY_RARE_FISH_FILET = new Item(defaultSettings());
-    public static final Item COOKED_VERY_RARE_FISH_FILET = new Item(defaultSettings());
+    public static final Item COMMON_FISH_FILET = new Item(foodSettings(2, 1.0f));
+    public static final Item COOKED_COMMON_FISH_FILET = new Item(foodSettings(5, 4.0f));
+    public static final Item UNCOMMON_FISH_FILET = new Item(foodSettings(3, 3.0f));
+    public static final Item COOKED_UNCOMMON_FISH_FILET = new Item(foodSettings(7, 6.0f));
+    public static final Item RARE_FISH_FILET = new Item(foodSettings(4, 4.0f));
+    public static final Item COOKED_RARE_FISH_FILET = new Item(foodSettings(8, 8.0f));
+    public static final Item VERY_RARE_FISH_FILET = new Item(foodSettings(5, 6.0f));
+    public static final Item COOKED_VERY_RARE_FISH_FILET = new Item(foodSettings(10, 10.0f));
 
     public static final Item COELACANTH_CHESTPLATE = new Item(defaultSettings());
     public static final PiranhaNecklaceItem PIRANHA_TOOTH_NECKLACE = new PiranhaNecklaceItem(defaultSettings());
@@ -82,6 +95,16 @@ public class PescatoreItems {
 
     public static Item.Settings defaultSettings() {
         return new FabricItemSettings();
+    }
+
+    public static Item.Settings foodSettings(int hunger, float saturation) {
+        return defaultSettings().food(
+                new FoodComponent.Builder()
+                        .hunger(hunger)
+                        .saturationModifier(saturation)
+                        .meat()
+                        .build()
+        );
     }
 
     public static void registerItem(String name, Item item) {

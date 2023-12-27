@@ -81,7 +81,7 @@ public class PescatoreRecipes extends FabricRecipeProvider {
     }
 
     public void generateMisc(RecipeExporter exporter) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.GOLDFISH_CRACKER)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.GOLDFISH_CRACKER, 16)
                 .pattern("B")
                 .pattern("G")
                 .pattern("B")
