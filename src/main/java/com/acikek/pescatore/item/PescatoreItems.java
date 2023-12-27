@@ -1,6 +1,8 @@
 package com.acikek.pescatore.item;
 
 import com.acikek.pescatore.Pescatore;
+import com.acikek.pescatore.item.armor.ArapaimaLeggings;
+import com.acikek.pescatore.item.armor.CoelacanthChestplate;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -76,9 +78,9 @@ public class PescatoreItems {
     public static final Item VERY_RARE_FISH_FILET = new Item(foodSettings(5, 6.0f));
     public static final Item COOKED_VERY_RARE_FISH_FILET = new Item(foodSettings(10, 10.0f));
 
-    public static final Item COELACANTH_CHESTPLATE = new Item(defaultSettings());
-    public static final PiranhaNecklaceItem PIRANHA_TOOTH_NECKLACE = new PiranhaNecklaceItem(defaultSettings());
-    public static final Item ARAPAIMA_LEGGINGS = new Item(defaultSettings());
+    public static final Item COELACANTH_CHESTPLATE = new CoelacanthChestplate(defaultSettings());
+    public static final Item PIRANHA_TOOTH_NECKLACE = new PiranhaNecklaceItem(defaultSettings());
+    public static final Item ARAPAIMA_LEGGINGS = new ArapaimaLeggings(defaultSettings());
 
     public static final List<Item> ITEMS = new ArrayList<>();
     public static final List<Item> RODS = new ArrayList<>();
