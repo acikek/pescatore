@@ -72,16 +72,20 @@ public class PescatoreAdvancements extends FabricAdvancementProvider {
     public void generateTotalFishCaught(Consumer<AdvancementEntry> consumer) {
         novice = builder(PescatoreItems.GOLDFISH, "novice", null, AdvancementFrame.TASK, false)
                 .parent(root)
-                .criterion("catch_one_fish", MinigameFishCaughtCriterion.Conditions.totalCaught(NumberRange.IntRange.ANY))
+                .criterion("catch_5_fish", MinigameFishCaughtCriterion.Conditions.totalCaught(NumberRange.IntRange.atLeast(5)))
                 .build(consumer, "pescatore/novice");
         var apprentice = builder(PescatoreItems.CARP, "apprentice", null, AdvancementFrame.TASK, false)
                 .parent(novice)
-                .criterion("catch_ten_fish", MinigameFishCaughtCriterion.Conditions.totalCaught(NumberRange.IntRange.atLeast(10)))
+                .criterion("catch_30_fish", MinigameFishCaughtCriterion.Conditions.totalCaught(NumberRange.IntRange.atLeast(30)))
                 .build(consumer, "pescatore/apprentice");
-        builder(PescatoreItems.ARAPAIMA, "maven", null, AdvancementFrame.GOAL, false)
+        var maven = builder(PescatoreItems.BULLHEAD, "maven", null, AdvancementFrame.GOAL, false)
                 .parent(apprentice)
-                .criterion("catch_thirty_fish", MinigameFishCaughtCriterion.Conditions.totalCaught(NumberRange.IntRange.atLeast(30)))
+                .criterion("catch_100_fish", MinigameFishCaughtCriterion.Conditions.totalCaught(NumberRange.IntRange.atLeast(100)))
                 .build(consumer, "pescatore/maven");
+        builder(PescatoreItems.ARAPAIMA, "extraordinaire", null, AdvancementFrame.CHALLENGE, false)
+                .parent(maven)
+                .criterion("catch_300_fish", MinigameFishCaughtCriterion.Conditions.totalCaught(NumberRange.IntRange.atLeast(300)))
+                .build(consumer, "pescatore/extraordinaire");
     }
 
     public void generateUniqueFish(Consumer<AdvancementEntry> consumer) {

@@ -1,9 +1,11 @@
 {
   "parent": "minecraft:pescatore/root",
   "criteria": {
-    "catch_one_fish": {
+    "catch_5_fish": {
       "conditions": {
-        "total_caught": {}
+        "total_caught": {
+          "min": 5
+        }
       },
       "trigger": "pescatore:minigame_fish_caught"
     }
@@ -21,7 +23,7 @@
   },
   "requirements": [
     [
-      "catch_one_fish"
+      "catch_5_fish"
     ]
   ]
 }

@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:pescatore/maven",
+  "criteria": {
+    "catch_300_fish": {
+      "conditions": {
+        "total_caught": {
+          "min": 300
+        }
+      },
+      "trigger": "pescatore:minigame_fish_caught"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.pescatore.extraordinaire.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "item": "pescatore:arapaima"
+    },
+    "title": {
+      "translate": "advancement.pescatore.extraordinaire.title"
+    }
+  },
+  "requirements": [
+    [
+      "catch_300_fish"
+    ]
+  ]
+}

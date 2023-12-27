@@ -1,4 +1,4 @@
-// 1.20.4	2023-12-24T21:43:32.5461148	Pescatore/Model Definitions
+// 1.20.4	2023-12-26T16:07:29.2968014	Pescatore/Model Definitions
 9daa393bf29cfcadeb4a9ec046cd074b62924bc1 assets\pescatore\models\item\cooked_rare_fish_filet.json
 9f8e26bc16c2520b6e568653c6176c031436c490 assets\pescatore\models\item\goldfish_cracker.json
 e365c896bf918c963c53a43d747228f4f2707a68 assets\pescatore\models\item\cooked_carp_plate.json
@@ -7,8 +7,8 @@ dac65f042fb45cb9c0eb5e16da139f145ab4c231 assets\pescatore\models\item\carp_plate
 f08138b44e8b213d4143c1e6a7529e59adc75edf assets\pescatore\models\item\coelacanth.json
 538d1332549348a214d9d549bb8d34fd406eb7b6 assets\pescatore\models\item\cooked_very_rare_fish_filet.json
 024bb59ac3b0593794ce37900531ea0ba4308a86 assets\pescatore\models\item\uncommon_fish_filet.json
-a6b2f04ee10c02f4f336686eabedc3e8ec8b6264 assets\pescatore\models\item\piranha.json
 481f1a07b8a33be6dc648064aefb4a02175fdf13 assets\pescatore\models\item\tuna_sandwich.json
+a6b2f04ee10c02f4f336686eabedc3e8ec8b6264 assets\pescatore\models\item\piranha.json
 4d771db505fc9f6050d83f239ffbf2b41c91113a assets\pescatore\models\item\arapaima.json
 7593b251288ca13010729f22f123b727e58af49e assets\pescatore\models\item\tuna.json
 a363deeac57ccc94b2789c4ffcedf2a582d1ec5d assets\pescatore\models\item\bullhead.json

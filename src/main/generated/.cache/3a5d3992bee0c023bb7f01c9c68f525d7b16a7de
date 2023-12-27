@@ -1,12 +1,13 @@
-// 1.20.4	2023-12-24T21:43:32.5441142	Pescatore/Advancements
+// 1.20.4	2023-12-26T16:07:29.291801	Pescatore/Advancements
 f4c4f66de52a31545cf0d1a527d6e863d100b1d8 data\minecraft\advancements\pescatore\rare.json
-4445bfdeaa105f34f90e8886bd3a942cf6233cf0 data\minecraft\advancements\pescatore\apprentice.json
+c8c00f2bc4859838832b97d846b249567146686c data\minecraft\advancements\pescatore\apprentice.json
 9fbf070fcc9f431bf182844234d7c7b7f092b338 data\minecraft\advancements\pescatore\expert_rod.json
-7d2486758ae5dd6df352c8db2ddfd5fa000383d3 data\minecraft\advancements\pescatore\novice.json
+9a2b2579337f3f4d6f27217fb7e018665b20b9c9 data\minecraft\advancements\pescatore\novice.json
+5b73db8ece83765ebe8da6f65ed1ee940f0c0e62 data\minecraft\advancements\pescatore\extraordinaire.json
 8b1a2bc3b6772e64463d8e5938df4e986d2ca611 data\minecraft\advancements\pescatore\very_rare.json
 ce217f9e526652e0dec44b85eb0e3f9908793fde data\minecraft\advancements\pescatore\aether_rod.json
 ea9992ecf10f131a97d99c3c5c73a5acc7c030c0 data\minecraft\advancements\pescatore\root.json
 c77ac990be213c6d385b835bcd64c42254cb5ca8 data\minecraft\advancements\pescatore\adept_rod.json
 b74d5456c3d88eea6920169dc11856f7b1eaf2e8 data\minecraft\advancements\pescatore\hawg.json
 eb11e524e81b19bfc3e2d6140e803b5834abb0a3 data\minecraft\advancements\pescatore\all.json
-663defa117e4e62cb36bfc23081085d16fc26f70 data\minecraft\advancements\pescatore\maven.json
+c362d306f9ac3e78178e52d7098230da9059a134 data\minecraft\advancements\pescatore\maven.json

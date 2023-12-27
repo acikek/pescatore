@@ -85,9 +85,10 @@ public class PescatoreLanguage extends FabricLanguageProvider {
         buildAdvancement(builder, "adept_rod", "Lightning Rod...?", "Upgrade to an Adept Rod");
         buildAdvancement(builder, "expert_rod", "Got a license for that?", "Upgrade to an Expert Rod");
         buildAdvancement(builder, "aether_rod", "For Science!", "Did you really need that?");
-        buildAdvancement(builder, "novice", "Fishing Novice", "Reel in your first fish");
-        buildAdvancement(builder, "apprentice", "Fishing Apprentice", "Catch ten fish");
-        buildAdvancement(builder, "maven", "Fishing Maven", "Catch thirty fish");
+        buildAdvancement(builder, "novice", "Fishing Novice", "Reel in five fish");
+        buildAdvancement(builder, "apprentice", "Fishing Apprentice", "Catch thirty fish");
+        buildAdvancement(builder, "maven", "Fishing Maven", "Catch one hundred fish");
+        buildAdvancement(builder, "extraordinaire", "Fishing Extraordinaire", "Catch three hundred fish");
         buildAdvancement(builder, "rare", "Afishionado", "Catch a rare fish");
         buildAdvancement(builder, "very_rare", "The Depths", "Catch a very rare fish");
         buildAdvancement(builder, "hawg", "Hawg", "Catch an exceptionally large fish");

@@ -1,10 +1,10 @@
 {
   "parent": "minecraft:pescatore/novice",
   "criteria": {
-    "catch_ten_fish": {
+    "catch_30_fish": {
       "conditions": {
         "total_caught": {
-          "min": 10
+          "min": 30
         }
       },
       "trigger": "pescatore:minigame_fish_caught"
@@ -23,7 +23,7 @@
   },
   "requirements": [
     [
-      "catch_ten_fish"
+      "catch_30_fish"
     ]
   ]
 }

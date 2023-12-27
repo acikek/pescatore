@@ -1,10 +1,10 @@
 {
   "parent": "minecraft:pescatore/apprentice",
   "criteria": {
-    "catch_thirty_fish": {
+    "catch_100_fish": {
       "conditions": {
         "total_caught": {
-          "min": 30
+          "min": 100
         }
       },
       "trigger": "pescatore:minigame_fish_caught"
@@ -16,7 +16,7 @@
     },
     "frame": "goal",
     "icon": {
-      "item": "pescatore:arapaima"
+      "item": "pescatore:bullhead"
     },
     "title": {
       "translate": "advancement.pescatore.maven.title"
@@ -24,7 +24,7 @@
   },
   "requirements": [
     [
-      "catch_thirty_fish"
+      "catch_100_fish"
     ]
   ]
 }
