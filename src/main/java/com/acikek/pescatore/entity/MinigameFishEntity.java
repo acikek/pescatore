@@ -5,7 +5,6 @@ import com.acikek.pescatore.api.type.MinigameFishType;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -20,6 +19,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
@@ -53,6 +53,8 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     private int bitingTicks = 0;
     private int revolutionTicks;
     private int currentRevolution;
+    private int fleeingTicks = 0;
+    private Vec3d fleeingVector;
     public final AnimationState animation = new AnimationState();
 
     public MinigameFishEntity(EntityType<MinigameFishEntity> entityType, World world, MinigameFishType type, MinigameFishingBobberEntity bobber, long seed) {
@@ -114,10 +116,24 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         return bitingTicks > 0;
     }
 
+    public boolean isFleeing() {
+        return fleeingTicks > 0;
+    }
+
+    public float getAnimationSpeed() {
+        if (isBiting()) {
+            return 4.0f;
+        }
+        if (isFleeing()) {
+            return 6.0f;
+        }
+        return 2.0f;
+    }
+
     public void nibble() {
         if (getWorld() instanceof ServerWorld serverWorld) {
             playSound(SoundEvents.BLOCK_POINTED_DRIPSTONE_DRIP_WATER_INTO_CAULDRON, 1.5f, 1.0f);
-            bobber.spawnParticles(serverWorld, ParticleTypes.FISHING, 1.0);
+            bobber.spawnParticles(serverWorld, ParticleTypes.FISHING, 0.2);
         }
     }
 
@@ -153,6 +169,12 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         super.baseTick();
         if (!touchingWater) {
             vanish();
+        }
+        if (isFleeing()) {
+            fleeingTicks++;
+            if (fleeingTicks >= 30) {
+                vanish();
+            }
         }
         if (isBiting()) {
             bitingTicks++;
@@ -217,6 +239,12 @@ public class MinigameFishEntity extends WaterCreatureEntity {
 
     @Override
     public void tickMovement() {
+        if (isFleeing()) {
+            double theta = Math.atan2(-fleeingVector.x, fleeingVector.z);
+            setYaw((float) MathHelper.wrapDegrees(Math.toDegrees(theta)));
+            move(MovementType.SELF, fleeingVector);
+            return;
+        }
         if (bobber == null || bobber.isRemoved()) {
             flee();
             return;
@@ -227,6 +255,16 @@ public class MinigameFishEntity extends WaterCreatureEntity {
             vanish();
         }
         lookAtEntity(bobber, 180.0f, 0.0f);
+    }
+
+    @Override
+    public int getMaxLookYawChange() {
+        return 180;
+    }
+
+    @Override
+    public int getMaxLookPitchChange() {
+        return 0;
     }
 
     @Override
@@ -274,20 +312,26 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     }
 
     public void flee() {
-        // TODO: "Disappear" animation (run away, fade out)
-        // TODO: Sound effects at the very least
-        vanish();
+        fleeingTicks = 1;
+        fleeingVector = getPos().subtract(initialBobberPos)
+                .normalize()
+                .withAxis(Direction.Axis.Y, 0.0)
+                .multiply(0.3);
     }
 
     public void vanish() {
-        // TODO: Particles
-        playSound(SoundEvents.ENTITY_FISH_SWIM, 1.0f, 1.0f);
+        if (getWorld() instanceof ServerWorld serverWorld) {
+            // TODO: Particles
+            playSound(SoundEvents.ENTITY_FISH_SWIM, 1.0f, 1.0f);
+            serverWorld.spawnParticles(ParticleTypes.BUBBLE, getX(), initialBobberPos.y + 0.5, getZ(), 20, getWidth(), 0.0, getWidth(), 0.2);
+            serverWorld.spawnParticles(ParticleTypes.FISHING, getX(), initialBobberPos.y + 0.5, getZ(), 5, getWidth(), 0.0, getWidth(), 0.2);
+        }
         remove(RemovalReason.DISCARDED);
     }
 
     @Override
     protected void onBlockCollision(BlockState state) {
-        if (!state.isOf(Blocks.WATER)) {
+        if (!state.getFluidState().isOf(Fluids.WATER)) {
             vanish();
         }
     }
@@ -301,24 +345,6 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     public void onPlayerCollision(PlayerEntity player) {
         flee();
     }
-
-    /*public void setPlayerFish(MinigameFishEntity fish) {
-        if (bobber.getPlayerOwner() instanceof FishMinigamePlayer player) {
-            player.pescatore$setFish(fish);
-        }
-    }
-
-    @Override
-    public void remove(RemovalReason reason) {
-        super.remove(reason);
-        setPlayerFish(null);
-    }
-
-    @Override
-    public void onRemoved() {
-        super.onRemoved();
-        setPlayerFish(null);
-    }*/
 
     @Override
     public void onDamaged(DamageSource damageSource) {
