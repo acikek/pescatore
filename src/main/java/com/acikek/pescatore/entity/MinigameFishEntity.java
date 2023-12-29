@@ -175,6 +175,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
             if (fleeingTicks >= 30) {
                 vanish();
             }
+            return;
         }
         if (isBiting()) {
             bitingTicks++;
@@ -312,6 +313,10 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     }
 
     public void flee() {
+        if (initialBobberPos == null) {
+            vanish();
+            return;
+        }
         fleeingTicks = 1;
         fleeingVector = getPos().subtract(initialBobberPos)
                 .normalize()
@@ -323,8 +328,8 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         if (getWorld() instanceof ServerWorld serverWorld) {
             // TODO: Particles
             playSound(SoundEvents.ENTITY_FISH_SWIM, 1.0f, 1.0f);
-            serverWorld.spawnParticles(ParticleTypes.BUBBLE, getX(), initialBobberPos.y + 0.5, getZ(), 20, getWidth(), 0.0, getWidth(), 0.2);
-            serverWorld.spawnParticles(ParticleTypes.FISHING, getX(), initialBobberPos.y + 0.5, getZ(), 5, getWidth(), 0.0, getWidth(), 0.2);
+            serverWorld.spawnParticles(ParticleTypes.BUBBLE, getX(), getY() + 1.0, getZ(), 20, getWidth(), 0.0, getWidth(), 0.2);
+            serverWorld.spawnParticles(ParticleTypes.FISHING, getX(), getY() + 1.0, getZ(), 5, getWidth(), 0.0, getWidth(), 0.2);
         }
         remove(RemovalReason.DISCARDED);
     }

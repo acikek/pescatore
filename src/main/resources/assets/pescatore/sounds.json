@@ -1,0 +1,8 @@
+{
+  "item.minigame_fishing_rod.reeling": {
+    "subtitle": "subtitles.pescatore.reeling",
+    "sounds": [
+      "pescatore:reeling"
+    ]
+  }
+}

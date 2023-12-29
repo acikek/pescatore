@@ -1,7 +1,9 @@
 package com.acikek.pescatore.item;
 
+import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.advancement.MinigameFishCaughtCriterion;
 import com.acikek.pescatore.api.type.MinigameFishType;
+import com.acikek.pescatore.client.PescatoreClient;
 import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
 import com.acikek.pescatore.util.FishMinigamePlayer;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -11,6 +13,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -25,6 +29,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
 public class MinigameFishingRodItem extends Item {
+
+    public static final SoundEvent REELING_SOUND = SoundEvent.of(Pescatore.id("item.minigame_fishing_rod.reeling"));
 
     public final MinigameRodTier tier;
 
@@ -47,7 +53,9 @@ public class MinigameFishingRodItem extends Item {
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         super.usageTick(world, user, stack, remainingUseTicks);
         stack.getOrCreateNbt().putBoolean("Reeling", true);
-        // TODO: play reeling sound
+        if (world.isClient() && user.getItemUseTime() % 26 == 0) {
+            PescatoreClient.playReelingSound();
+        }
     }
 
     private static void playSound(World world, LivingEntity user, SoundEvent event, float pitch) {
@@ -99,6 +107,9 @@ public class MinigameFishingRodItem extends Item {
         if (!(user instanceof FishMinigamePlayer player)) {
             return;
         }
+        if (world.isClient()) {
+            PescatoreClient.stopReelingSound();
+        }
         MinigameFishingBobberEntity bobber = player.pescatore$getHook();
         if (bobber.spawnedFish == null) {
             return;
@@ -133,5 +144,9 @@ public class MinigameFishingRodItem extends Item {
     @Override
     public int getEnchantability() {
         return 1;
+    }
+
+    public static void registerSound() {
+        Registry.register(Registries.SOUND_EVENT, REELING_SOUND.getId(), REELING_SOUND);
     }
 }
