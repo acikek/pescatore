@@ -1,4 +1,4 @@
-package com.acikek.pescatore.item;
+package com.acikek.pescatore.item.rod;
 
 import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.advancement.MinigameFishCaughtCriterion;

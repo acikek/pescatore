@@ -6,7 +6,7 @@ import com.acikek.pescatore.api.properties.MinigameFishRarity;
 import com.acikek.pescatore.api.type.MinigameFishTypes;
 import com.acikek.pescatore.entity.MinigameFishingBobberEntity;
 import com.acikek.pescatore.entity.MinigameFishEntity;
-import com.acikek.pescatore.item.MinigameFishingRodItem;
+import com.acikek.pescatore.item.rod.MinigameFishingRodItem;
 import com.acikek.pescatore.item.PescatoreItems;
 import com.acikek.pescatore.item.trinket.PescatoreTrinketsCompat;
 import net.fabricmc.api.ModInitializer;

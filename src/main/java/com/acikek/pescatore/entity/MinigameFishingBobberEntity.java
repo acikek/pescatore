@@ -4,7 +4,7 @@ import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.api.lookup.MinigameFishTypeLookup;
 import com.acikek.pescatore.api.properties.MinigameFishSize;
 import com.acikek.pescatore.api.type.MinigameFishType;
-import com.acikek.pescatore.item.MinigameRodTier;
+import com.acikek.pescatore.item.rod.MinigameRodTier;
 import com.acikek.pescatore.util.FishMinigamePlayer;
 import com.sun.jna.platform.EnumUtils;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;

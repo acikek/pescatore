@@ -1,4 +1,4 @@
-package com.acikek.pescatore.item;
+package com.acikek.pescatore.item.rod;
 
 import com.acikek.pescatore.Pescatore;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;

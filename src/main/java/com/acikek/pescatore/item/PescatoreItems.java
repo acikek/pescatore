@@ -3,6 +3,8 @@ package com.acikek.pescatore.item;
 import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.item.armor.ArapaimaLeggings;
 import com.acikek.pescatore.item.armor.CoelacanthChestplate;
+import com.acikek.pescatore.item.rod.MinigameFishingRodItem;
+import com.acikek.pescatore.item.rod.MinigameRodTier;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;

@@ -3,7 +3,7 @@ package com.acikek.pescatore.client;
 import com.acikek.pescatore.client.render.bobber.MinigameFishingBobberEntityRenderer;
 import com.acikek.pescatore.client.render.fish.MinigameFishEntityRenderer;
 import com.acikek.pescatore.client.render.fish.MinigameFishModel;
-import com.acikek.pescatore.item.MinigameFishingRodItem;
+import com.acikek.pescatore.item.rod.MinigameFishingRodItem;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.EntityTrackingSoundInstance;
