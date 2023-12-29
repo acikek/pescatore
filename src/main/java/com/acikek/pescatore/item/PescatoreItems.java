@@ -61,7 +61,7 @@ public class PescatoreItems {
     ));
 
     public static final Item EMPTY_SARDINE_CAN = new Item(defaultSettings());
-    public static final Item SARDINE_CAN = new Item(defaultSettings());
+    public static final Item SARDINE_CAN = new SardineCanItem(foodSettings(3, 2.0f).maxDamage(6));
     public static final Item OLIVE_FLOUNDER_PLATE = new Item(foodSettings(2, 0.0f));
     public static final Item COOKED_OLIVE_FLOUNDER_PLATE = new Item(foodSettings(8, 8.0f));
     public static final Item CARP_PLATE = new Item(foodSettings(1, 0.0f));
