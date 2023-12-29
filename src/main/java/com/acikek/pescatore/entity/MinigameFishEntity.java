@@ -93,8 +93,8 @@ public class MinigameFishEntity extends WaterCreatureEntity {
             int id = getDataTracker().get(BOBBER_ID);
             if (id > 0 && getWorld().getEntityById(id) instanceof MinigameFishingBobberEntity entity) {
                 bobber = entity;
-                if (bobber.spawnedFish == null) {
-                    bobber.spawnedFish = this;
+                if (bobber.spawnedFish() == null) {
+                    bobber.setSpawnedFish(this);
                 }
                 initialBobberPos = bobber.getPos();
             }
@@ -144,7 +144,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
             return;
         }
         NbtCompound nbt = match.getLeft().getOrCreateNbt();
-        nbt.putInt("MaxHoldTicks", type.getMaxHoldTime());
+        nbt.putInt("MaxHoldTicks", type.getMaxHoldTime(bobber.getLuckOfTheSea()));
         bite();
     }
 
@@ -182,7 +182,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
             if (bitingTicks % 7 == 0) {
                 bite();
             }
-            if (bitingTicks >= type.getMaxHoldTime()) {
+            if (bitingTicks >= type.getMaxHoldTime(bobber.getLuckOfTheSea())) {
                 PlayerEntity player = bobber.getPlayerOwner();
                 if ((player == null || !player.isUsingItem()) && !isRemoved()) {
                     breakLine();
@@ -305,11 +305,15 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         getDataTracker().set(RANDOM_SEED, seed);
     }
 
+    public int getNibbles() {
+        int value = random.nextBetween(type.difficulty().minNibbles(), type.difficulty().maxNibbles());
+        return Math.max(0, value - bobber.getLure());
+    }
+
     public void initRandomness() {
         orbitAngle = random.nextDouble() * Math.PI * 2.0;
         strikeOffset = random.nextBetween(80, 160);
-        int nibbles = random.nextBetween(type.difficulty().minNibbles(), type.difficulty().maxNibbles());
-        combinedStrikeLength = TOTAL_STRIKE_INTERVAL * nibbles + type.difficulty().strikeDuration();
+        combinedStrikeLength = TOTAL_STRIKE_INTERVAL * getNibbles() + type.difficulty().strikeDuration();
     }
 
     public void flee() {
@@ -326,7 +330,6 @@ public class MinigameFishEntity extends WaterCreatureEntity {
 
     public void vanish() {
         if (getWorld() instanceof ServerWorld serverWorld) {
-            // TODO: Particles
             playSound(SoundEvents.ENTITY_FISH_SWIM, 1.0f, 1.0f);
             serverWorld.spawnParticles(ParticleTypes.BUBBLE, getX(), getY() + 1.0, getZ(), 20, getWidth(), 0.0, getWidth(), 0.2);
             serverWorld.spawnParticles(ParticleTypes.FISHING, getX(), getY() + 1.0, getZ(), 5, getWidth(), 0.0, getWidth(), 0.2);

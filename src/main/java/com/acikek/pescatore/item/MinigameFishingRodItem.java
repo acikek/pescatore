@@ -89,10 +89,9 @@ public class MinigameFishingRodItem extends Item {
         } else {
             playRodSound(world, user, SoundEvents.ENTITY_FISHING_BOBBER_THROW);
             if (!world.isClient()) {
-                // TODO: Use these enchantments in other ways
-                int i = EnchantmentHelper.getLure(stack);
-                int j = EnchantmentHelper.getLuckOfTheSea(stack);
-                world.spawnEntity(new MinigameFishingBobberEntity(user, world, tier));
+                int lure = EnchantmentHelper.getLure(stack);
+                int luckOfTheSea = EnchantmentHelper.getLuckOfTheSea(stack);
+                world.spawnEntity(new MinigameFishingBobberEntity(user, world, tier, lure, luckOfTheSea));
             }
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             user.emitGameEvent(GameEvent.ITEM_INTERACT_START);
@@ -111,15 +110,15 @@ public class MinigameFishingRodItem extends Item {
             PescatoreClient.stopReelingSound();
         }
         MinigameFishingBobberEntity bobber = player.pescatore$getHook();
-        if (bobber.spawnedFish == null) {
+        if (bobber.spawnedFish() == null) {
             return;
         }
-        MinigameFishType type = bobber.spawnedFish.type();
-        float progress = (float) user.getItemUseTime() / type.getPerfectHoldTime();
+        MinigameFishType type = bobber.spawnedFish().type();
+        float progress = (float) user.getItemUseTime() / type.getPerfectHoldTime(bobber.getLuckOfTheSea());
         bobber.use();
         if (MathHelper.abs(1.0f - progress) > 0.5) {
             playSound(world, user, SoundEvents.ENTITY_ITEM_BREAK, 1.0f);
-            bobber.spawnedFish.flee();
+            bobber.spawnedFish().flee();
             return;
         }
         ItemEntity fishedItem = new ItemEntity(world, bobber.getX(), bobber.getY(), bobber.getZ(), type.item().asItem().getDefaultStack());
@@ -129,7 +128,7 @@ public class MinigameFishingRodItem extends Item {
         world.spawnEntity(fishedItem);
         world.spawnEntity(new ExperienceOrbEntity(world, user.getX(), user.getY() + 0.5, user.getZ() + 0.5, user.getRandom().nextInt(6) + 1));
         playRodSound(world, user, SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE);
-        bobber.spawnedFish.discard();
+        bobber.spawnedFish().discard();
         if (user instanceof ServerPlayerEntity serverPlayer) {
             type.incrementStats(serverPlayer);
             MinigameFishCaughtCriterion.INSTANCE.trigger(serverPlayer, stack, type);

@@ -44,12 +44,20 @@ public record MinigameFishType(MinigameFishSize size, MinigameBehavior difficult
         return Stats.CUSTOM.getOrCreateStat(getId());
     }
 
+    public int getPerfectHoldTime(int luckOfTheSea) {
+        return (int) (size.holdTime() * difficulty.catchDuration()) + luckOfTheSea * 7;
+    }
+
     public int getPerfectHoldTime() {
-        return (int) (size.holdTime() * difficulty.catchDuration());
+        return getPerfectHoldTime(0);
+    }
+
+    public int getMaxHoldTime(int luckOfTheSea) {
+        return (int) (getPerfectHoldTime(luckOfTheSea) * (1.0f + 0.35f * difficulty.catchDuration()));
     }
 
     public int getMaxHoldTime() {
-        return (int) (getPerfectHoldTime() * (1.0f + 0.35f * difficulty.catchDuration()));
+        return getMaxHoldTime(0);
     }
 
     public void increaseStats(PlayerEntity player, int amount) {

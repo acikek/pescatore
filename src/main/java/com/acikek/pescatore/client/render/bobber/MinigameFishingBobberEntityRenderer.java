@@ -112,8 +112,8 @@ public class MinigameFishingBobberEntityRenderer extends EntityRenderer<Minigame
         VertexConsumer segmentBuffer = vertexConsumers.getBuffer(RenderLayer.getLineStrip());
         MatrixStack.Entry segmentMatrices = matrices.peek();
         float colorDelta = -1.0f;
-        if (entity.spawnedFish != null && stack.hasNbt() && stack.getNbt().contains("Reeling")) {
-            colorDelta = (float) player.getItemUseTime() / entity.spawnedFish.type().getPerfectHoldTime() * 1.2f;
+        if (entity.spawnedFish() != null && stack.hasNbt() && stack.getNbt().contains("Reeling")) {
+            colorDelta = (float) player.getItemUseTime() / entity.spawnedFish().type().getPerfectHoldTime(entity.getLuckOfTheSea()) * 1.2f;
             if (colorDelta > 1.2f) {
                 colorDelta = 2.4f - colorDelta;
             }

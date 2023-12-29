@@ -4,12 +4,10 @@ import com.acikek.pescatore.Pescatore;
 import com.acikek.pescatore.api.lookup.MinigameFishTypeLookup;
 import com.acikek.pescatore.api.properties.MinigameFishSize;
 import com.acikek.pescatore.api.type.MinigameFishType;
-import com.acikek.pescatore.api.type.MinigameFishTypes;
 import com.acikek.pescatore.item.MinigameRodTier;
 import com.acikek.pescatore.util.FishMinigamePlayer;
 import com.sun.jna.platform.EnumUtils;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -24,8 +22,6 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.FluidTags;
@@ -41,7 +37,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
 import java.util.function.Predicate;
 
 // TODO: Ambient sound of conduit something
@@ -55,33 +50,37 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
                     .build();
 
     public static final TrackedData<Integer> TIER = DataTracker.registerData(MinigameFishingBobberEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final TrackedData<Integer> LURE = DataTracker.registerData(MinigameFishingBobberEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final TrackedData<Integer> LUCK_OF_THE_SEA = DataTracker.registerData(MinigameFishingBobberEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     private int removalTimer;
     private boolean bobbing;
     private MinigameFishType type;
-    public MinigameFishEntity spawnedFish;
+    private MinigameFishEntity spawnedFish;
     private int appearTimer;
 
     public final Predicate<BlockPos> notWater = pos -> !getWorld().getFluidState(pos).isOf(Fluids.WATER);
     public final Predicate<BlockPos> belowMe = pos -> getBlockPos().subtract(pos).getY() > 0;
 
-    public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world, MinigameRodTier tier) {
+    public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world, MinigameRodTier tier, int lure, int luckOfTheSea) {
         super(entityType, world);
         ignoreCameraFrustum = true;
         setTier(tier);
+        setLure(lure);
+        setLuckOfTheSea(luckOfTheSea);
         appearTimer = world.getRandom().nextBetween(tier.minDelay, tier.maxDelay);
     }
 
     public MinigameFishingBobberEntity(EntityType<MinigameFishingBobberEntity> entityType, World world) {
-        this(entityType, world, MinigameRodTier.ROOKIE);
+        this(entityType, world, MinigameRodTier.ROOKIE, 0, 0);
     }
 
-    public MinigameFishingBobberEntity(World world, MinigameRodTier tier) {
-        this(ENTITY_TYPE, world, tier);
+    public MinigameFishingBobberEntity(World world, MinigameRodTier tier, int lure, int luckOfTheSea) {
+        this(ENTITY_TYPE, world, tier, lure, luckOfTheSea);
     }
 
-    public MinigameFishingBobberEntity(PlayerEntity player, World world, MinigameRodTier tier) {
-        this(world, tier);
+    public MinigameFishingBobberEntity(PlayerEntity player, World world, MinigameRodTier tier, int lure, int luckOfTheSea) {
+        this(world, tier, lure, luckOfTheSea);
         setOwner(player);
         float pitch = player.getPitch();
         float yaw = player.getYaw();
@@ -124,6 +123,8 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
     @Override
     protected void initDataTracker() {
         getDataTracker().startTracking(TIER, 0);
+        getDataTracker().startTracking(LURE, 0);
+        getDataTracker().startTracking(LUCK_OF_THE_SEA, 0);
     }
 
     public boolean tickRemovalTimer() {
@@ -138,8 +139,6 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         }
         return false;
     }
-
-
 
     public void setBobbing() {
         setVelocity(this.getVelocity().multiply(0.3, 0.2, 0.3));
@@ -299,16 +298,40 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         return getOwner() instanceof PlayerEntity player ? player : null;
     }
 
-    public MinigameRodTier getTier() {
-        return EnumUtils.fromInteger(getDataTracker().get(TIER), MinigameRodTier.class);
-    }
-
     public void setTier(int tier) {
         getDataTracker().set(TIER, tier);
     }
 
     public void setTier(MinigameRodTier tier) {
         setTier(tier.ordinal());
+    }
+
+    public MinigameRodTier getTier() {
+        return EnumUtils.fromInteger(getDataTracker().get(TIER), MinigameRodTier.class);
+    }
+
+    public void setLure(int lure) {
+        getDataTracker().set(LURE, lure);
+    }
+
+    public int getLure() {
+        return getDataTracker().get(LURE);
+    }
+
+    public void setLuckOfTheSea(int luckOfTheSea) {
+        getDataTracker().set(LUCK_OF_THE_SEA, luckOfTheSea);
+    }
+
+    public int getLuckOfTheSea() {
+        return getDataTracker().get(LUCK_OF_THE_SEA);
+    }
+
+    public MinigameFishEntity spawnedFish() {
+        return spawnedFish;
+    }
+
+    public void setSpawnedFish(MinigameFishEntity spawnedFish) {
+        this.spawnedFish = spawnedFish;
     }
 
     public Pair<ItemStack, Hand> getMatchingStack() {
