@@ -129,6 +129,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         }
         NbtCompound nbt = match.getLeft().getOrCreateNbt();
         nbt.putInt("MaxHoldTicks", type.getMaxHoldTime());
+        bite();
     }
 
     public void bite() {

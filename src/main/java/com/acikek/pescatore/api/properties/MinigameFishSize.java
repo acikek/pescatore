@@ -17,7 +17,7 @@ public record MinigameFishSize(float scale, int holdTime) implements Comparable<
      *     <b>Hold Time</b>: 20 ticks
      * </p>
      */
-    public static final MinigameFishSize DINKY = new MinigameFishSize(0.5f, 20);
+    public static final MinigameFishSize DINKY = new MinigameFishSize(0.5f, 75);
 
     /**
      * A regular fish size.
@@ -26,7 +26,7 @@ public record MinigameFishSize(float scale, int holdTime) implements Comparable<
      *     <b>Hold Time</b>: 30 ticks
      * </p>
      */
-    public static final MinigameFishSize REGULAR = new MinigameFishSize(1.0f, 30);
+    public static final MinigameFishSize REGULAR = new MinigameFishSize(1.0f, 50);
 
     /**
      * A fairly large ("fatty") fish size.
@@ -44,7 +44,7 @@ public record MinigameFishSize(float scale, int holdTime) implements Comparable<
      *     <b>Hold Time</b>: 50 ticks
      * </p>
      */
-    public static final MinigameFishSize HAWG = new MinigameFishSize(3.0f, 50);
+    public static final MinigameFishSize HAWG = new MinigameFishSize(3.0f, 35);
 
     /**
      * A gargantuan, behemoth fish size.
@@ -53,7 +53,7 @@ public record MinigameFishSize(float scale, int holdTime) implements Comparable<
      *     <b>Hold Time</b>: 75 ticks
      * </p>
      */
-    public static final MinigameFishSize GARGANTUAN = new MinigameFishSize(4.0f, 75);
+    public static final MinigameFishSize GARGANTUAN = new MinigameFishSize(4.0f, 30);
 
     @Override
     public int compareTo(@NotNull MinigameFishSize o) {

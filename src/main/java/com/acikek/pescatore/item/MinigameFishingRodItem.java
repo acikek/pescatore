@@ -93,18 +93,6 @@ public class MinigameFishingRodItem extends Item {
         return TypedActionResult.success(stack, world.isClient());
     }
 
-    public static boolean isReelSuccess(FishMinigamePlayer player, float progress) {
-        float err = MathHelper.abs(1.0f - progress);
-        System.out.println(progress + " " + err);
-        if (err <= 0.50f) {
-            return true;
-        }
-        if (err > 0.70f) {
-            return false;
-        }
-        return player.pescatore$getHook().spawnedFish.getRandom().nextFloat() >= err;
-    }
-
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         super.onStoppedUsing(stack, world, user, remainingUseTicks);
@@ -112,6 +100,9 @@ public class MinigameFishingRodItem extends Item {
             return;
         }
         MinigameFishingBobberEntity bobber = player.pescatore$getHook();
+        if (bobber.spawnedFish == null) {
+            return;
+        }
         MinigameFishType type = bobber.spawnedFish.type();
         float progress = (float) user.getItemUseTime() / type.getPerfectHoldTime();
         bobber.use();
