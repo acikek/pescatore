@@ -85,7 +85,6 @@ public class MinigameFishingRodItem extends Item {
             }
             player.pescatore$getHook().use();
             playRodSound(world, user, SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE);
-            user.getItemCooldownManager().set(this, 60);
         } else {
             playRodSound(world, user, SoundEvents.ENTITY_FISHING_BOBBER_THROW);
             if (!world.isClient()) {
@@ -118,7 +117,7 @@ public class MinigameFishingRodItem extends Item {
         bobber.use();
         if (MathHelper.abs(1.0f - progress) > 0.5) {
             playSound(world, user, SoundEvents.ENTITY_ITEM_BREAK, 1.0f);
-            bobber.spawnedFish().flee();
+            bobber.spawnedFish().flee(false);
             return;
         }
         ItemEntity fishedItem = new ItemEntity(world, bobber.getX(), bobber.getY(), bobber.getZ(), type.item().asItem().getDefaultStack());

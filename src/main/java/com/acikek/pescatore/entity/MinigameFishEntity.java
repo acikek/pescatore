@@ -156,11 +156,10 @@ public class MinigameFishEntity extends WaterCreatureEntity {
     }
 
     public void breakLine() {
-        bobber.use();
         if (!getWorld().isClient()) {
             playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
         }
-        flee();
+        flee(true);
     }
 
     @Override
@@ -246,7 +245,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
             return;
         }
         if (bobber == null || bobber.isRemoved()) {
-            flee();
+            flee(false);
             return;
         }
         orbitAngle += getOrbitSpeed();
@@ -305,7 +304,10 @@ public class MinigameFishEntity extends WaterCreatureEntity {
         combinedStrikeLength = TOTAL_STRIKE_INTERVAL * getNibbles() + type.difficulty().strikeDuration();
     }
 
-    public void flee() {
+    public void flee(boolean use) {
+        if (use && bobber != null) {
+            bobber.use();
+        }
         if (initialBobberPos == null) {
             vanish();
             return;
@@ -340,13 +342,13 @@ public class MinigameFishEntity extends WaterCreatureEntity {
 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
-        flee();
+        flee(true);
     }
 
     @Override
     public void onDamaged(DamageSource damageSource) {
         super.onDamaged(damageSource);
-        flee();
+        flee(true);
     }
 
     @Nullable

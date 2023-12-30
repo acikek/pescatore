@@ -244,6 +244,7 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         if (spawnedFish != null) {
             damage += (int) type.size().scale();
             damage = Math.min(5, damage);
+            player.getItemCooldownManager().set(stack.getItem(), 60);
         }
         stack.damage(damage, player, p -> p.sendToolBreakStatus(match.getRight()));
         discard();
