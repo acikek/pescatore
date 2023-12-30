@@ -3,13 +3,16 @@
   "id": "pescatore",
   "version": "${version}",
   "name": "Pescatore",
-  "description": "Fishing mod",
+  "description": "Another fishing minigame in Minecraft!",
   "authors": [
-    "acikek"
+    "acikek",
+    "VirtuaLilith",
+    "Trudle"
   ],
   "contact": {
     "website": "https://modrinth.com/mod/pescatore",
-    "repo": "https://github.com/acikek/pescatore"
+    "sources": "https://github.com/acikek/pescatore",
+    "issues": "https://github.com/acikek/pescatore/issues"
   },
   "license": "MIT",
   "icon": "assets/pescatore/icon.png",
@@ -33,5 +36,8 @@
     "minecraft": "~1.20.4",
     "java": ">=17",
     "fabric-api": "*"
+  },
+  "suggests": {
+    "trinkets": "*"
   }
 }
