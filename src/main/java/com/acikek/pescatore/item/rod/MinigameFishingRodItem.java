@@ -52,9 +52,13 @@ public class MinigameFishingRodItem extends Item {
     @Override
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         super.usageTick(world, user, stack, remainingUseTicks);
+        if (user.getItemUseTime() > 0) {
+            return;
+        }
         stack.getOrCreateNbt().putBoolean("Reeling", true);
-        if (world.isClient() && user.getItemUseTime() % 26 == 0) {
-            PescatoreClient.playReelingSound();
+        // usageTick propagates to nearby players
+        if (world.isClient() && user instanceof PlayerEntity player) {
+            PescatoreClient.playReelingSound(player);
         }
     }
 
@@ -104,9 +108,6 @@ public class MinigameFishingRodItem extends Item {
         super.onStoppedUsing(stack, world, user, remainingUseTicks);
         if (!(user instanceof FishMinigamePlayer player)) {
             return;
-        }
-        if (world.isClient()) {
-            PescatoreClient.stopReelingSound();
         }
         MinigameFishingBobberEntity bobber = player.pescatore$getHook();
         if (bobber.spawnedFish() == null) {
