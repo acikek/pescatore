@@ -20,6 +20,7 @@ import net.minecraft.util.Rarity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class PescatoreItems {
 
@@ -28,22 +29,22 @@ public class PescatoreItems {
     public static final MinigameFishingRodItem EXPERT_ROD = MinigameRodTier.EXPERT.createRod(defaultSettings().maxDamage(512).rarity(Rarity.RARE));
     public static final MinigameFishingRodItem AETHER_ROD = MinigameRodTier.AETHER.createRod(defaultSettings().maxDamage(1024).rarity(Rarity.EPIC));
 
-    public static final Item GOLDFISH = new Item(defaultSettings());
-    public static final Item SARDINE = new Item(defaultSettings());
-    public static final Item CRUCIAN_CARP = new Item(defaultSettings());
-    public static final Item OLIVE_FLOUNDER = new Item(defaultSettings());
-    public static final Item CARP = new Item(defaultSettings());
-    public static final Item RAINBOW_TROUT = new Item(defaultSettings());
-    public static final Item RED_SNAPPER = new Item(defaultSettings());
-    public static final Item BULLHEAD = new Item(defaultSettings());
-    public static final Item SEA_BASS = new Item(defaultSettings());
-    public static final Item TUNA = new Item(defaultSettings());
-    public static final Item COELACANTH = new Item(defaultSettings());
-    public static final Item PIRANHA = new Item(defaultSettings());
-    public static final Item STURGEON = new Item(defaultSettings());
-    public static final Item ARAPAIMA = new Item(defaultSettings());
-    public static final Item OCTOPUS = new Item(defaultSettings());
-    public static final Item THE_CUBE = new Item(defaultSettings());
+    public static final Item GOLDFISH = new Item(fishSettings());
+    public static final Item SARDINE = new Item(fishSettings());
+    public static final Item CRUCIAN_CARP = new Item(fishSettings());
+    public static final Item OLIVE_FLOUNDER = new Item(fishSettings());
+    public static final Item CARP = new Item(fishSettings());
+    public static final Item RAINBOW_TROUT = new Item(fishSettings());
+    public static final Item RED_SNAPPER = new Item(fishSettings());
+    public static final Item BULLHEAD = new Item(fishSettings());
+    public static final Item SEA_BASS = new Item(fishSettings());
+    public static final Item TUNA = new Item(fishSettings());
+    public static final Item COELACANTH = new Item(fishSettings());
+    public static final Item PIRANHA = new Item(fishSettings());
+    public static final Item STURGEON = new Item(fishSettings());
+    public static final Item ARAPAIMA = new Item(fishSettings());
+    public static final Item OCTOPUS = new Item(fishSettings());
+    public static final Item THE_CUBE = new Item(fishSettings());
 
     public static final Item GOLDFISH_CRACKER = new Item(defaultSettings().food(
             new FoodComponent.Builder()
@@ -110,6 +111,10 @@ public class PescatoreItems {
                         .meat()
                         .build()
         );
+    }
+
+    public static Item.Settings fishSettings() {
+        return foodSettings(1, 0);
     }
 
     public static void registerItem(String name, Item item) {
@@ -184,8 +189,15 @@ public class PescatoreItems {
             entries.addAfter(Items.FISHING_ROD, stacks);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
-            var stacks = FISH.stream().map(Item::getDefaultStack).toList();
+            List<Item> items = new ArrayList<>(FISH);
+            items.addAll(FOOD);
+            var stacks = items.stream().map(Item::getDefaultStack).toList();
             entries.addAfter(Items.PUFFERFISH, stacks);
+        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
+            var stacks = Stream.of(COELACANTH_CHESTPLATE, PIRANHA_TOOTH_NECKLACE, ARAPAIMA_LEGGINGS)
+                    .map(Item::getDefaultStack).toList();
+            entries.addAfter(Items.TURTLE_HELMET, stacks);
         });
     }
 
