@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "pescatore:very_rare_fish"
+    }
+  ],
+  "result": {
+    "item": "pescatore:very_rare_fish_fillet"
+  }
+}

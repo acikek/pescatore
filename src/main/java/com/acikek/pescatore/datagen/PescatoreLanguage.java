@@ -20,7 +20,7 @@ public class PescatoreLanguage extends FabricLanguageProvider {
     @Override
     public void generateTranslations(TranslationBuilder builder) {
         buildItems(builder);
-        buildFilets(builder);
+        buildFillets(builder);
         buildNoFish(builder);
         buildAdvancements(builder);
         buildTypes(builder);
@@ -50,17 +50,17 @@ public class PescatoreLanguage extends FabricLanguageProvider {
         builder.add(PescatoreItems.ARAPAIMA_LEGGINGS, "Arapaima Swift Chausses");
     }
 
-    public void buildFilet(TranslationBuilder builder, Item filet, Item cooked, String descriptor) {
-        String name = descriptor + " Fish Filet";
-        builder.add(filet, "Raw " + name);
+    public void buildFillet(TranslationBuilder builder, Item fillet, Item cooked, String descriptor) {
+        String name = descriptor + " Fish Fillet";
+        builder.add(fillet, "Raw " + name);
         builder.add(cooked, name);
     }
 
-    public void buildFilets(TranslationBuilder builder) {
-        buildFilet(builder, PescatoreItems.COMMON_FISH_FILET, PescatoreItems.COOKED_COMMON_FISH_FILET, "Mundane");
-        buildFilet(builder, PescatoreItems.UNCOMMON_FISH_FILET, PescatoreItems.COOKED_UNCOMMON_FISH_FILET, "Unique");
-        buildFilet(builder, PescatoreItems.RARE_FISH_FILET, PescatoreItems.COOKED_RARE_FISH_FILET, "Exotic");
-        buildFilet(builder, PescatoreItems.VERY_RARE_FISH_FILET, PescatoreItems.COOKED_VERY_RARE_FISH_FILET, "Extraordinary");
+    public void buildFillets(TranslationBuilder builder) {
+        buildFillet(builder, PescatoreItems.COMMON_FISH_FILLET, PescatoreItems.COOKED_COMMON_FISH_FILLET, "Mundane");
+        buildFillet(builder, PescatoreItems.UNCOMMON_FISH_FILLET, PescatoreItems.COOKED_UNCOMMON_FISH_FILLET, "Unique");
+        buildFillet(builder, PescatoreItems.RARE_FISH_FILLET, PescatoreItems.COOKED_RARE_FISH_FILLET, "Exotic");
+        buildFillet(builder, PescatoreItems.VERY_RARE_FISH_FILLET, PescatoreItems.COOKED_VERY_RARE_FISH_FILLET, "Extraordinary");
     }
 
     public void buildNoFish(TranslationBuilder builder, int i, String message) {

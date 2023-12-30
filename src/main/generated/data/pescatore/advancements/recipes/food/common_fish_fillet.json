@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fish": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "pescatore:common_fish"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "pescatore:common_fish_fillet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fish"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pescatore:common_fish_fillet"
+    ]
+  }
+}

@@ -25,7 +25,7 @@ public class PescatoreRecipes extends FabricRecipeProvider {
         generateRods(exporter);
         generateMisc(exporter);
         generateCookedFoods(exporter);
-        generateFilets(exporter);
+        generateFillets(exporter);
         generateEquipment(exporter);
     }
 
@@ -63,21 +63,21 @@ public class PescatoreRecipes extends FabricRecipeProvider {
         offerFoodCookingRecipe(exporter, "smoker", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, raw, cooked, xp);
     }
 
-    public void generateFilet(RecipeExporter exporter, ItemConvertible filet, ItemConvertible cooked, MinigameFishRarity rarity) {
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, filet)
+    public void generateFillet(RecipeExporter exporter, ItemConvertible fillet, ItemConvertible cooked, MinigameFishRarity rarity) {
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, fillet)
                 .input(rarity.tag)
                 .criterion("has_fish", RecipeProvider.conditionsFromTag(rarity.tag))
                 .offerTo(exporter);
         BigDecimal xp = BigDecimal.valueOf(0.45f * ((rarity.ordinal() / 2.0f) + 1.0f))
                 .setScale(3, RoundingMode.HALF_UP);
-        generateCooking(exporter, filet, cooked, xp.floatValue());
+        generateCooking(exporter, fillet, cooked, xp.floatValue());
     }
 
-    public void generateFilets(RecipeExporter exporter) {
-        generateFilet(exporter, PescatoreItems.COMMON_FISH_FILET, PescatoreItems.COOKED_COMMON_FISH_FILET, MinigameFishRarity.COMMON);
-        generateFilet(exporter, PescatoreItems.UNCOMMON_FISH_FILET, PescatoreItems.COOKED_UNCOMMON_FISH_FILET, MinigameFishRarity.UNCOMMON);
-        generateFilet(exporter, PescatoreItems.RARE_FISH_FILET, PescatoreItems.COOKED_RARE_FISH_FILET, MinigameFishRarity.RARE);
-        generateFilet(exporter, PescatoreItems.VERY_RARE_FISH_FILET, PescatoreItems.COOKED_VERY_RARE_FISH_FILET, MinigameFishRarity.VERY_RARE);
+    public void generateFillets(RecipeExporter exporter) {
+        generateFillet(exporter, PescatoreItems.COMMON_FISH_FILLET, PescatoreItems.COOKED_COMMON_FISH_FILLET, MinigameFishRarity.COMMON);
+        generateFillet(exporter, PescatoreItems.UNCOMMON_FISH_FILLET, PescatoreItems.COOKED_UNCOMMON_FISH_FILLET, MinigameFishRarity.UNCOMMON);
+        generateFillet(exporter, PescatoreItems.RARE_FISH_FILLET, PescatoreItems.COOKED_RARE_FISH_FILLET, MinigameFishRarity.RARE);
+        generateFillet(exporter, PescatoreItems.VERY_RARE_FISH_FILLET, PescatoreItems.COOKED_VERY_RARE_FISH_FILLET, MinigameFishRarity.VERY_RARE);
     }
 
     public void generateMisc(RecipeExporter exporter) {

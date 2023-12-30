@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.9,
+  "ingredient": {
+    "item": "pescatore:rare_fish_fillet"
+  },
+  "result": "pescatore:cooked_rare_fish_fillet"
+}

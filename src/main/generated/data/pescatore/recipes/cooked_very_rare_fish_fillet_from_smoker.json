@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 1.125,
+  "ingredient": {
+    "item": "pescatore:very_rare_fish_fillet"
+  },
+  "result": "pescatore:cooked_very_rare_fish_fillet"
+}

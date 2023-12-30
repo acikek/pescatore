@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.45,
+  "ingredient": {
+    "item": "pescatore:common_fish_fillet"
+  },
+  "result": "pescatore:cooked_common_fish_fillet"
+}

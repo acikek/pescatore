@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "pescatore:common_fish"
+    }
+  ],
+  "result": {
+    "item": "pescatore:common_fish_fillet"
+  }
+}

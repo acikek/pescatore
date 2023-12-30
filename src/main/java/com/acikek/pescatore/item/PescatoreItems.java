@@ -72,14 +72,14 @@ public class PescatoreItems {
     public static final Item OCTOPUS_TENTACLE = new Item(foodSettings(1, 0.0f));
     public static final Item COOKED_OCTOPUS_TENTACLE = new Item(foodSettings(3, 6.0f));
 
-    public static final Item COMMON_FISH_FILET = new Item(foodSettings(2, 1.0f));
-    public static final Item COOKED_COMMON_FISH_FILET = new Item(foodSettings(5, 4.0f));
-    public static final Item UNCOMMON_FISH_FILET = new Item(foodSettings(3, 3.0f));
-    public static final Item COOKED_UNCOMMON_FISH_FILET = new Item(foodSettings(7, 6.0f));
-    public static final Item RARE_FISH_FILET = new Item(foodSettings(4, 4.0f));
-    public static final Item COOKED_RARE_FISH_FILET = new Item(foodSettings(8, 8.0f));
-    public static final Item VERY_RARE_FISH_FILET = new Item(foodSettings(5, 6.0f));
-    public static final Item COOKED_VERY_RARE_FISH_FILET = new Item(foodSettings(10, 10.0f));
+    public static final Item COMMON_FISH_FILLET = new Item(foodSettings(2, 1.0f));
+    public static final Item COOKED_COMMON_FISH_FILLET = new Item(foodSettings(5, 4.0f));
+    public static final Item UNCOMMON_FISH_FILLET = new Item(foodSettings(3, 3.0f));
+    public static final Item COOKED_UNCOMMON_FISH_FILLET = new Item(foodSettings(7, 6.0f));
+    public static final Item RARE_FISH_FILLET = new Item(foodSettings(4, 4.0f));
+    public static final Item COOKED_RARE_FISH_FILLET = new Item(foodSettings(8, 8.0f));
+    public static final Item VERY_RARE_FISH_FILLET = new Item(foodSettings(5, 6.0f));
+    public static final Item COOKED_VERY_RARE_FISH_FILLET = new Item(foodSettings(10, 10.0f));
 
     public static final Item COELACANTH_CHESTPLATE = new CoelacanthChestplate(defaultSettings());
     public static final Item PIRANHA_TOOTH_NECKLACE = new PiranhaNecklaceItem(defaultSettings());
@@ -165,14 +165,14 @@ public class PescatoreItems {
         registerFood("tuna_sandwich", TUNA_SANDWICH);
         registerFood("octopus_tentacle", OCTOPUS_TENTACLE);
         registerFood("cooked_octopus_tentacle", COOKED_OCTOPUS_TENTACLE);
-        registerFood("common_fish_filet", COMMON_FISH_FILET);
-        registerFood("cooked_common_fish_filet", COOKED_COMMON_FISH_FILET);
-        registerFood("uncommon_fish_filet", UNCOMMON_FISH_FILET);
-        registerFood("cooked_uncommon_fish_filet", COOKED_UNCOMMON_FISH_FILET);
-        registerFood("rare_fish_filet", RARE_FISH_FILET);
-        registerFood("cooked_rare_fish_filet", COOKED_RARE_FISH_FILET);
-        registerFood("very_rare_fish_filet", VERY_RARE_FISH_FILET);
-        registerFood("cooked_very_rare_fish_filet", COOKED_VERY_RARE_FISH_FILET);
+        registerFood("common_fish_fillet", COMMON_FISH_FILLET);
+        registerFood("cooked_common_fish_fillet", COOKED_COMMON_FISH_FILLET);
+        registerFood("uncommon_fish_fillet", UNCOMMON_FISH_FILLET);
+        registerFood("cooked_uncommon_fish_fillet", COOKED_UNCOMMON_FISH_FILLET);
+        registerFood("rare_fish_fillet", RARE_FISH_FILLET);
+        registerFood("cooked_rare_fish_fillet", COOKED_RARE_FISH_FILLET);
+        registerFood("very_rare_fish_fillet", VERY_RARE_FISH_FILLET);
+        registerFood("cooked_very_rare_fish_fillet", COOKED_VERY_RARE_FISH_FILLET);
         registerItem("coelacanth_chestplate", COELACANTH_CHESTPLATE);
         registerItem("piranha_tooth_necklace", PIRANHA_TOOTH_NECKLACE);
         registerItem("arapaima_leggings", ARAPAIMA_LEGGINGS);

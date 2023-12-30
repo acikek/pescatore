@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cooked_uncommon_fish_fillet_from_campfire"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_uncommon_fish_fillet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pescatore:uncommon_fish_fillet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_uncommon_fish_fillet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cooked_uncommon_fish_fillet_from_campfire"
+    ]
+  }
+}
