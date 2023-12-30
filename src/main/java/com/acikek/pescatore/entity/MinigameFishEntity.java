@@ -306,7 +306,7 @@ public class MinigameFishEntity extends WaterCreatureEntity {
 
     public void flee(boolean use) {
         if (use && bobber != null) {
-            bobber.use();
+            bobber.use(true);
         }
         if (initialBobberPos == null) {
             vanish();

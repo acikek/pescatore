@@ -223,7 +223,7 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         refreshPosition();
     }
 
-    public void use() {
+    public void use(boolean cooldown) {
         PlayerEntity player = getPlayerOwner();
         if (getWorld().isClient() || player == null || removeIfInvalid(player)) {
             return;
@@ -244,7 +244,9 @@ public class MinigameFishingBobberEntity extends ProjectileEntity {
         if (spawnedFish != null) {
             damage += (int) type.size().scale();
             damage = Math.min(5, damage);
-            player.getItemCooldownManager().set(stack.getItem(), 60);
+            if (cooldown) {
+                player.getItemCooldownManager().set(stack.getItem(), 60);
+            }
         }
         stack.damage(damage, player, p -> p.sendToolBreakStatus(match.getRight()));
         discard();

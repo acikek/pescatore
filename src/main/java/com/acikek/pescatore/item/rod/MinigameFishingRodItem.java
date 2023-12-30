@@ -75,7 +75,7 @@ public class MinigameFishingRodItem extends Item {
         }
         if (player.pescatore$getHook() != null) {
             if (stack.hasNbt() && stack.getNbt().getBoolean("Reeling")) {
-                player.pescatore$getHook().use();
+                player.pescatore$getHook().use(true);
                 playSound(world, user, SoundEvents.ENTITY_ITEM_BREAK, 1.0f);
                 return TypedActionResult.success(stack, world.isClient());
             }
@@ -83,7 +83,7 @@ public class MinigameFishingRodItem extends Item {
                 user.setCurrentHand(hand);
                 return TypedActionResult.consume(stack);
             }
-            player.pescatore$getHook().use();
+            player.pescatore$getHook().use(false);
             playRodSound(world, user, SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE);
         } else {
             playRodSound(world, user, SoundEvents.ENTITY_FISHING_BOBBER_THROW);
@@ -114,8 +114,9 @@ public class MinigameFishingRodItem extends Item {
         }
         MinigameFishType type = bobber.spawnedFish().type();
         float progress = (float) user.getItemUseTime() / type.getPerfectHoldTime(bobber.getLuckOfTheSea());
-        bobber.use();
-        if (MathHelper.abs(1.0f - progress) > 0.5) {
+        boolean cooldown = MathHelper.abs(1.0f - progress) > 0.5;
+        bobber.use(cooldown);
+        if (cooldown) {
             playSound(world, user, SoundEvents.ENTITY_ITEM_BREAK, 1.0f);
             bobber.spawnedFish().flee(false);
             return;
