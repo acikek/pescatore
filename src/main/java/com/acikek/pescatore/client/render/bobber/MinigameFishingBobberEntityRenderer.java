@@ -26,8 +26,6 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-// TODO: Custom texture for each rod
-// TODO: Line different color
 @Environment(EnvType.CLIENT)
 public class MinigameFishingBobberEntityRenderer extends EntityRenderer<MinigameFishingBobberEntity> {
 

@@ -16,16 +16,17 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
+import net.minecraft.util.Rarity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PescatoreItems {
 
-    public static final MinigameFishingRodItem ROOKIE_ROD = MinigameRodTier.ROOKIE.createRod();
-    public static final MinigameFishingRodItem ADEPT_ROD = MinigameRodTier.ADEPT.createRod();
-    public static final MinigameFishingRodItem EXPERT_ROD = MinigameRodTier.EXPERT.createRod();
-    public static final MinigameFishingRodItem AETHER_ROD = MinigameRodTier.AETHER.createRod();
+    public static final MinigameFishingRodItem ROOKIE_ROD = MinigameRodTier.ROOKIE.createRod(defaultSettings().maxDamage(64).rarity(Rarity.COMMON));
+    public static final MinigameFishingRodItem ADEPT_ROD = MinigameRodTier.ADEPT.createRod(defaultSettings().maxDamage(128).rarity(Rarity.UNCOMMON));
+    public static final MinigameFishingRodItem EXPERT_ROD = MinigameRodTier.EXPERT.createRod(defaultSettings().maxDamage(512).rarity(Rarity.RARE));
+    public static final MinigameFishingRodItem AETHER_ROD = MinigameRodTier.AETHER.createRod(defaultSettings().maxDamage(1024).rarity(Rarity.EPIC));
 
     public static final Item GOLDFISH = new Item(defaultSettings());
     public static final Item SARDINE = new Item(defaultSettings());
@@ -92,7 +93,7 @@ public class PescatoreItems {
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Pescatore.id("main"));
     public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
             .displayName(Text.literal("Pescatore"))
-            .icon(PescatoreItems.ROOKIE_ROD::getDefaultStack) // TODO: Fish as icon. TODO: Random fish?
+            .icon(PescatoreItems.ROOKIE_ROD::getDefaultStack)
             .entries((displayContext, entries) -> PescatoreItems.ITEMS.forEach(entries::add))
             .build();
 

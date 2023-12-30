@@ -27,7 +27,6 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-// TODO: flee when bobber is null
 public class MinigameFishEntity extends WaterCreatureEntity {
 
     public static final EntityType<MinigameFishEntity> ENTITY_TYPE =
@@ -256,16 +255,6 @@ public class MinigameFishEntity extends WaterCreatureEntity {
             vanish();
         }
         lookAtEntity(bobber, 180.0f, 0.0f);
-    }
-
-    @Override
-    public int getMaxLookYawChange() {
-        return 180;
-    }
-
-    @Override
-    public int getMaxLookPitchChange() {
-        return 0;
     }
 
     @Override
