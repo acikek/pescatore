@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "pescatore:rookie_rod"
-  }
+  },
+  "show_notification": true
 }

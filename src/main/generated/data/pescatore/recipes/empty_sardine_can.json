@@ -15,5 +15,6 @@
   ],
   "result": {
     "item": "pescatore:empty_sardine_can"
-  }
+  },
+  "show_notification": true
 }

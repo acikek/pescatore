@@ -11,12 +11,16 @@
     }
   },
   "display": {
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.pescatore.novice.description"
     },
+    "frame": "task",
+    "hidden": false,
     "icon": {
       "item": "pescatore:goldfish"
     },
+    "show_toast": true,
     "title": {
       "translate": "advancement.pescatore.novice.title"
     }
@@ -25,5 +29,6 @@
     [
       "catch_5_fish"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

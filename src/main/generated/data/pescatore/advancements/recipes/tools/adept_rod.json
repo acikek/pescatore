@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_rookie_rod"
+      "has_rookie_rod",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:adept_rod"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

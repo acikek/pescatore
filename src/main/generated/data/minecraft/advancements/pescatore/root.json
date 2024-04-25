@@ -19,10 +19,13 @@
     "description": {
       "translate": "advancement.pescatore.root.description"
     },
+    "frame": "task",
+    "hidden": false,
     "icon": {
       "item": "pescatore:rookie_rod",
       "nbt": "{Damage:0}"
     },
+    "show_toast": true,
     "title": {
       "translate": "advancement.pescatore.root.title"
     }
@@ -31,5 +34,6 @@
     [
       "has_rookie_rod"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

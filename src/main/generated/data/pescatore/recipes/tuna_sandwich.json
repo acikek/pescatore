@@ -18,5 +18,6 @@
   ],
   "result": {
     "item": "pescatore:tuna_sandwich"
-  }
+  },
+  "show_notification": true
 }

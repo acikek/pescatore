@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_expert_rod"
+      "has_expert_rod",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:aether_rod"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

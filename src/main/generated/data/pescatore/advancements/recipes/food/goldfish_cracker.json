@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_goldfish"
+      "has_goldfish",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:goldfish_cracker"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

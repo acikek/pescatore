@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_carp_plate"
+      "has_carp_plate",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:cooked_carp_plate_from_campfire"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

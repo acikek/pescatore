@@ -3,19 +3,22 @@
   "criteria": {
     "catch_rare_fish": {
       "conditions": {
-        "fish_rarity": "rare",
-        "rarity_caught": {}
+        "fish_rarity": "rare"
       },
       "trigger": "pescatore:minigame_fish_caught"
     }
   },
   "display": {
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.pescatore.rare.description"
     },
+    "frame": "task",
+    "hidden": false,
     "icon": {
       "item": "pescatore:piranha"
     },
+    "show_toast": true,
     "title": {
       "translate": "advancement.pescatore.rare.title"
     }
@@ -24,5 +27,6 @@
     [
       "catch_rare_fish"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

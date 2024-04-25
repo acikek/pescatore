@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_common_fish_fillet"
+      "has_common_fish_fillet",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:cooked_common_fish_fillet_from_smoker"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

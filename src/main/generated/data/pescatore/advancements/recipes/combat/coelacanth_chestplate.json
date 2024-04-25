@@ -32,14 +32,15 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
       "has_iron",
-      "has_coelacanth"
+      "has_coelacanth",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:coelacanth_chestplate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

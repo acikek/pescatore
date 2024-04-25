@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_arapaima"
+      "has_arapaima",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:arapaima_leggings"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

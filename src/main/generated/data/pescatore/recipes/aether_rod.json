@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "pescatore:aether_rod"
-  }
+  },
+  "show_notification": true
 }

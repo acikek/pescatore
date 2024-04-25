@@ -20,13 +20,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_fish"
+      "has_fish",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:uncommon_fish_fillet"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

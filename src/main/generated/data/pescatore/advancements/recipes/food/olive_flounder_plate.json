@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_olive_flounder"
+      "has_olive_flounder",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:olive_flounder_plate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

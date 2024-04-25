@@ -3,20 +3,22 @@
   "criteria": {
     "catch_very_rare_fish": {
       "conditions": {
-        "fish_rarity": "very_rare",
-        "rarity_caught": {}
+        "fish_rarity": "very_rare"
       },
       "trigger": "pescatore:minigame_fish_caught"
     }
   },
   "display": {
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.pescatore.very_rare.description"
     },
     "frame": "goal",
+    "hidden": false,
     "icon": {
       "item": "pescatore:coelacanth"
     },
+    "show_toast": true,
     "title": {
       "translate": "advancement.pescatore.very_rare.title"
     }
@@ -25,5 +27,6 @@
     [
       "catch_very_rare_fish"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

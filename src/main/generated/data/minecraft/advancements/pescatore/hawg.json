@@ -11,12 +11,16 @@
     }
   },
   "display": {
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.pescatore.hawg.description"
     },
+    "frame": "task",
+    "hidden": false,
     "icon": {
       "item": "pescatore:tuna"
     },
+    "show_toast": true,
     "title": {
       "translate": "advancement.pescatore.hawg.title"
     }
@@ -25,5 +29,6 @@
     [
       "catch_hawg"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

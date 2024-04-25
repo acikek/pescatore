@@ -99,13 +99,16 @@
     }
   },
   "display": {
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.pescatore.all.description"
     },
     "frame": "challenge",
+    "hidden": false,
     "icon": {
       "item": "pescatore:the_cube"
     },
+    "show_toast": true,
     "title": {
       "translate": "advancement.pescatore.all.title"
     }
@@ -159,5 +162,6 @@
     [
       "catch_the_cube"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

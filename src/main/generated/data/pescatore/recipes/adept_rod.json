@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "pescatore:adept_rod"
-  }
+  },
+  "show_notification": true
 }

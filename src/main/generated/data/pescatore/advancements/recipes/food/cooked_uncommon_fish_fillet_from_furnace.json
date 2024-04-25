@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_uncommon_fish_fillet"
+      "has_uncommon_fish_fillet",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:cooked_uncommon_fish_fillet_from_furnace"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

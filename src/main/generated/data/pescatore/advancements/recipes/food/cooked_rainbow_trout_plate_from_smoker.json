@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_rainbow_trout_plate"
+      "has_rainbow_trout_plate",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:cooked_rainbow_trout_plate_from_smoker"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

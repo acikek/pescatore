@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_octopus"
+      "has_octopus",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:octopus_tentacle"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

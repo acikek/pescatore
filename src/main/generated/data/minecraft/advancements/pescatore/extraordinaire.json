@@ -11,13 +11,16 @@
     }
   },
   "display": {
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.pescatore.extraordinaire.description"
     },
     "frame": "challenge",
+    "hidden": false,
     "icon": {
       "item": "pescatore:arapaima"
     },
+    "show_toast": true,
     "title": {
       "translate": "advancement.pescatore.extraordinaire.title"
     }
@@ -26,5 +29,6 @@
     [
       "catch_300_fish"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

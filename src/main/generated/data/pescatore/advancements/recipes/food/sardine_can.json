@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_sardine"
+      "has_sardine",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:sardine_can"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

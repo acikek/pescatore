@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_tuna"
+      "has_tuna",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:tuna_sandwich"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

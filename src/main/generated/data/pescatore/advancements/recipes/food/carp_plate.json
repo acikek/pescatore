@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_carp"
+      "has_carp",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:carp_plate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

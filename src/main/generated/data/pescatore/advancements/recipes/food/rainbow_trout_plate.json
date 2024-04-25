@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_rainbow_trout"
+      "has_rainbow_trout",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:rainbow_trout_plate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

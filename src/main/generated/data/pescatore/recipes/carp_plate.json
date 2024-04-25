@@ -21,5 +21,6 @@
   ],
   "result": {
     "item": "pescatore:carp_plate"
-  }
+  },
+  "show_notification": true
 }

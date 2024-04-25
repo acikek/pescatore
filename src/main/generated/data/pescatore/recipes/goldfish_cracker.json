@@ -17,5 +17,6 @@
   "result": {
     "count": 16,
     "item": "pescatore:goldfish_cracker"
-  }
+  },
+  "show_notification": true
 }

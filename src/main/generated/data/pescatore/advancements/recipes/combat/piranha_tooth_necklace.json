@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_piranha"
+      "has_piranha",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "pescatore:piranha_tooth_necklace"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

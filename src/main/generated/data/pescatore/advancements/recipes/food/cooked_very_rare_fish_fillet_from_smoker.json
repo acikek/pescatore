@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_very_rare_fish_fillet"
+      "has_very_rare_fish_fillet",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:cooked_very_rare_fish_fillet_from_smoker"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

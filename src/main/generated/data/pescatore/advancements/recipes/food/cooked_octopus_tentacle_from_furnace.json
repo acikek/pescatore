@@ -22,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_octopus_tentacle"
+      "has_octopus_tentacle",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:cooked_octopus_tentacle_from_furnace"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

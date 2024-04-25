@@ -11,12 +11,16 @@
     }
   },
   "display": {
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.pescatore.apprentice.description"
     },
+    "frame": "task",
+    "hidden": false,
     "icon": {
       "item": "pescatore:carp"
     },
+    "show_toast": true,
     "title": {
       "translate": "advancement.pescatore.apprentice.title"
     }
@@ -25,5 +29,6 @@
     [
       "catch_30_fish"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }
