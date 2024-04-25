@@ -19,7 +19,7 @@ public abstract class LivingEntityMixin {
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @ModifyReturnValue(method = "applyArmorToDamage", at = @At("RETURN"))
-    private float pescatore$applyCoelacanthChestplate(float original, @Local DamageSource source) {
+    private float pescatore$applyCoelacanthChestplate(float original, @Local(argsOnly = true) DamageSource source) {
         if (source.isIn(DamageTypeTags.BYPASSES_ARMOR)
                 || !(getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof CoelacanthChestplate)) {
             return original;

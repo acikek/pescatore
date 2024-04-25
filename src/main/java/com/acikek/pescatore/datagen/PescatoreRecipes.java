@@ -13,6 +13,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.function.Consumer;
 
 public class PescatoreRecipes extends FabricRecipeProvider {
 
@@ -21,7 +22,7 @@ public class PescatoreRecipes extends FabricRecipeProvider {
     }
 
     @Override
-    public void generate(RecipeExporter exporter) {
+    public void generate(Consumer<RecipeJsonProvider> exporter) {
         generateRods(exporter);
         generateMisc(exporter);
         generateCookedFoods(exporter);
@@ -38,7 +39,7 @@ public class PescatoreRecipes extends FabricRecipeProvider {
                 .criterion(hasItem(baseTool), RecipeProvider.conditionsFromItem(baseTool));
     }
 
-    public void generateRods(RecipeExporter exporter) {
+    public void generateRods(Consumer<RecipeJsonProvider> exporter) {
         generateRodBuilder(Items.FISHING_ROD, PescatoreItems.ROOKIE_ROD)
                 .input('R', ConventionalItemTags.COPPER_INGOTS)
                 .input('B', ConventionalItemTags.IRON_INGOTS)
@@ -57,13 +58,13 @@ public class PescatoreRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
     }
 
-    public void generateCooking(RecipeExporter exporter, ItemConvertible raw, ItemConvertible cooked, float xp) {
-        offerFoodCookingRecipe(exporter, "furnace", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, raw, cooked, xp);
-        offerFoodCookingRecipe(exporter, "campfire", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, raw, cooked, xp);
-        offerFoodCookingRecipe(exporter, "smoker", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, raw, cooked, xp);
+    public void generateCooking(Consumer<RecipeJsonProvider> exporter, ItemConvertible raw, ItemConvertible cooked, float xp) {
+        offerFoodCookingRecipe(exporter, "furnace", RecipeSerializer.SMELTING, 200, raw, cooked, xp);
+        offerFoodCookingRecipe(exporter, "campfire", RecipeSerializer.CAMPFIRE_COOKING, 600, raw, cooked, xp);
+        offerFoodCookingRecipe(exporter, "smoker", RecipeSerializer.SMOKING, 100, raw, cooked, xp);
     }
 
-    public void generateFillet(RecipeExporter exporter, ItemConvertible fillet, ItemConvertible cooked, MinigameFishRarity rarity) {
+    public void generateFillet(Consumer<RecipeJsonProvider> exporter, ItemConvertible fillet, ItemConvertible cooked, MinigameFishRarity rarity) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, fillet)
                 .input(rarity.tag)
                 .criterion("has_fish", RecipeProvider.conditionsFromTag(rarity.tag))
@@ -73,14 +74,14 @@ public class PescatoreRecipes extends FabricRecipeProvider {
         generateCooking(exporter, fillet, cooked, xp.floatValue());
     }
 
-    public void generateFillets(RecipeExporter exporter) {
+    public void generateFillets(Consumer<RecipeJsonProvider> exporter) {
         generateFillet(exporter, PescatoreItems.COMMON_FISH_FILLET, PescatoreItems.COOKED_COMMON_FISH_FILLET, MinigameFishRarity.COMMON);
         generateFillet(exporter, PescatoreItems.UNCOMMON_FISH_FILLET, PescatoreItems.COOKED_UNCOMMON_FISH_FILLET, MinigameFishRarity.UNCOMMON);
         generateFillet(exporter, PescatoreItems.RARE_FISH_FILLET, PescatoreItems.COOKED_RARE_FISH_FILLET, MinigameFishRarity.RARE);
         generateFillet(exporter, PescatoreItems.VERY_RARE_FISH_FILLET, PescatoreItems.COOKED_VERY_RARE_FISH_FILLET, MinigameFishRarity.VERY_RARE);
     }
 
-    public void generateMisc(RecipeExporter exporter) {
+    public void generateMisc(Consumer<RecipeJsonProvider> exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.GOLDFISH_CRACKER, 16)
                 .pattern("B")
                 .pattern("G")
@@ -113,7 +114,7 @@ public class PescatoreRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
     }
 
-    public void generateCookedFoods(RecipeExporter exporter) {
+    public void generateCookedFoods(Consumer<RecipeJsonProvider> exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, PescatoreItems.OLIVE_FLOUNDER_PLATE)
                 .pattern("FL")
                 .pattern("GG")
@@ -149,7 +150,7 @@ public class PescatoreRecipes extends FabricRecipeProvider {
         generateCooking(exporter, PescatoreItems.OCTOPUS_TENTACLE, PescatoreItems.COOKED_OCTOPUS_TENTACLE, 0.45f);
     }
 
-    public void generateEquipment(RecipeExporter exporter) {
+    public void generateEquipment(Consumer<RecipeJsonProvider> exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PescatoreItems.COELACANTH_CHESTPLATE)
                 .pattern("I I")
                 .pattern("CBC")

@@ -9,33 +9,29 @@ import com.acikek.pescatore.item.PescatoreItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.item.Item;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class PescatoreAdvancements extends FabricAdvancementProvider {
 
     public static final Identifier BACKGROUND = new Identifier("textures/block/sand.png");
 
-    public AdvancementEntry root;
-    public AdvancementEntry novice;
-    public AdvancementEntry veryRare;
+    public Advancement root;
+    public Advancement novice;
+    public Advancement veryRare;
 
     protected PescatoreAdvancements(FabricDataOutput output) {
         super(output);
     }
 
     public static Advancement.Builder builder(Item item, String name, Identifier background, AdvancementFrame frame, boolean hidden) {
-        return new Advancement.Builder().display(
+        return Advancement.Builder.create().display(
                 item,
                 Text.translatable("advancement.pescatore." + name + ".title"),
                 Text.translatable("advancement.pescatore." + name + ".description"),
@@ -44,7 +40,7 @@ public class PescatoreAdvancements extends FabricAdvancementProvider {
     }
 
     @Override
-    public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
+    public void generateAdvancement(Consumer<Advancement> consumer) {
         root = builder(PescatoreItems.ROOKIE_ROD, "root", BACKGROUND, AdvancementFrame.TASK, false)
                 .criterion("has_rookie_rod", InventoryChangedCriterion.Conditions.items(PescatoreItems.ROOKIE_ROD))
                 .build(consumer, "pescatore/root");
@@ -54,7 +50,7 @@ public class PescatoreAdvancements extends FabricAdvancementProvider {
         generateAllTypesCaught(consumer);
     }
 
-    public void generateRods(Consumer<AdvancementEntry> consumer) {
+    public void generateRods(Consumer<Advancement> consumer) {
         var adeptRod = builder(PescatoreItems.ADEPT_ROD, "adept_rod", null, AdvancementFrame.TASK, false)
                 .parent(root)
                 .criterion("has_adept_rod", InventoryChangedCriterion.Conditions.items(PescatoreItems.ADEPT_ROD))
@@ -69,7 +65,7 @@ public class PescatoreAdvancements extends FabricAdvancementProvider {
                 .build(consumer, "pescatore/aether_rod");
     }
 
-    public void generateTotalFishCaught(Consumer<AdvancementEntry> consumer) {
+    public void generateTotalFishCaught(Consumer<Advancement> consumer) {
         novice = builder(PescatoreItems.GOLDFISH, "novice", null, AdvancementFrame.TASK, false)
                 .parent(root)
                 .criterion("catch_5_fish", MinigameFishCaughtCriterion.Conditions.totalCaught(NumberRange.IntRange.atLeast(5)))
@@ -88,7 +84,7 @@ public class PescatoreAdvancements extends FabricAdvancementProvider {
                 .build(consumer, "pescatore/extraordinaire");
     }
 
-    public void generateUniqueFish(Consumer<AdvancementEntry> consumer) {
+    public void generateUniqueFish(Consumer<Advancement> consumer) {
         var rare = builder(PescatoreItems.PIRANHA, "rare", null, AdvancementFrame.TASK, false)
                 .parent(novice)
                 .criterion("catch_rare_fish", MinigameFishCaughtCriterion.Conditions.rarityCaught(MinigameFishRarity.RARE, NumberRange.IntRange.ANY))
@@ -99,11 +95,11 @@ public class PescatoreAdvancements extends FabricAdvancementProvider {
                 .build(consumer, "pescatore/very_rare");
         builder(PescatoreItems.TUNA, "hawg", null, AdvancementFrame.TASK, false)
                 .parent(novice)
-                .criterion("catch_hawg", MinigameFishCaughtCriterion.Conditions.size(NumberRange.DoubleRange.atLeast(MinigameFishSize.HAWG.scale())))
+                .criterion("catch_hawg", MinigameFishCaughtCriterion.Conditions.size(NumberRange.FloatRange.atLeast(MinigameFishSize.HAWG.scale())))
                 .build(consumer, "pescatore/hawg");
     }
 
-    public void generateAllTypesCaught(Consumer<AdvancementEntry> consumer) {
+    public void generateAllTypesCaught(Consumer<Advancement> consumer) {
         var builder = builder(PescatoreItems.THE_CUBE, "all", null, AdvancementFrame.CHALLENGE, false).parent(veryRare);
         for (MinigameFishType type : PescatoreAPI.getFishTypes()) {
             String name = type.getId().withPrefixedPath("catch_").getPath();
